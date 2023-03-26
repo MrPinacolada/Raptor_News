@@ -20,6 +20,7 @@ import Last_previousNews from "./Last_previousNews.vue";
 import TopNewsSwiper from "./TopNewsSwiper.vue";
 import ADS from "./ADS.vue";
 import restNEWsBody from "./restNEWsBody.vue";
+import { usePageContext } from "@/SSRserver/usePageContext";
 export default defineComponent({
   components: {
     RightBar,
@@ -30,8 +31,9 @@ export default defineComponent({
     restNEWsBody,
   },
   setup() {
+    const pageContext = usePageContext();
 
-    return { };
+    return { pageContext };
   },
 });
 </script>
