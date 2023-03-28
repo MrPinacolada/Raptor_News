@@ -4,6 +4,7 @@ import { load_ONE_IMG } from '@/firebase/config'
 export const Store = defineStore('Articles', {
   state: () => {
     return {
+      CurrentArtPoliticsPage:'On it differed repeated wandered required in.',
       PoliticARTS: [
         {
           tag: 'Politics',
@@ -1165,7 +1166,6 @@ export const Store = defineStore('Articles', {
             'Perhaps far exposed age effects. Now distrusts you her delivered applauded affection out sincerity. As tolerably recommend shameless unfeeling he objection consisted. She although cheerful perceive screened throwing met not eat distance. Viewing hastily or written dearest elderly up weather it as. So direction so sweetness or extremity at daughters. Provided put unpacked now but bringing.'
         }
       ] as any,
-      CurrentArtPolitics:'',
     }
   }
 })

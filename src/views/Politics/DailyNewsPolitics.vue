@@ -34,12 +34,10 @@ export default defineComponent({
     
     let CurrentArt = ref(
       Store().$state.PoliticARTS.filter((art: any) => {
-        let currentTitle = 'On it differed repeated wandered required in.'
-        Store().$state.CurrentArtPolitics = currentTitle
-        if (art.title == currentTitle) {
+        if (art.title == Store().$state.CurrentArtPoliticsPage) {
           load_ONE_IMG(art.path, art.id, art.loaderID)
         }
-        return art.title == currentTitle
+        return art.title == Store().$state.CurrentArtPoliticsPage
       })
     )
     return { CurrentArt }

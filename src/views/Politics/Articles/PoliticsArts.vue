@@ -48,6 +48,7 @@ export default defineComponent({
   setup(props) {
     let idWatcher = computed(() => props.id);
     let CurrentArt = ref();
+
     watch(idWatcher, () => {
       CurrentArt.value = Store().$state.PoliticARTS.filter((art: any) => {
         load_ONE_IMG(art.path, art.id, art.loaderID);

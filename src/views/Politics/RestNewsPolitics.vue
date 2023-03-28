@@ -30,7 +30,7 @@ export default defineComponent({
 
     onMounted(() => {
       CurrentArt.value = Store().$state.PoliticARTS.filter((item: any) => {
-        return item.title !== Store().$state.CurrentArtPolitics;
+        return item.title !== Store().$state.CurrentArtPoliticsPage
       });
       Store().$state.PoliticARTS.map((art: any) => {
         load_ONE_IMG(art.path, art.id, art.loaderID);
