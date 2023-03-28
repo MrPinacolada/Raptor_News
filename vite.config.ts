@@ -1,11 +1,13 @@
 import { defineConfig } from "vite";
+import  express  from "express";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
 import ssr from "vite-plugin-ssr/plugin";
+import { createServer} from 'vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    ssr(),
+    // ssr(),
     vue({
       template: {
         compilerOptions: {
@@ -14,7 +16,7 @@ export default defineConfig({
       },
     }),
   ],
-  resolve: {
+   resolve: {
     alias: [
       {
         find: "@",
