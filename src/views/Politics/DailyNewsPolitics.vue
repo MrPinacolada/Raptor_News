@@ -30,6 +30,8 @@ import 'animate.css'
 export default defineComponent({
   components: {},
   setup() {
+    
+    
     let CurrentArt = ref(
       Store().$state.PoliticARTS.filter((art: any) => {
         let currentTitle = 'On it differed repeated wandered required in.'

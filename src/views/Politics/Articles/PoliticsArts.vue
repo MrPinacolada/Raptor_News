@@ -14,12 +14,13 @@
       </div>
       <picture>
         <img src="" alt="" :id="art.id" />
-        <div :id="art.loaderID" class="loaderwrap"><span class="loader"></span></div>
+        <div :id="art.loaderID" class="loaderwrap">
+          <span class="loader"></span>
+        </div>
       </picture>
       <p>
         {{ art.body }}
       </p>
-      
     </article>
     <div class="rightSidePoliticArt">
       <MostLikedNews />
@@ -28,25 +29,35 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
-import { load_ONE_IMG } from '@/firebase/config'
-import { Store } from '@/piniaStorage/dbPinia'
-import MostLikedNews from '@/components/RightBar/MostLikedNews.vue'
+import {
+  defineComponent,
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  watch,
+  computed,
+} from "vue";
+import { RouterLink, useRoute } from "vue-router";
+import { load_ONE_IMG } from "@/firebase/config";
+import { Store } from "@/piniaStorage/dbPinia";
+import MostLikedNews from "@/components/RightBar/MostLikedNews.vue";
 
 export default defineComponent({
   components: { MostLikedNews },
-  props: ['id'],
+  props: ["id"],
   setup(props) {
-    let CurrentArt = ref(
-      Store().$state.PoliticARTS.filter((art: any) => {
-        load_ONE_IMG(art.path, art.id, art.loaderID)
-        return art.title.replace(/\s/g, '-') == props.id
-      })
-    )
-    return { CurrentArt }
-  }
-})
+    let idWatcher = computed(() => props.id);
+    let CurrentArt = ref();
+    watch(idWatcher, () => {
+      CurrentArt.value = Store().$state.PoliticARTS.filter((art: any) => {
+        load_ONE_IMG(art.path, art.id, art.loaderID);
+        return art.title.replace(/\s/g, "-") == idWatcher.value;
+      });
+    });
+
+    return { CurrentArt };
+  },
+});
 </script>
 
 <style scoped>
@@ -125,7 +136,7 @@ picture {
   width: 100%;
   height: fit-content;
 }
-.breakLineSpan{
+.breakLineSpan {
   border-top: 5px solid red;
   width: 100%;
   height: 1px;

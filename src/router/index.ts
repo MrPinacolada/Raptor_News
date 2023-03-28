@@ -14,6 +14,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/:catchAll(.*)',
+      name: 'NotFound',
+      component: BodyContainerVue
+    },
+    {
       path: '/',
       name: 'Home',
       props: true,

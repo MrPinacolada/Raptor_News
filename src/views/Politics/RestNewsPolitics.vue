@@ -5,7 +5,9 @@
         <RouterLink :to="{ name: 'PoliticsArts', params: { id: art.id } }">
           <img :id="art.id" src="" alt="" />
         </RouterLink>
-        <div :id="art.loaderID" class="loaderwrap"><span class="loader"></span></div>
+        <div :id="art.loaderID" class="loaderwrap">
+          <span class="loader"></span>
+        </div>
       </picture>
       <div class="topicPolitics">
         <h1>{{ art.title }}</h1>
@@ -16,25 +18,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
-import { RouterLink } from 'vue-router'
-import { Store } from '@/piniaStorage/dbPinia'
-import { load_ONE_IMG } from '@/firebase/config'
+import { defineComponent, ref, onMounted } from "vue";
+import { RouterLink } from "vue-router";
+import { Store } from "@/piniaStorage/dbPinia";
+import { load_ONE_IMG } from "@/firebase/config";
 
 export default defineComponent({
   components: {},
   setup() {
-    let CurrentArt = ref()
-    CurrentArt.value = Store().$state.PoliticARTS.filter((item: any) => {
-      return item.title !== Store().$state.CurrentArtPolitics
-    })
-    Store().$state.PoliticARTS.map((art: any) => {
-      load_ONE_IMG(art.path, art.id, art.loaderID)
-    })
+    let CurrentArt = ref();
 
-    return { CurrentArt }
-  }
-})
+    onMounted(() => {
+      CurrentArt.value = Store().$state.PoliticARTS.filter((item: any) => {
+        return item.title !== Store().$state.CurrentArtPolitics;
+      });
+      Store().$state.PoliticARTS.map((art: any) => {
+        load_ONE_IMG(art.path, art.id, art.loaderID);
+      });
+    });
+    return { CurrentArt };
+  },
+});
 </script>
 
 <style scoped>
