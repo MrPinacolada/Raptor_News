@@ -1,17 +1,15 @@
 <template>
-  <article class="dailyNewsPolitics" v-for="art in CurrentArt">
+  <article class="dailyNewsPolitics" v-for="art in ArtToRender">
     <picture class="dailyPhotoPolitics">
-      <div :id="art.loaderID" class="loaderwrap"><span class="loader"></span></div>
-      <RouterLink
-        :to="{ name: 'PoliticsArts', params: { id: art.id }}"
-      >
+      <div :id="art.loaderID" class="loaderwrap">
+        <span class="loader"></span>
+      </div>
+      <RouterLink :to="{ name: 'PoliticsArts', params: { id: art.id } }">
         <img src="" alt="" :id="art.id" />
       </RouterLink>
     </picture>
     <div class="dailyReadPolitics">
-      <RouterLink
-        :to="{ name: 'PoliticsArts', params: { id: art.id }}"
-      >
+      <RouterLink :to="{ name: 'PoliticsArts', params: { id: art.id } }">
         <h1>{{ art.title }}</h1>
       </RouterLink>
       <p>
@@ -22,27 +20,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, defineEmits, onMounted } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
-import { Store } from '@/piniaStorage/dbPinia'
-import { load_ONE_IMG } from '@/firebase/config'
-import 'animate.css'
+import { defineComponent, ref, defineEmits, onMounted } from "vue";
+import { RouterLink, useRouter } from "vue-router";
+import { Store } from "@/piniaStorage/dbPinia";
+import { load_ONE_IMG } from "@/firebase/config";
+import "animate.css";
 export default defineComponent({
   components: {},
   setup() {
-    
-    
-    let CurrentArt = ref(
+    let ArtToRender = ref(
       Store().$state.PoliticARTS.filter((art: any) => {
-        if (art.title == Store().$state.CurrentArtPoliticsPage) {
-          load_ONE_IMG(art.path, art.id, art.loaderID)
+        if (art.title == Store().$state.DailyArtPoliticsPage) {
+          load_ONE_IMG(art.path, art.id, art.loaderID);
         }
-        return art.title == Store().$state.CurrentArtPoliticsPage
+        return art.title == Store().$state.DailyArtPoliticsPage;
       })
-    )
-    return { CurrentArt }
-  }
-})
+    );
+    return { ArtToRender };
+  },
+});
 </script>
 
 <style scoped>
@@ -56,7 +52,7 @@ export default defineComponent({
   position: relative;
 }
 .dailyNewsPolitics::after {
-  content: 'Politics';
+  content: "Politics";
   position: absolute;
   top: 0;
   left: 0;

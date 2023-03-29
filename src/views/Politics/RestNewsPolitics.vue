@@ -3,7 +3,7 @@
     <article class="subTitlePolitics" v-for="art in CurrentArt">
       <picture>
         <RouterLink :to="{ name: 'PoliticsArts', params: { id: art.id } }">
-          <img :id="art.id" src="" alt="" />
+          <img :id="art.id" ref="images" />
         </RouterLink>
         <div :id="art.loaderID" class="loaderwrap">
           <span class="loader"></span>
@@ -27,13 +27,47 @@ export default defineComponent({
   components: {},
   setup() {
     let CurrentArt = ref();
+    let LazyLoadOptions = {
+      rootMargin: "0px",
+      threshold: 0.1,
+    };
 
+    // onMounted(() => {
+    //   CurrentArt.value = Store().$state.PoliticARTS.filter((item: any) => {
+    //     return item.title !== Store().$state.DailyArtPoliticsPage;
+    //   });
+
+    //   // Store().$state.PoliticARTS.map((art: any) => {
+    //   //   // load_ONE_IMG(art.path, art.id, art.loaderID);
+    //   // });
+
+    // });
     onMounted(() => {
       CurrentArt.value = Store().$state.PoliticARTS.filter((item: any) => {
-        return item.title !== Store().$state.CurrentArtPoliticsPage
+        return item.title !== Store().$state.DailyArtPoliticsPage;
       });
-      Store().$state.PoliticARTS.map((art: any) => {
-        load_ONE_IMG(art.path, art.id, art.loaderID);
+
+      let observer: IntersectionObserver | undefined;
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              Store().$state.PoliticARTS.map((art: any) => {
+                load_ONE_IMG(art.path, art.id, art.loaderID);
+              });
+              observer?.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          rootMargin: "0px",
+          threshold: 0.1,
+        }
+      );
+
+      const images = Array.from(document.querySelectorAll("img"));
+      images.forEach((img) => {
+        observer?.observe(img);
       });
     });
     return { CurrentArt };

@@ -4,7 +4,7 @@ import { load_ONE_IMG } from '@/firebase/config'
 export const Store = defineStore('Articles', {
   state: () => {
     return {
-      CurrentArtPoliticsPage:'On it differed repeated wandered required in.',
+      DailyArtPoliticsPage:'Merry alone do it burst me songs.',
       PoliticARTS: [
         {
           tag: 'Politics',
