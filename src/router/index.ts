@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory} from 'vue-router'
 import { createServer} from 'vite';
-import Main from '@/Main.vue'
 import PoliticsNewsVue from '@/views/Politics/PoliticsNews.vue'
 import BodyContainerVue from '@/components/centralBody/BodyContainer.vue'
 import BusinessNewsVueVue from '@/views/Business/BusinessNews.vue'
@@ -71,7 +70,20 @@ const router = createRouter({
       name: 'PoliticsArts',
       props: true,
       component:() => import("@/views/Politics/Articles/PoliticsArts.vue")
-    }
+    },
+    {
+      path: '/Opinion/:id',
+      name: 'OpinionArts',
+      props: true,
+      component:() => import("@/views/Opinion/Articles/OpinionArts.vue")
+    },
+    {
+      path: '/LifeStyle/:id',
+      name: 'LifeStyleArts',
+      props: true,
+      component:() => import("@/views/LifeStyle/Articles/LifeStyleArts.vue")
+    },
+    
   ]
 })
 export default router

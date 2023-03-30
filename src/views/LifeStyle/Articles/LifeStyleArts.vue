@@ -1,5 +1,5 @@
 <template>
-  <div v-for="art in CurrentArt" class="OnePoliticsArt">
+  <div v-for="art in CurrentArt" class="OneLifeStyleArt">
     <div class="PublishedDate">
       <p id="ArtTag">{{ art.tag }}</p>
       <p>some date</p>
@@ -22,7 +22,7 @@
         {{ art.body }}
       </p>
     </article>
-    <div class="rightSidePoliticArt">
+    <div class="rightBar">
       <MostLikedNews />
     </div>
   </div>
@@ -49,7 +49,7 @@ export default defineComponent({
     let idWatcher = computed(() => props.id);
     let CurrentArt = ref();
     let renderPage = () => {
-      CurrentArt.value = Store().$state.PoliticARTS.filter((art: any) => {
+      CurrentArt.value = Store().$state.LifeStyleARTS.filter((art: any) => {
         load_ONE_IMG(art.path, art.id, art.loaderID);
         return art.title.replace(/\s/g, "-") == idWatcher.value;
       });
@@ -66,7 +66,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.OnePoliticsArt {
+.OneLifeStyleArt {
   margin-top: 50px;
   display: grid;
   justify-items: center;
@@ -148,7 +148,7 @@ picture {
   box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.35);
 }
 
-.rightSidePoliticArt {
+.rightBar {
   width: 100%;
   height: fit-content;
 }

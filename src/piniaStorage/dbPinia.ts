@@ -4,7 +4,10 @@ import { load_ONE_IMG } from '@/firebase/config'
 export const Store = defineStore('Articles', {
   state: () => {
     return {
+      TurnOffTheErrorLoaderIMG:false,
       DailyArtPoliticsPage:'Merry alone do it burst me songs.',
+      DailyArtOpinionPage:'Drawings offended yet answered jennings perceive laughing six did far.',
+      DailyArtLifeStylePage:'Rejoiced prospect yet material servants out answered men admitted.',
       PoliticARTS: [
         {
           tag: 'Politics',
@@ -1004,7 +1007,7 @@ export const Store = defineStore('Articles', {
       LifeStyleARTS: [
         {
           tag: 'LifeStyle',
-          path: '/LifeStylePage/LIfeStyle_Articles/pexels-fauxels-3183197.webp',
+          path: '/LifeStylePage/LIfeStyle_Articles/pexels-andrea-piacquadio-783243.webp',
           get id() {
             return this.title.replace(/\s/g, '-')
           },
@@ -1020,7 +1023,7 @@ export const Store = defineStore('Articles', {
         },
         {
           tag: 'LifeStyle',
-          path: '/LifeStylePage/LIfeStyle_Articles/pexels-john-guccione-wwwadvergroupcom-3483098.webp',
+          path: '/LifeStylePage/LIfeStyle_Articles/pexels-clem-onojeghuo-173301.webp',
           get id() {
             return this.title.replace(/\s/g, '-')
           },
@@ -1037,7 +1040,7 @@ export const Store = defineStore('Articles', {
         },
         {
           tag: 'LifeStyle',
-          path: '/LifeStylePage/LIfeStyle_Articles/pexels-karolina-grabowska-4386340.webp',
+          path: '/LifeStylePage/LIfeStyle_Articles/pexels-destiawan-nur-agustra-1034940.webp',
           get id() {
             return this.title.replace(/\s/g, '-')
           },
@@ -1053,7 +1056,7 @@ export const Store = defineStore('Articles', {
         },
         {
           tag: 'LifeStyle',
-          path: '/LifeStylePage/LIfeStyle_Articles/pexels-karolina-grabowska-4386395.webp',
+          path: '/LifeStylePage/LIfeStyle_Articles/pexels-engin-akyurt-1451040.webp',
           get id() {
             return this.title.replace(/\s/g, '-')
           },
@@ -1070,7 +1073,7 @@ export const Store = defineStore('Articles', {
         },
         {
           tag: 'LifeStyle',
-          path: '/LifeStylePage/LIfeStyle_Articles/pexels-liza-summer-6347719.webp',
+          path: '/LifeStylePage/LIfeStyle_Articles/pexels-jonas-svidras-1434819.webp',
           get id() {
             return this.title.replace(/\s/g, '-')
           },
@@ -1086,7 +1089,7 @@ export const Store = defineStore('Articles', {
         },
         {
           tag: 'LifeStyle',
-          path: '/LifeStylePage/LIfeStyle_Articles/pexels-maximilian-ruther-11589778.webp',
+          path: '/LifeStylePage/LIfeStyle_Articles/pexels-oleksandr-pidvalnyi-1172253.webp',
           get id() {
             return this.title.replace(/\s/g, '-')
           },
@@ -1102,7 +1105,7 @@ export const Store = defineStore('Articles', {
         },
         {
           tag: 'LifeStyle',
-          path: '/LifeStylePage/LIfeStyle_Articles/pexels-michael-steinberg-342943.webp',
+          path: '/LifeStylePage/LIfeStyle_Articles/pexels-picjumbocom-196668.webp',
           get id() {
             return this.title.replace(/\s/g, '-')
           },
@@ -1118,7 +1121,7 @@ export const Store = defineStore('Articles', {
         },
         {
           tag: 'LifeStyle',
-          path: '/LifeStylePage/LIfeStyle_Articles/pexels-pixabay-220365.webp',
+          path: '/LifeStylePage/LIfeStyle_Articles/pexels-pixabay-247597.webp',
           get id() {
             return this.title.replace(/\s/g, '-')
           },
@@ -1134,7 +1137,7 @@ export const Store = defineStore('Articles', {
         },
         {
           tag: 'LifeStyle',
-          path: '/LifeStylePage/LIfeStyle_Articles/pexels-rfstudio-4177725.webp',
+          path: '/LifeStylePage/LIfeStyle_Articles/pexels-pixabay-267684.webp',
           get id() {
             return this.title.replace(/\s/g, '-')
           },
@@ -1150,7 +1153,7 @@ export const Store = defineStore('Articles', {
         },
         {
           tag: 'LifeStyle',
-          path: '/LifeStylePage/LIfeStyle_Articles/pexels-tima-miroshnichenko-7567443.webp',
+          path: '/LifeStylePage/LIfeStyle_Articles/pexels-vidal-balielo-jr-1250643.webp',
           get id() {
             return this.title.replace(/\s/g, '-')
           },

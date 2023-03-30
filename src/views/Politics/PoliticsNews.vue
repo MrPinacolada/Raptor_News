@@ -11,21 +11,15 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, onBeforeMount } from 'vue'
-import { RouterLink } from 'vue-router'
 import RightBarPolitics from '@/views/Politics/RightBarPolitics.vue'
 import DailyNewsPolitics from '@/views/Politics/DailyNewsPolitics.vue'
-import TopNewsSwiper from '@/components/centralBody/TopNewsSwiper.vue'
 import RestNewsPolitics from './RestNewsPolitics.vue'
 import ADS from '@/components/centralBody/ADS.vue'
-import PoliticsArts from './Articles/PoliticsArts.vue'
-import { load_ONE_IMG } from '@/firebase/config'
-import { Store } from '@/piniaStorage/dbPinia'
 
 export default defineComponent({
   components: {
     RightBarPolitics,
     DailyNewsPolitics,
-    TopNewsSwiper,
     ADS,
     RestNewsPolitics
   },

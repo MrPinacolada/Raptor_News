@@ -25,7 +25,6 @@ const load_ONE_IMG = async (path: any, imgid: any, loaderID: any) => {
         let img = document.getElementById(imgid);
         if (url != undefined || null || false) {
           img?.setAttribute("src", url);
-          // img?.setAttribute('style', 'background-image: url(' + path + ')')
           img?.setAttribute("class", "animate__animated animate__fadeIn");
           document
             .getElementById(loaderID)
@@ -36,7 +35,8 @@ const load_ONE_IMG = async (path: any, imgid: any, loaderID: any) => {
       })
       .catch((error) => {
         document.getElementById(imgid)?.setAttribute("style", "display:none");
-        console.log(error.message);
+
+        console.log(error.message + "hi");
       });
   } catch {}
 };

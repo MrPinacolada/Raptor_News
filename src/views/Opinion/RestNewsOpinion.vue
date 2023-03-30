@@ -1,15 +1,15 @@
 <template>
-  <div class="subNewsConteinerPolitics">
-    <article class="subTitlePolitics" v-for="art in CurrentArt">
+  <div class="subNewsConteinerOpinion">
+    <article class="subTitleOpinion" v-for="art in CurrentArt">
       <picture>
-        <RouterLink :to="{ name: 'PoliticsArts', params: { id: art.id } }">
+        <RouterLink :to="{ name: 'OpinionArts', params: { id: art.id } }">
           <img :id="art.id" ref="images" />
         </RouterLink>
         <div :id="art.loaderID" class="loaderwrap">
           <span class="loader"></span>
         </div>
       </picture>
-      <div class="topicPolitics">
+      <div class="topicOpinion">
         <h1>{{ art.title }}</h1>
         <h3>{{ art.subtitle }}</h3>
       </div>
@@ -33,22 +33,24 @@ export default defineComponent({
     };
 
     // onMounted(() => {
-    //   CurrentArt.value = Store().$state.PoliticARTS.filter((item: any) => {
+    //   CurrentArt.value = Store().$state.OpinionARTS.filter((item: any) => {
     //     return item.title !== Store().$state.DailyArtPoliticsPage;
     //   });
 
-    //   // Store().$state.PoliticARTS.map((art: any) => {
+    //   // Store().$state.OpinionARTS.map((art: any) => {
     //   //   // load_ONE_IMG(art.path, art.id, art.loaderID);
     //   // });
 
     // });
     onMounted(() => {
-      CurrentArt.value = Store().$state.PoliticARTS.filter((item: any) => {
-        if (item.title !== Store().$state.DailyArtPoliticsPage) {
+      CurrentArt.value = Store().$state.OpinionARTS.filter((item: any) => {
+        if (item.title !== Store().$state.DailyArtOpinionPage) {
           load_ONE_IMG(item.path, item.id, item.loaderID);
         }
-        return item.title !== Store().$state.DailyArtPoliticsPage;
+        return item.title !== Store().$state.DailyArtOpinionPage;
       });
+
+     
     });
     return { CurrentArt };
   },
@@ -56,7 +58,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.subNewsConteinerPolitics {
+.subNewsConteinerOpinion {
   grid-column: span 2;
   display: grid;
   margin-top: 50px;
@@ -65,7 +67,7 @@ export default defineComponent({
   width: 100%;
   height: 100%;
 }
-.subTitlePolitics {
+.subTitleOpinion {
   display: grid;
   grid-template-columns: 0.2fr 1fr;
   width: 100%;
@@ -87,7 +89,7 @@ img {
   cursor: pointer;
 }
 
-.topicPolitics {
+.topicOpinion {
   display: grid;
   margin-left: 20px;
 }
