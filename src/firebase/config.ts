@@ -5,6 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import VueLazyload from "vue-lazyload";
 import appVUE from "@/main";
 import MainVue from "@/Main.vue";
+import { Store } from "@/piniaStorage/dbPinia";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD0QMUgarT7H4Knkeq3lWabN8WjbNTXQts",
@@ -26,17 +27,21 @@ const load_ONE_IMG = async (path: any, imgid: any, loaderID: any) => {
         if (url != undefined || null || false) {
           img?.setAttribute("src", url);
           img?.setAttribute("class", "animate__animated animate__fadeIn");
-          document
-            .getElementById(loaderID)
-            ?.setAttribute("style", "display:none");
+          setTimeout(() => {
+            Store().$state.TurnOffTheErrorLoaderIMG = true;
+          }, 1000);
+          // document
+          //   .getElementById(loaderID)
+          //   ?.setAttribute("style", "display:none");
         } else {
-          img?.setAttribute("style", "display:none");
+          // img?.setAttribute("style", "display:none");
+          Store().$state.TurnOffTheErrorLoaderIMG = false;
         }
       })
       .catch((error) => {
-        document.getElementById(imgid)?.setAttribute("style", "display:none");
-
-        console.log(error.message + "hi");
+        // document.getElementById(imgid)?.setAttribute("style", "display:none");
+        Store().$state.TurnOffTheErrorLoaderIMG = false;
+        console.log(error.message);
       });
   } catch {}
 };

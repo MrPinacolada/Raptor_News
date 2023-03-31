@@ -1,41 +1,68 @@
 <template>
-  <article class="dailyNews">
+  <article class="dailyNews" v-for="art in CurrentArt">
     <picture class="dailyPhoto">
-      <div id="loaderimg"><span class="loader"></span></div>
-      <img src="" alt="" id="dailyIMG" />
+      <div id="loaderimg" v-show="!checkTheLoader">
+        <span class="loader"></span>
+      </div>
+      <RouterLink :to="{ name: art.tag + 'Arts', params: { id: art.id } }">
+        <span class="TagSpan">{{ art.tag }}</span>
+        <img src="" alt="" :id="art.id" v-show="checkTheLoader" />
+      </RouterLink>
     </picture>
-    <div class="dailyRead">
-      <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, voluptatum!</h1>
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas totam saepe
-        necessitatibus, ipsum recusandae velit quaerat quod quos ratione vitae?
-      </p>
-    </div>
+    <RouterLink :to="{ name: art.tag + 'Arts', params: { id: art.id } }">
+      <div class="dailyRead">
+        <h1>
+          {{ art.title }}
+        </h1>
+        <p>
+          {{ art.subtitle }}
+        </p>
+      </div>
+    </RouterLink>
   </article>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import { RouterLink } from 'vue-router'
-import { load_ONE_IMG } from '@/firebase/config'
-import 'animate.css'
+import { defineComponent, computed, ref, onMounted } from "vue";
+import { RouterLink } from "vue-router";
+import { Store } from "@/piniaStorage/dbPinia";
+import { load_ONE_IMG } from "@/firebase/config";
+import "animate.css";
 export default defineComponent({
   components: {},
   setup() {
-    load_ONE_IMG(
-      'Daily_News/c2a9-bulent-kilic-broken-border-13-15-june-sanliurfa-turkey-02.webp',
-      'dailyIMG',
-      'loaderimg'
-    )
-
-    return { }
-  }
-})
+    let checkTheLoader = computed(
+      () => Store().$state.TurnOffTheErrorLoaderIMG
+    );
+    let CurrentArt = ref();
+    let currentTitleMajorPage =
+      "Sportsmen certainty prevailed suspected am as.";
+    let Topics = {
+      Politic: Store().$state.PoliticARTS,
+      Sport: Store().$state.SportARTS,
+      Weather: Store().$state.WeatherARTS,
+      Opinion: Store().$state.OpinionARTS,
+      Busines: Store().$state.BusinessARTS,
+      LifeStyle: Store().$state.LifeStyleARTS,
+      Games: Store().$state.GamesARTS,
+    };
+    let currentTopicMajorPage = Topics.LifeStyle;
+    onMounted(() => {
+      CurrentArt.value = currentTopicMajorPage.filter((item: any) => {
+        return item.title == currentTitleMajorPage;
+      });
+      CurrentArt.value.map((item: any) => {
+        load_ONE_IMG(item.path, item.id, item.loaderID);
+      });
+    });
+    return { checkTheLoader, CurrentArt };
+  },
+});
 </script>
 
 <style scoped>
-.centralSide {
-  display: grid;
+picture {
+  position: relative;
 }
 .dailyNews {
   display: grid;
@@ -47,7 +74,7 @@ export default defineComponent({
 }
 .dailyPhoto {
   width: 900px;
-  height: 600px;
+  height: 630px;
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -55,7 +82,7 @@ export default defineComponent({
 }
 img {
   max-width: 100%;
-  max-height: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 2px;
 }
@@ -91,5 +118,18 @@ img {
   100% {
     transform: rotate(360deg);
   }
+}
+.TagSpan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: fit-content;
+  background-color: rgb(65, 65, 65, 0.8);
+  cursor: pointer;
+  font-size: 20px;
+  color: #fff;
+  border-radius: 3px;
+  display: block;
+  z-index: 5;
 }
 </style>

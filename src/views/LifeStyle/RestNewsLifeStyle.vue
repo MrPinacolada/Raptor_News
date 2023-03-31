@@ -3,9 +3,9 @@
     <article class="subTitle" v-for="art in CurrentArt">
       <picture>
         <RouterLink :to="{ name: 'LifeStyleArts', params: { id: art.id } }">
-          <img :id="art.id" ref="images" />
+          <img :id="art.id" ref="images" v-show="checkTheLoader" />
         </RouterLink>
-        <div :id="art.loaderID" class="loaderwrap">
+        <div :id="art.loaderID" class="loaderwrap" v-show="!checkTheLoader">
           <span class="loader"></span>
         </div>
       </picture>
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref, onMounted,computed } from "vue";
 import { RouterLink } from "vue-router";
 import { Store } from "@/piniaStorage/dbPinia";
 import { load_ONE_IMG } from "@/firebase/config";
@@ -27,7 +27,9 @@ export default defineComponent({
   components: {},
   setup() {
     let CurrentArt = ref();
-
+    let checkTheLoader = computed(
+      () => Store().$state.TurnOffTheErrorLoaderIMG
+    );
     onMounted(() => {
       CurrentArt.value = Store().$state.LifeStyleARTS.filter((item: any) => {
         if (item.title !== Store().$state.DailyArtLifeStylePage) {
@@ -36,7 +38,7 @@ export default defineComponent({
         return item.title !== Store().$state.DailyArtLifeStylePage;
       });
     });
-    return { CurrentArt };
+    return { CurrentArt, checkTheLoader };
   },
 });
 </script>

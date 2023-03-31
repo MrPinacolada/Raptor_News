@@ -1,53 +1,105 @@
 <template>
   <div class="last_previous_container">
-    <article class="last">
-      <div id="loaderimg1"><span class="loader"></span></div>
-      <picture>
-        <p class="timeline">Yesterday</p>
-        <img id="lastIMG" src="" alt=""
-      /></picture>
-      <div class="dailyRead">
-        <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, fugiat?</h3>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
+    <article class="last" v-for="art in Current_LAST_Art">
+      <div id="loaderimg1" v-show="!checkTheLoader">
+        <span class="loader"></span>
       </div>
-    </article>
-    <article class="previous">
-      <div id="loaderimg2"><span class="loader"></span></div>
       <picture>
-        <p class="timeline">07.03.2023</p>
-
-        <img id="previousIMG" src="" alt="" />
+        <p class="timeline">{{ art.tag }}</p>
+        <RouterLink :to="{ name: art.tag + 'Arts', params: { id: art.id } }">
+          <img
+            v-show="checkTheLoader"
+            @load="test"
+            :id="art.id"
+            src=""
+            alt=""
+          />
+        </RouterLink>
       </picture>
       <div class="dailyRead">
-        <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, et?</h3>
-        <p>Lorem ipsum dolor sit amet.</p>
+        <RouterLink :to="{ name: art.tag + 'Arts', params: { id: art.id } }">
+          <h3>
+            {{ art.title }}
+          </h3>
+          <p>{{ art.subtitle }}</p>
+        </RouterLink>
+      </div>
+    </article>
+    <article class="previous" v-for="art in Current_PREVIOUS_Art">
+      <div id="loaderimg2" v-show="!checkTheLoader">
+        <span class="loader"></span>
+      </div>
+      <picture>
+        <p class="timeline">{{ art.tag }}</p>
+        <RouterLink :to="{ name: art.tag + 'Arts', params: { id: art.id } }">
+          <img :id="art.id" v-show="checkTheLoader" src="" alt="" />
+        </RouterLink>
+      </picture>
+      <div class="dailyRead">
+        <RouterLink :to="{ name: art.tag + 'Arts', params: { id: art.id } }">
+          <h3>
+            {{ art.title }}
+          </h3>
+          <p>{{ art.subtitle }}</p>
+        </RouterLink>
       </div>
     </article>
   </div>
 </template>
 
 <script lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import { defineComponent, ref } from 'vue'
-import { load_ONE_IMG } from '@/firebase/config'
+import { RouterLink, RouterView } from "vue-router";
+import { defineComponent, ref, computed, onMounted } from "vue";
+import { load_ONE_IMG } from "@/firebase/config";
+import { Store } from "@/piniaStorage/dbPinia";
 
 export default defineComponent({
   components: {},
   setup() {
-    load_ONE_IMG(
-      'Daily_News/previous/spt-0306-af-Beld-Craner-runner-up-3-960x720.webp',
-      'previousIMG',
-      'loaderimg1'
-    )
-    load_ONE_IMG(
-      'Daily_News/last/loc-0306-cs-Pancake-breakfast-benefit-2-960x720.webp',
-      'lastIMG',
-      'loaderimg2'
-    )
-
-    return {}
-  }
-})
+    let test = () => {
+      console.log("fuck");
+    };
+    let checkTheLoader = computed(
+      () => Store().$state.TurnOffTheErrorLoaderIMG
+    );
+    let Current_PREVIOUS_Art = ref();
+    let Current_LAST_Art = ref();
+    let current_TITLE_MajorPageLastNews =
+      "Drawings offended yet answered jennings perceive laughing six did far.";
+    let current_TITLE_MajorPagePreviousNews =
+      "Too objection for elsewhere her preferred allowance her.";
+    let Topics = {
+      Politic: Store().$state.PoliticARTS,
+      Sport: Store().$state.SportARTS,
+      Weather: Store().$state.WeatherARTS,
+      Opinion: Store().$state.OpinionARTS,
+      Busines: Store().$state.BusinessARTS,
+      LifeStyle: Store().$state.LifeStyleARTS,
+      Games: Store().$state.GamesARTS,
+    };
+    let current_TOPIC_MajorPageLastNews = Topics.Opinion;
+    let current_TOPIC_MajorPagePreviousNews = Topics.Politic;
+    Current_LAST_Art.value = current_TOPIC_MajorPageLastNews.filter(
+      (item: any) => {
+        return item.title == current_TITLE_MajorPageLastNews;
+      }
+    );
+    Current_PREVIOUS_Art.value = current_TOPIC_MajorPagePreviousNews.filter(
+      (item: any) => {
+        return item.title == current_TITLE_MajorPagePreviousNews;
+      }
+    );
+    onMounted(() => {
+      Current_PREVIOUS_Art.value.map((item: any) => {
+        load_ONE_IMG(item.path, item.id, item.loaderID);
+      });
+      Current_LAST_Art.value.map((item: any) => {
+        load_ONE_IMG(item.path, item.id, item.loaderID);
+      });
+    });
+    return { Current_PREVIOUS_Art, Current_LAST_Art, checkTheLoader, test };
+  },
+});
 </script>
 
 <style scoped>
@@ -84,7 +136,7 @@ picture {
 
 img {
   max-width: 100%;
-  max-height: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 2px;
 }
@@ -140,10 +192,10 @@ img {
   color: #fff;
   background-color: rgb(65, 65, 65, 0.8);
 }
-h3{
+h3 {
   margin-top: 10px;
 }
-p{
+p {
   margin-bottom: 5px;
   margin-top: 0;
 }

@@ -13,8 +13,8 @@
         <p>Published By</p>
       </div>
       <picture>
-        <img src="" alt="" :id="art.id" />
-        <div :id="art.loaderID" class="loaderwrap">
+        <img src="" alt="" :id="art.id" v-show="checkTheLoader" />
+        <div :id="art.loaderID" class="loaderwrap" v-show="!checkTheLoader">
           <span class="loader"></span>
         </div>
       </picture>
@@ -46,6 +46,9 @@ export default defineComponent({
   components: { MostLikedNews },
   props: ["id"],
   setup(props) {
+    let checkTheLoader = computed(
+      () => Store().$state.TurnOffTheErrorLoaderIMG
+    );
     let idWatcher = computed(() => props.id);
     let CurrentArt = ref();
     let renderPage = () => {
@@ -60,7 +63,7 @@ export default defineComponent({
     onMounted(() => {
       renderPage();
     });
-    return { CurrentArt };
+    return { CurrentArt,checkTheLoader };
   },
 });
 </script>

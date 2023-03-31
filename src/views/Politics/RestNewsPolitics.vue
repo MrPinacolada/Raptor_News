@@ -3,9 +3,9 @@
     <article class="subTitlePolitics" v-for="art in CurrentArt">
       <picture>
         <RouterLink :to="{ name: 'PoliticsArts', params: { id: art.id } }">
-          <img :id="art.id" ref="images" />
+          <img :id="art.id" ref="images" v-show="checkTheLoader"/>
         </RouterLink>
-        <div :id="art.loaderID" class="loaderwrap">
+        <div :id="art.loaderID" class="loaderwrap" v-show="!checkTheLoader">
           <span class="loader"></span>
         </div>
       </picture>
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent,computed, ref, onMounted } from "vue";
 import { RouterLink } from "vue-router";
 import { Store } from "@/piniaStorage/dbPinia";
 import { load_ONE_IMG } from "@/firebase/config";
@@ -27,21 +27,9 @@ export default defineComponent({
   components: {},
   setup() {
     let CurrentArt = ref();
-    let LazyLoadOptions = {
-      rootMargin: "0px",
-      threshold: 0.1,
-    };
-
-    // onMounted(() => {
-    //   CurrentArt.value = Store().$state.PoliticARTS.filter((item: any) => {
-    //     return item.title !== Store().$state.DailyArtPoliticsPage;
-    //   });
-
-    //   // Store().$state.PoliticARTS.map((art: any) => {
-    //   //   // load_ONE_IMG(art.path, art.id, art.loaderID);
-    //   // });
-
-    // });
+    let checkTheLoader = computed(
+      () => Store().$state.TurnOffTheErrorLoaderIMG
+    );
     onMounted(() => {
       CurrentArt.value = Store().$state.PoliticARTS.filter((item: any) => {
         if (item.title !== Store().$state.DailyArtPoliticsPage) {
@@ -50,7 +38,7 @@ export default defineComponent({
         return item.title !== Store().$state.DailyArtPoliticsPage;
       });
     });
-    return { CurrentArt };
+    return { CurrentArt,checkTheLoader };
   },
 });
 </script>

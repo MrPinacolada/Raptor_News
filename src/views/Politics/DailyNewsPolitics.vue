@@ -1,11 +1,11 @@
 <template>
   <article class="dailyNewsPolitics" v-for="art in ArtToRender">
     <picture class="dailyPhotoPolitics">
-      <div :id="art.loaderID" class="loaderwrap">
+      <div :id="art.loaderID" class="loaderwrap" v-show="!checkTheLoader">
         <span class="loader"></span>
       </div>
       <RouterLink :to="{ name: 'PoliticsArts', params: { id: art.id } }">
-        <img src="" alt="" :id="art.id" />
+        <img src="" alt="" :id="art.id" v-show="checkTheLoader"/>
       </RouterLink>
     </picture>
     <div class="dailyReadPolitics">
@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, defineEmits, onMounted } from "vue";
+import { defineComponent,computed, ref, defineEmits, onMounted } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 import { Store } from "@/piniaStorage/dbPinia";
 import { load_ONE_IMG } from "@/firebase/config";
@@ -28,6 +28,9 @@ import "animate.css";
 export default defineComponent({
   components: {},
   setup() {
+    let checkTheLoader = computed(
+      () => Store().$state.TurnOffTheErrorLoaderIMG
+    );
     let ArtToRender = ref(
       Store().$state.PoliticARTS.filter((art: any) => {
         if (art.title == Store().$state.DailyArtPoliticsPage) {
@@ -36,7 +39,7 @@ export default defineComponent({
         return art.title == Store().$state.DailyArtPoliticsPage;
       })
     );
-    return { ArtToRender };
+    return { ArtToRender,checkTheLoader };
   },
 });
 </script>
