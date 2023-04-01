@@ -128,7 +128,8 @@ img {
   cursor: pointer;
   font-size: 20px;
   color: #fff;
-  border-radius: 3px;
+  /* border-radius: 3px; */
+  padding: 7px;
   display: block;
   z-index: 5;
 }

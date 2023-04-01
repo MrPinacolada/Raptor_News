@@ -7,13 +7,7 @@
       <picture>
         <p class="timeline">{{ art.tag }}</p>
         <RouterLink :to="{ name: art.tag + 'Arts', params: { id: art.id } }">
-          <img
-            v-show="checkTheLoader"
-            @load="test"
-            :id="art.id"
-            src=""
-            alt=""
-          />
+          <img v-show="checkTheLoader" :id="art.id" src="" alt="" />
         </RouterLink>
       </picture>
       <div class="dailyRead">
@@ -56,9 +50,6 @@ import { Store } from "@/piniaStorage/dbPinia";
 export default defineComponent({
   components: {},
   setup() {
-    let test = () => {
-      console.log("fuck");
-    };
     let checkTheLoader = computed(
       () => Store().$state.TurnOffTheErrorLoaderIMG
     );
@@ -97,7 +88,7 @@ export default defineComponent({
         load_ONE_IMG(item.path, item.id, item.loaderID);
       });
     });
-    return { Current_PREVIOUS_Art, Current_LAST_Art, checkTheLoader, test };
+    return { Current_PREVIOUS_Art, Current_LAST_Art, checkTheLoader };
   },
 });
 </script>

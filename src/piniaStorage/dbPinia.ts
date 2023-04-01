@@ -14,6 +14,57 @@ export const Store = defineStore("Articles", {
         LifeStyle: "LifeStyle",
         Games: "Games",
       },
+      HeadSwiperTitles: {
+        Politics: [
+          "On it differed repeated wandered required in.",
+          "Merry alone do it burst me songs.",
+        ],
+        Sport: [
+          "Pleased him another was settled for.",
+          "Stanhill on we if vicinity material in.",
+        ],
+        Weather: [
+          "Parish so enable innate in formed missed.",
+          "Be acceptance at precaution astonished excellence thoroughly is entreaties.",
+        ],
+        Opinion: [
+          "For who thoroughly her boy estimating conviction.",
+          "Particular way thoroughly unaffected projection favourable mrs can projecting own.",
+        ],
+        Busines: ["Shewing met parties gravity husband sex pleased."],
+        LifeStyle: [
+          "Add stairs admire all answer the nearer yet length.",
+          "Whole front do of plate heard oh ought. His defective nor convinced residence own.",
+          "Mr acuteness we as estimable enjoyment up.",
+        ],
+        Games: ["Demesne far hearted suppose venture excited see had has."],
+      },
+      BodySwiperTitles: {
+        Politics: [
+          "On it differed repeated wandered required in.",
+          "Merry alone do it burst me songs.",
+        ],
+        Sport: [
+          "Pleased him another was settled for.",
+          "Stanhill on we if vicinity material in.",
+        ],
+        Weather: [
+          "Parish so enable innate in formed missed.",
+          "Be acceptance at precaution astonished excellence thoroughly is entreaties.",
+        ],
+        Opinion: [
+          "For who thoroughly her boy estimating conviction.",
+          "Particular way thoroughly unaffected projection favourable mrs can projecting own.",
+        ],
+        Busines: ["Shewing met parties gravity husband sex pleased."],
+        LifeStyle: [
+          "Add stairs admire all answer the nearer yet length.",
+          "Whole front do of plate heard oh ought. His defective nor convinced residence own.",
+          "Mr acuteness we as estimable enjoyment up.",
+        ],
+        Games: ["Demesne far hearted suppose venture excited see had has."],
+      },
+
       DailyArtPoliticsPage: "Merry alone do it burst me songs.",
       DailyArtOpinionPage:
         "Drawings offended yet answered jennings perceive laughing six did far.",
@@ -26,6 +77,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -43,6 +95,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -60,6 +113,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -77,6 +131,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -94,6 +149,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -112,6 +168,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -129,6 +186,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -146,6 +204,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -163,6 +222,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -180,6 +240,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -200,6 +261,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -217,6 +279,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -234,6 +297,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -251,6 +315,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -268,6 +333,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -285,6 +351,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -302,6 +369,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -320,6 +388,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -338,6 +407,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -355,6 +425,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -374,6 +445,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -391,6 +463,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -409,6 +482,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -426,6 +500,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -443,6 +518,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -459,6 +535,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -476,6 +553,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -492,6 +570,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -509,6 +588,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -525,6 +605,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -544,6 +625,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -560,6 +642,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -578,6 +661,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -596,6 +680,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -613,6 +698,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -629,6 +715,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -646,6 +733,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -662,6 +750,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -679,6 +768,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -695,6 +785,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -714,6 +805,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -730,6 +822,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -747,6 +840,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -764,6 +858,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -782,6 +877,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -798,6 +894,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -816,6 +913,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -832,6 +930,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -849,6 +948,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -865,6 +965,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -884,6 +985,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -900,6 +1002,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -917,6 +1020,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -934,6 +1038,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -952,6 +1057,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -969,6 +1075,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -986,6 +1093,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -1002,6 +1110,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -1020,6 +1129,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -1036,6 +1146,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -1056,6 +1167,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -1072,6 +1184,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -1090,6 +1203,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -1107,6 +1221,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -1124,6 +1239,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -1141,6 +1257,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -1158,6 +1275,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -1174,6 +1292,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -1191,6 +1310,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
@@ -1207,6 +1327,7 @@ export const Store = defineStore("Articles", {
           get id() {
             return this.title.replace(/\s/g, "-");
           },
+          YTid: "jfKfPfyJRdk",
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },

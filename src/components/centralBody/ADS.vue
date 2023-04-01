@@ -1,5 +1,9 @@
 <template>
-  <div class="adsContainer" @mouseenter="ADhover = !ADhover" @mouseleave="ADhover = !ADhover">
+  <div
+    class="adsContainer"
+    @mouseenter="ADhover = !ADhover"
+    @mouseleave="ADhover = !ADhover"
+  >
     <picture
       ><img v-show="!ADhover" id="ADpicture" src="" alt="ADS_PICTURE" />
       <iframe
@@ -14,31 +18,35 @@
     </picture>
     <article>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum incidunt nulla ipsa!
-        Similique, natus ea.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
+        incidunt nulla ipsa! Similique, natus ea.
       </p>
     </article>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import { RouterLink } from 'vue-router'
-import { load_ONE_IMG } from '@/firebase/config'
+import { defineComponent, ref } from "vue";
+import { RouterLink } from "vue-router";
+import { load_ONE_IMG } from "@/firebase/config";
 export default defineComponent({
   components: {},
   setup() {
-    let ADhover = ref(false)
-    let YTid = 'VGa1imApfdg'
+    let ADhover = ref(false);
+    let YTid = "VGa1imApfdg";
     let YTsets = ref(
-      'https://www.youtube.com/embed/' +
+      "https://www.youtube.com/embed/" +
         YTid +
-        '?controls=1&autoplay=1&mute=1&fs=0&modestbranding=0&rel=0&showinfo=0'
-    )
-    load_ONE_IMG('/ADS_Module/Home_page/current_ad.jpg', 'ADpicture', 'loaderimg1')
-    return { YTsets, ADhover }
-  }
-})
+        "?controls=1&autoplay=1&mute=1&fs=0&modestbranding=0&rel=0&showinfo=0"
+    );
+    load_ONE_IMG(
+      "/ADS_Module/Home_page/current_ad.jpg",
+      "ADpicture",
+      "loaderimg1"
+    );
+    return { YTsets, ADhover };
+  },
+});
 </script>
 
 <style scoped>

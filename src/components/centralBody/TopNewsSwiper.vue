@@ -9,48 +9,31 @@
       :spaceBetween="30"
       :loop="true"
       :autoplay="{
-        delay: 1000,
+        delay: 2500,
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
       }"
       :modules="modules"
     >
-      <!-- <div class="loadIMG" v-if="!loaderIMG">
-        <div class="loader-wheel"></div>
-      </div> -->
-      <!-- <swiper-slide
-        v-for="(slide, index) in sliderIMG"
-        @mouseenter="slide.ShowPlayer = !slide.ShowPlayer"
-        @mouseleave="slide.ShowPlayer = !slide.ShowPlayer"
+      <div id="loaderimg" v-show="!loaderIMG">
+        <span id="loader"></span>
+      </div>
+      <swiper-slide
+        v-for="(slide, index) in TopNewsSlider"
         class="animate__animated animate__fadeIn"
       >
-        <div v-if="loaderIMG">
-          <img id="myimg" :src="slide.img" />
-          <div class="YTplayer" v-if="slide.ShowPlayer">
+        <div
+          @mouseenter="onSlideChange(index)"
+          @mouseleave="ShowPlayer = !ShowPlayer"
+        >
+          <span class="TagSpan">{{ slide.tag }}</span>
+          <img :id="slide.id + 'bodySwiper'" />
+          <div class="YTplayer" v-if="ShowPlayer && currentIndexSlide == index">
             <lite-youtube
               params="controls=0&enablejsapi=1$disablekb=1&iv_load_policy=3&modestbranding=1&cc_load_policy=1&"
               :videoid="slide.YTid"
             ></lite-youtube>
           </div>
-        </div>
-
-        <p>{{ slide.text }}</p>
-      </swiper-slide> -->
-      <div id="loaderimg" v-show="!loaderIMG">
-        <span id="loader"></span>
-      </div>
-      <swiper-slide
-        v-for="slide in TopNewsSlider"
-        class="animate__animated animate__fadeIn"
-      >
-        <div>
-          <img :id="slide.id" v-show="checkTheLoader" />
-          <!-- <div class="YTplayer" v-if="slide.ShowPlayer">
-            <lite-youtube
-              params="controls=0&enablejsapi=1$disablekb=1&iv_load_policy=3&modestbranding=1&cc_load_policy=1&"
-              :videoid="slide.YTid"
-            ></lite-youtube>
-          </div> -->
         </div>
 
         <p>{{ slide.title }}</p>
@@ -80,33 +63,13 @@ export default defineComponent({
   components: { Swiper, SwiperSlide },
   setup() {
     const store = Store();
+    let ShowPlayer = ref(false);
     let TopNewsSlider = ref([] as any);
-    let checkTheLoader = computed(
-      () => Store().$state.TurnOffTheErrorLoaderIMG
-    );
-    let PoliticsTitles = [
-      "On it differed repeated wandered required in.",
-      "Merry alone do it burst me songs.",
-    ];
-    let SportTitles = [
-      "Pleased him another was settled for.",
-      "Stanhill on we if vicinity material in.",
-    ];
-    let Weather = [
-      "Parish so enable innate in formed missed.",
-      "Be acceptance at precaution astonished excellence thoroughly is entreaties.",
-    ];
-    let Opinion = [
-      "For who thoroughly her boy estimating conviction.",
-      "Particular way thoroughly unaffected projection favourable mrs can projecting own.",
-    ];
-    let Busines = ["Shewing met parties gravity husband sex pleased."];
-    let LifeStyle = [
-      "Add stairs admire all answer the nearer yet length.",
-      "Whole front do of plate heard oh ought. His defective nor convinced residence own.",
-      "Mr acuteness we as estimable enjoyment up.",
-    ];
-    let Games = ["Demesne far hearted suppose venture excited see had has."];
+    let currentIndexSlide = ref();
+    let onSlideChange = (index: any) => {
+      currentIndexSlide.value = index;
+      ShowPlayer.value = !ShowPlayer.value;
+    };
     let FillSliderArray = (
       store: any,
       PiniaTopic: keyof typeof store.$state,
@@ -116,90 +79,47 @@ export default defineComponent({
       ChosenTitles.forEach((chosentitle: string) => {
         if (arts != undefined || null || false) {
           const chosenArt = arts.find((art: any) => {
-            if (art.title === chosentitle) {
-              load_ONE_IMG(art.path, art.id, art.loaderID);
-            }
-
             return art.title === chosentitle;
           });
           if (chosenArt) {
+            load_ONE_IMG(
+              chosenArt.path,
+              chosenArt.id + "bodySwiper",
+              chosenArt.loaderID
+            );
             TopNewsSlider.value.push({ ...chosenArt });
             loaderIMG.value = true;
           }
         }
       });
     };
-    let sliderIMG: any = ref([]);
     const loaderIMG = ref(false);
-    const listRef = fireRef(RaptorNewsStorage, "/Top_News_slider");
-    let slideHover = ref(false);
-    // const loadIMG = async () => {
-    //   try {
-    //     await listAll(listRef)
-    //       .then((res) => {
-    //         res.items.forEach((itemRef) => {
-    //           getDownloadURL(
-    //             fireRef(RaptorNewsStorage, "Top_News_slider/" + itemRef.name)
-    //           )
-    //             .then(async (url) => {
-    //               const docRef = doc(
-    //                 RaptorNewsStore,
-    //                 "Top_news_slider",
-    //                 itemRef.name
-    //               );
-    //               const docSnap = await getDoc(docRef);
-    //               let key = await docSnap.data()?.data.key;
-    //               let text = await docSnap.data()?.data.Topic;
-    //               let getYTid = await docSnap.data()?.data.YTid;
-    //               let fillSlide = (key = text ? text : undefined);
-    //               await sliderIMG.value.push({
-    //                 img: url,
-    //                 text: fillSlide,
-    //                 YTid: getYTid,
-    //                 ShowPlayer: false,
-    //               });
-    //               // let data = {data:{Topic:'', key:itemRef.name, YTid:'123'}}
-    //               // await setDoc(doc(RaptorNewsStore, "Top_news_slider", itemRef.name), data);
-    //               // ------ add new img+topics
-    //               if ((url && fillSlide) != undefined || null || false) {
-    //                 loaderIMG.value = true;
-    //               }
-    //             })
-    //             .catch((error) => {
-    //               console.log("error: ", error.message);
-    //               loaderIMG.value = false;
-    //             });
-    //         });
-    //       })
-    //       .catch((error) => {
-    //         console.log("error: ", error.message);
-    //         loaderIMG.value = false;
-    //       });
-    //   } catch {
-    //     loaderIMG.value = false;
-    //   }
-    // };
-
-    onBeforeMount(() => {
-      FillSliderArray(store, "1PoliticARTS", PoliticsTitles);
-      // FillSliderArray(store, "SportARTS", SportTitles);
-      // FillSliderArray(store, "WeatherARTS", Weather);
-      FillSliderArray(store, "1OpinionARTS", Opinion);
-      // FillSliderArray(store, "BusinesARTS", Busines);
-      FillSliderArray(store, "1LifeStyleARTS", LifeStyle);
-      // FillSliderArray(store, "GamesARTS", Games);
-    });
-    onMounted(() => {
-      // loadIMG();
-    });
-
+    FillSliderArray(
+      store,
+      "PoliticARTS",
+      store.$state.BodySwiperTitles.Politics
+    );
+    // FillSliderArray(store, "SportARTS", SportTitles);
+    // FillSliderArray(store, "WeatherARTS", Weather);
+    FillSliderArray(
+      store,
+      "OpinionARTS",
+      store.$state.BodySwiperTitles.Opinion
+    );
+    // FillSliderArray(store, "BusinesARTS", Busines);
+    FillSliderArray(
+      store,
+      "LifeStyleARTS",
+      store.$state.BodySwiperTitles.LifeStyle
+    );
+    // FillSliderArray(store, "GamesARTS", Games);
     return {
       modules: [Pagination, Autoplay],
-      sliderIMG,
       loaderIMG,
-      slideHover,
       TopNewsSlider,
-      checkTheLoader,
+      ShowPlayer,
+      currentIndexSlide,
+      onSlideChange,
     };
   },
 });
@@ -211,8 +131,9 @@ lite-youtube {
   top: 0;
   left: 0;
   width: 100%;
-  height: 10px;
+  height: 30px;
   border-radius: 3px;
+  border: none;
   z-index: 5;
 }
 
@@ -268,7 +189,7 @@ img {
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
   object-fit: contain;
-  z-index: 10;
+  /* z-index: 4; */
 }
 
 .dailyPicture {
@@ -312,5 +233,20 @@ img {
   100% {
     transform: rotate(360deg);
   }
+}
+.TagSpan {
+  position: absolute;
+  top: 2px;
+  left: -8px;
+  width: fit-content;
+  height: fit-content;
+  background-color: rgb(65, 65, 65, 0.8);
+  cursor: pointer;
+  font-size: 15px;
+  color: #fff;
+  /* border-radius: 3px; */
+  padding: 5px;
+  display: block;
+  z-index: 5;
 }
 </style>

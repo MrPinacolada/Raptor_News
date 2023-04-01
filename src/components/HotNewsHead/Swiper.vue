@@ -5,8 +5,8 @@
       :spaceBetween="30"
       :loop="true"
       :autoplay="{
-        delay: 4000,
-        disableOnInteraction: false
+        delay: 2500,
+        disableOnInteraction: false,
       }"
       :modules="modules"
       class="newsSwiper"
@@ -14,81 +14,93 @@
       <div class="loadIMG" v-if="!loaderIMG">
         <div class="loader-wheel"></div>
       </div>
-      <swiper-slide v-for="slide in slideDataIMG" class="animate__animated animate__fadeIn">
+      <swiper-slide
+        v-for="slide in TopNewsSlider"
+        class="animate__animated animate__fadeIn"
+      >
         <div v-if="loaderIMG">
-          <img id="myimg" :src="slide.img" />
+          <img :id="slide.id + 'headSwiper'" />
         </div>
-
-        <p>{{ slide.text }}</p>
+        <p>{{ slide.subtitle }}</p>
       </swiper-slide>
     </swiper>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Pagination, Autoplay } from 'swiper'
-import { doc, getDoc } from 'firebase/firestore'
-import { getDownloadURL, listAll } from 'firebase/storage'
-import { ref as fireRef } from 'firebase/storage'
-import { RaptorNewsStorage, RaptorNewsStore } from '@/firebase/config'
-import SwiperCore from 'swiper'
-import '@SwiperBundleCss'
-import 'swiper/css/bundle'
-import 'animate.css'
-import { Store } from '@/Main.vue'
-SwiperCore.use([Pagination])
+import { defineComponent, ref, onMounted, onBeforeMount } from "vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { Store } from "@/piniaStorage/dbPinia";
+import { load_ONE_IMG } from "@/firebase/config";
+import { Pagination, Autoplay } from "swiper";
+import { doc, getDoc } from "firebase/firestore";
+import { getDownloadURL, listAll } from "firebase/storage";
+import { ref as fireRef } from "firebase/storage";
+import { RaptorNewsStorage, RaptorNewsStore } from "@/firebase/config";
+import SwiperCore from "swiper";
+import "@SwiperBundleCss";
+import "swiper/css/bundle";
+import "animate.css";
+SwiperCore.use([Pagination]);
 
 export default defineComponent({
   components: {
     Swiper,
-    SwiperSlide
+    SwiperSlide,
   },
   setup() {
-    Store.foo = !Store.foo
-    let slideDataIMG = ref([] as any)
-    const loaderIMG = ref(false)
-    const listRef = fireRef(RaptorNewsStorage, '/News_Slider')
-    const loadIMG = async () => {
-      try {
-        await listAll(listRef)
-          .then((res) => {
-            res.items.forEach((itemRef) => {
-              getDownloadURL(fireRef(RaptorNewsStorage, 'News_Slider/' + itemRef.name))
-                .then(async (url) => {
-                  const docRef = doc(RaptorNewsStore, 'Slider_text', itemRef.name)
-                  const docSnap = await getDoc(docRef)
-                  let key = await docSnap.data()?.data.key
-                  let text = await docSnap.data()?.data.Topic
-                  let fillSlide = (key = text ? text : undefined)
-                  await slideDataIMG.value.push({ img: url, text: fillSlide })
-                  // let data = {data:{Topic:'', key:itemRef.name}}
-                  // await setDoc(doc(RaptorNewsStore, "Slider_text", itemRef.name), data);
-                  // ------ add new img+topics
-                  if ((url && fillSlide) != undefined || null || false) {
-                    loaderIMG.value = true
-                  }
-                })
-                .catch((error) => {
-                  console.log('error: ', error.message)
-                  loaderIMG.value = false
-                })
-            })
-          })
-          .catch((error) => {
-            console.log('error: ', error.message)
-            loaderIMG.value = false
-          })
-      } catch {
-        loaderIMG.value = false
-      }
-    }
-    loadIMG()
-    onMounted(() => {})
-    return { modules: [Pagination, Autoplay], slideDataIMG, loaderIMG }
-  }
-})
+    const store = Store();
+    const loaderIMG = ref(false);
+    let TopNewsSlider = ref([] as any);
+    let FillSliderArray = (
+      store: any,
+      PiniaTopic: keyof typeof store.$state,
+      ChosenTitles: any
+    ) => {
+      const arts: any = store.$state[PiniaTopic];
+      ChosenTitles.forEach((chosentitle: string) => {
+        if (arts != undefined || null || false) {
+          const chosenArt = arts.find((art: any) => {
+            return art.title === chosentitle;
+          });
+          if (chosenArt) {
+            load_ONE_IMG(
+              chosenArt.path,
+              chosenArt.id + "headSwiper",
+              chosenArt.loaderID
+            );
+            TopNewsSlider.value.push({ ...chosenArt });
+            loaderIMG.value = true;
+          }
+        }
+      });
+    };
+    FillSliderArray(
+      store,
+      "PoliticARTS",
+      store.$state.HeadSwiperTitles.Politics
+    );
+    // FillSliderArray(store, "SportARTS", SportTitles);
+    // FillSliderArray(store, "WeatherARTS", Weather);
+    FillSliderArray(
+      store,
+      "OpinionARTS",
+      store.$state.HeadSwiperTitles.Opinion
+    );
+    // FillSliderArray(store, "BusinesARTS", Busines);
+    FillSliderArray(
+      store,
+      "LifeStyleARTS",
+      store.$state.HeadSwiperTitles.LifeStyle
+    );
+    // FillSliderArray(store, "GamesARTS", Games);
+    return {
+      modules: [Pagination, Autoplay],
+      loaderIMG,
+      TopNewsSlider,
+    };
+  },
+});
 </script>
 
 <style scoped>
