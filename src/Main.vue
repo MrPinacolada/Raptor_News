@@ -6,6 +6,8 @@ import {
   ref,
   onBeforeUnmount,
   reactive,
+  watch,
+computed,
 } from "vue";
 import SingIn from "@/components/Autentification/SingIn.vue";
 import CreateAccount from "@/components/Autentification/CreateAccount.vue";
@@ -16,7 +18,7 @@ import { Store } from "@/piniaStorage/dbPinia";
 export default defineComponent({
   components: { HeadBar, Swiper, BodyContainer, SingIn, CreateAccount },
   setup() {
-    let store = Store()
+    let store = Store();
     const SCROLLtop = ref();
     let checkScroll = () => {
       SCROLLtop.value = window.scrollY;
@@ -33,6 +35,9 @@ export default defineComponent({
     onBeforeUnmount(() => {
       document.removeEventListener("scroll", checkScroll);
     });
+    let overflowY = document.body.style.overflowY;
+let checkSingORCreateAccButt = computed
+    watch(store.$state.CreateAccount, () => {});
     return { SCROLLtop, scrolling, store };
   },
 });
