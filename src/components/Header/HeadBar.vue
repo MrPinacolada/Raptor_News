@@ -34,7 +34,9 @@
     <div class="buttons">
       <ion-icon name="search-outline"></ion-icon>
       <button class="singin forall">Sing In</button>
-      <button class="createacc forall">Create Account</button>
+      <button class="createacc forall" @click="store.$state.CreateAccount = !store.$state.CreateAccount">Create Account</button>
+      <SingIn/>
+      <CreateAccount/>
     </div>
   </div>
   <div class="hwrap">
@@ -52,10 +54,15 @@ import { defineComponent } from 'vue'
 import { RouterLink } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import FiatPriceModule from './FiatPriceModule.vue'
+import SingIn from '../Autentification/SingIn.vue'
+import CreateAccount from '../Autentification/CreateAccount.vue'
+import { Store } from "@/piniaStorage/dbPinia";
+
 export default defineComponent({
-  components: { FiatPriceModule },
+  components: {CreateAccount,SingIn, FiatPriceModule },
   setup() {
-    return {}
+    let store = Store()
+    return {store}
   }
 })
 </script>

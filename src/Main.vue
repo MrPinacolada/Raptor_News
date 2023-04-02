@@ -1,35 +1,41 @@
 <script lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import { defineComponent, onMounted, ref, onBeforeUnmount, reactive } from 'vue'
-import HeadBar from '@/components/Header/HeadBar.vue'
-import Swiper from '@/components/HotNewsHead/Swiper.vue'
-import BodyContainer from '@/components/centralBody/BodyContainer.vue'
-export const Store = reactive({
-  foo:false
-})
-
+import { RouterLink, RouterView } from "vue-router";
+import {
+  defineComponent,
+  onMounted,
+  ref,
+  onBeforeUnmount,
+  reactive,
+} from "vue";
+import SingIn from "@/components/Autentification/SingIn.vue";
+import CreateAccount from "@/components/Autentification/CreateAccount.vue";
+import HeadBar from "@/components/Header/HeadBar.vue";
+import Swiper from "@/components/HotNewsHead/Swiper.vue";
+import BodyContainer from "@/components/centralBody/BodyContainer.vue";
+import { Store } from "@/piniaStorage/dbPinia";
 export default defineComponent({
-  components: { HeadBar, Swiper, BodyContainer },
+  components: { HeadBar, Swiper, BodyContainer, SingIn, CreateAccount },
   setup() {
-    const SCROLLtop = ref()
+    let store = Store()
+    const SCROLLtop = ref();
     let checkScroll = () => {
-      SCROLLtop.value = window.scrollY
-    }
+      SCROLLtop.value = window.scrollY;
+    };
     let scrolling = () => {
       window.scroll({
         top: 0,
-        behavior: 'smooth'
-      })
-    }
+        behavior: "smooth",
+      });
+    };
     onMounted(() => {
-      document.addEventListener('scroll', checkScroll)
-    })
+      document.addEventListener("scroll", checkScroll);
+    });
     onBeforeUnmount(() => {
-      document.removeEventListener('scroll', checkScroll)
-    })
-    return { SCROLLtop, scrolling }
-  }
-})
+      document.removeEventListener("scroll", checkScroll);
+    });
+    return { SCROLLtop, scrolling, store };
+  },
+});
 </script>
 
 <template>
@@ -46,20 +52,25 @@ export default defineComponent({
   </main>
   <div
     class="animate__animated UpButt"
-    :class="{ animate__flipInY: SCROLLtop >= 400, animate__flipOutY: SCROLLtop < 410 }"
+    :class="{
+      animate__flipInY: SCROLLtop >= 400,
+      animate__flipOutY: SCROLLtop < 410,
+    }"
     @click="scrolling"
   ></div>
+  <SingIn />
+  <CreateAccount />
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=PT+Sans&family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&family=Roboto&display=swap");
 body {
   margin: 0;
   padding: 0;
   border: none;
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
   background-color: rgb(246, 248, 250);
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 .UpButt {
   display: inline-block;
@@ -75,7 +86,7 @@ body {
   z-index: 1000;
 }
 .UpButt::after {
-  content: '\f077';
+  content: "\f077";
   font-family: FontAwesome;
   font-weight: normal;
   font-style: normal;
@@ -90,7 +101,7 @@ body {
 .UpButt:active {
   background-color: #555;
 }
-a:-webkit-any-link  {
+a:-webkit-any-link {
   color: black;
   cursor: pointer;
   text-decoration: none;

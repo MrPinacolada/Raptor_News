@@ -80,20 +80,28 @@ export default defineComponent({
       "PoliticARTS",
       store.$state.HeadSwiperTitles.Politics
     );
-    // FillSliderArray(store, "SportARTS", SportTitles);
-    // FillSliderArray(store, "WeatherARTS", Weather);
+    FillSliderArray(store, "SportARTS", store.$state.HeadSwiperTitles.Sport);
+    FillSliderArray(
+      store,
+      "WeatherARTS",
+      store.$state.HeadSwiperTitles.Weather
+    );
     FillSliderArray(
       store,
       "OpinionARTS",
       store.$state.HeadSwiperTitles.Opinion
     );
-    // FillSliderArray(store, "BusinesARTS", Busines);
+    FillSliderArray(
+      store,
+      "BusinesARTS",
+      store.$state.HeadSwiperTitles.Busines
+    );
     FillSliderArray(
       store,
       "LifeStyleARTS",
       store.$state.HeadSwiperTitles.LifeStyle
     );
-    // FillSliderArray(store, "GamesARTS", Games);
+    FillSliderArray(store, "GamesARTS", store.$state.HeadSwiperTitles.Games);
     return {
       modules: [Pagination, Autoplay],
       loaderIMG,

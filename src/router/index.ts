@@ -84,6 +84,31 @@ const router = createRouter({
       component:() => import("@/views/LifeStyle/Articles/LifeStyleArts.vue")
     },
     
+    {
+      path: '/Business/:id',
+      name: 'BusinessArts',
+      props: true,
+      component:() => import("@/views/Business/Articles/BusinessArts.vue")
+    },
+    {
+      path: '/Games/:id',
+      name: 'GamesArts',
+      props: true,
+      component:() => import("@/views/Games/Articles/GamesArts.vue")
+    },
+    {
+      path: '/Sport/:id',
+      name: 'SportsArts',
+      props: true,
+      component:() => import("@/views/Sports/Articles/SportsArts.vue")
+    },
+    {
+      path: '/Weather/:id',
+      name: 'WeatherArts',
+      props: true,
+      component:() => import("@/views/Weather/Articles/WeatherArts.vue")
+    },
+    
   ]
 })
 export default router

@@ -4,6 +4,8 @@ import { load_ONE_IMG } from "@/firebase/config";
 export const Store = defineStore("Articles", {
   state: () => {
     return {
+      CreateAccount: false,
+      SinIn: false,
       TurnOffTheErrorLoaderIMG: false,
       currentTopicMajorPage: {
         Politic: "Politic",
@@ -70,6 +72,10 @@ export const Store = defineStore("Articles", {
         "Drawings offended yet answered jennings perceive laughing six did far.",
       DailyArtLifeStylePage:
         "Rejoiced prospect yet material servants out answered men admitted.",
+      DailyArtBusinessPage: "Shewing met parties gravity husband sex pleased.",
+      DailyArtGamesPage: "Yet no jokes worse her why.",
+      DailyArtSportsPage: "Covered parlors concern we express in visited to do.",
+      DailyArtWeatherPage: "Be acceptance at precaution astonished excellence thoroughly is entreaties.",
       PoliticARTS: [
         {
           tag: "Politics",

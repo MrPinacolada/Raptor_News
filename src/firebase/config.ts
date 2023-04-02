@@ -21,29 +21,22 @@ const RaptorNewsStorage = getStorage(app);
 
 const load_ONE_IMG = async (path: any, imgid: any, loaderID: any) => {
   try {
-    await getDownloadURL(ref(RaptorNewsStorage, path))
-      .then((url) => {
-        let img = document.getElementById(imgid);
-        if (url != undefined || null || false) {
-          img?.setAttribute("src", url);
-          img?.setAttribute("class", "animate__animated animate__fadeIn");
-          setTimeout(() => {
-            Store().$state.TurnOffTheErrorLoaderIMG = true;
-          }, 1000);
-          // document
-          //   .getElementById(loaderID)
-          //   ?.setAttribute("style", "display:none");
-        } else {
-          // img?.setAttribute("style", "display:none");
-          Store().$state.TurnOffTheErrorLoaderIMG = false;
-        }
-      })
-      .catch((error) => {
-        // document.getElementById(imgid)?.setAttribute("style", "display:none");
-        Store().$state.TurnOffTheErrorLoaderIMG = false;
-        console.log(error.message);
-      });
-  } catch {}
+    const url = await getDownloadURL(ref(RaptorNewsStorage, path));
+    let img = document.getElementById(imgid);
+    if (url != undefined || null || false) {
+      img?.setAttribute("src", url);
+      img?.setAttribute("class", "animate__animated animate__fadeIn");
+      setTimeout(() => {
+        Store().$state.TurnOffTheErrorLoaderIMG = true;
+      }, 2000);
+    } else {
+      Store().$state.TurnOffTheErrorLoaderIMG = false;
+    }
+    return url;
+  } catch (error: any) {
+    Store().$state.TurnOffTheErrorLoaderIMG = false;
+    console.log(error.message);
+    return null;
+  }
 };
-
 export { RaptorNewsStore, RaptorNewsStorage, load_ONE_IMG };
