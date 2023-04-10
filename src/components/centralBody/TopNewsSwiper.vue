@@ -44,14 +44,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onBeforeMount, computed } from "vue";
-import { RouterLink } from "vue-router";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Pagination, Autoplay } from "swiper";
-import SwiperCore from "swiper";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { getDownloadURL, listAll } from "firebase/storage";
-import { ref as fireRef } from "firebase/storage";
-import { RaptorNewsStorage, RaptorNewsStore } from "@/firebase/config";
 import { Store } from "@/piniaStorage/dbPinia";
 import { load_ONE_IMG } from "@/firebase/config";
 import "@justinribeiro/lite-youtube";

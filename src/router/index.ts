@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory} from 'vue-router'
-import { createServer} from 'vite';
 import PoliticsNewsVue from '@/views/Politics/PoliticsNews.vue'
 import BodyContainerVue from '@/components/centralBody/BodyContainer.vue'
-import BusinessNewsVueVue from '@/views/Business/BusinessNews.vue'
+import BusinessNewsVue from '@/views/Business/BusinessNews.vue'
 import LifeStyleNewsVue from '@/views/LifeStyle/LifeStyleNews.vue'
 import OpinionNewsVue from '@/views/Opinion/OpinionNews.vue'
 import SportsNewsVue from '@/views/Sports/SportsNews.vue'
@@ -12,11 +11,11 @@ import WeatherNews from '@/views/Weather/WeatherNews.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/:catchAll(.*)',
-      name: 'NotFound',
-      component: BodyContainerVue
-    },
+    // {
+    //   path: '/:catchAll(.*)',
+    //   name: 'NotFound',
+    //   component: BodyContainerVue
+    // },
     {
       path: '/',
       name: 'Home',
@@ -33,7 +32,7 @@ const router = createRouter({
       path: '/Business',
       name: 'Business',
       props: true,
-      component: BusinessNewsVueVue
+      component: BusinessNewsVue
     },
     {
       path: '/Sport',

@@ -1,10 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
-import { collection, getDocs } from "firebase/firestore";
-import VueLazyload from "vue-lazyload";
-import appVUE from "@/main";
-import MainVue from "@/Main.vue";
+import { getAuth } from "firebase/auth";
 import { Store } from "@/piniaStorage/dbPinia";
 
 const firebaseConfig = {
@@ -18,7 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const RaptorNewsStore = getFirestore(app);
 const RaptorNewsStorage = getStorage(app);
-
+const auth = getAuth(app);
 const load_ONE_IMG = async (path: any, imgid: any, loaderID: any) => {
   try {
     const url = await getDownloadURL(ref(RaptorNewsStorage, path));

@@ -24,6 +24,7 @@ export default defineComponent({
     RestNewsPolitics
   },
   setup() {
+    console.log('hi');
     return { }
   }
 })

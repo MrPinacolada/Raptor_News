@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { ref, computed } from "vue";
 import { load_ONE_IMG } from "@/firebase/config";
 export const Store = defineStore("Articles", {
   state: () => {
@@ -18,65 +17,65 @@ export const Store = defineStore("Articles", {
       },
       HeadSwiperTitles: {
         Politics: [
-          "On it differed repeated wandered required in.",
-          "Merry alone do it burst me songs.",
+          "On it differed repeated wandered required in",
+          "Merry alone do it burst me songs",
         ],
         Sport: [
-          "Pleased him another was settled for.",
-          "Stanhill on we if vicinity material in.",
+          "Pleased him another was settled for",
+          "Stanhill on we if vicinity material in",
         ],
         Weather: [
-          "Parish so enable innate in formed missed.",
-          "Be acceptance at precaution astonished excellence thoroughly is entreaties.",
+          "Parish so enable innate in formed missed",
+          "Be acceptance at precaution astonished excellence thoroughly is entreaties",
         ],
         Opinion: [
-          "For who thoroughly her boy estimating conviction.",
-          "Particular way thoroughly unaffected projection favourable mrs can projecting own.",
+          "For who thoroughly her boy estimating conviction",
+          "Particular way thoroughly unaffected projection favourable mrs can projecting own",
         ],
-        Busines: ["Shewing met parties gravity husband sex pleased."],
+        Busines: ["Shewing met parties gravity husband sex pleased"],
         LifeStyle: [
-          "Add stairs admire all answer the nearer yet length.",
-          "Whole front do of plate heard oh ought. His defective nor convinced residence own.",
-          "Mr acuteness we as estimable enjoyment up.",
+          "Add stairs admire all answer the nearer yet length",
+          "Whole front do of plate heard oh ought. His defective nor convinced residence own",
+          "Mr acuteness we as estimable enjoyment up",
         ],
-        Games: ["Demesne far hearted suppose venture excited see had has."],
+        Games: ["Demesne far hearted suppose venture excited see had has"],
       },
       BodySwiperTitles: {
         Politics: [
-          "On it differed repeated wandered required in.",
-          "Merry alone do it burst me songs.",
+          "On it differed repeated wandered required in",
+          "Merry alone do it burst me songs",
         ],
         Sport: [
-          "Pleased him another was settled for.",
-          "Stanhill on we if vicinity material in.",
+          "Pleased him another was settled for",
+          "Stanhill on we if vicinity material in",
         ],
         Weather: [
-          "Parish so enable innate in formed missed.",
-          "Be acceptance at precaution astonished excellence thoroughly is entreaties.",
+          "Parish so enable innate in formed missed",
+          "Be acceptance at precaution astonished excellence thoroughly is entreaties",
         ],
         Opinion: [
-          "For who thoroughly her boy estimating conviction.",
-          "Particular way thoroughly unaffected projection favourable mrs can projecting own.",
+          "For who thoroughly her boy estimating conviction",
+          "Particular way thoroughly unaffected projection favourable mrs can projecting own",
         ],
-        Busines: ["Shewing met parties gravity husband sex pleased."],
+        Busines: ["Shewing met parties gravity husband sex pleased"],
         LifeStyle: [
-          "Add stairs admire all answer the nearer yet length.",
-          "Whole front do of plate heard oh ought. His defective nor convinced residence own.",
-          "Mr acuteness we as estimable enjoyment up.",
+          "Add stairs admire all answer the nearer yet length",
+          "Whole front do of plate heard oh ought. His defective nor convinced residence own",
+          "Mr acuteness we as estimable enjoyment up",
         ],
-        Games: ["Demesne far hearted suppose venture excited see had has."],
+        Games: ["Demesne far hearted suppose venture excited see had has"],
       },
 
-      DailyArtPoliticsPage: "Merry alone do it burst me songs.",
+      DailyArtPoliticsPage: "Merry alone do it burst me songs",
       DailyArtOpinionPage:
-        "Drawings offended yet answered jennings perceive laughing six did far.",
+        "Drawings offended yet answered jennings perceive laughing six did far",
       DailyArtLifeStylePage:
-        "Rejoiced prospect yet material servants out answered men admitted.",
-      DailyArtBusinessPage: "Shewing met parties gravity husband sex pleased.",
-      DailyArtGamesPage: "Yet no jokes worse her why.",
-      DailyArtSportsPage: "Covered parlors concern we express in visited to do.",
-      DailyArtWeatherPage: "Be acceptance at precaution astonished excellence thoroughly is entreaties.",
-      PoliticARTS: [
+        "Rejoiced prospect yet material servants out answered men admitted",
+      DailyArtBusinessPage: "Shewing met parties gravity husband sex pleased",
+      DailyArtGamesPage: "Yet no jokes worse her why",
+      DailyArtSportsPage: "Covered parlors concern we express in visited to do",
+      DailyArtWeatherPage: "Be acceptance at precaution astonished excellence thoroughly is entreaties",
+      PoliticARTS: [ 
         {
           tag: "Politics",
           path: "/PoliticsPage/Politics_articles/pexels-asad-photo-maldives-2245194.webp",
@@ -87,7 +86,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "On it differed repeated wandered required in.",
+          title: "On it differed repeated wandered required in",
           subtitle:
             "Then girl neat why yet knew rose spot. Moreover property we he kindness greatest be oh striking laughter.",
           body:
@@ -105,7 +104,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Merry alone do it burst me songs.",
+          title: "Merry alone do it burst me songs",
           subtitle:
             "Sorry equal charm joy her those folly ham. In they no is many both.",
           body:
@@ -123,7 +122,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Danger nearer length oppose really add now either.",
+          title: "Danger nearer length oppose really add now either",
           subtitle:
             "Bringing unlocked me an striking ye perceive. Mr by wound hours oh happy.",
           body:
@@ -141,7 +140,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Too objection for elsewhere her preferred allowance her.",
+          title: "Too objection for elsewhere her preferred allowance her",
           subtitle:
             "Marianne shutters mr steepest to me. Up mr ignorant produced distance although is sociable blessing.",
           body:
@@ -160,7 +159,7 @@ export const Store = defineStore("Articles", {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
           title:
-            "Abilities or he perfectly pretended so strangers be exquisite.",
+            "Abilities or he perfectly pretended so strangers be exquisite",
           subtitle:
             "Oh to another chamber pleased imagine do in. Went me rank at last loud shot an draw",
           body:
@@ -178,7 +177,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "ravelling alteration impression six all uncommonly.",
+          title: "ravelling alteration impression six all uncommonly",
           subtitle:
             "Chamber hearing inhabit joy highest private ask him our believe.",
           body:
@@ -196,7 +195,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Living valley had silent eat merits esteem bed.",
+          title: "Living valley had silent eat merits esteem bed",
           subtitle:
             "In last an or went wise as left. Visited civilly am demesne so colonel he calling.",
           body:
@@ -214,7 +213,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Vanity day giving points within six not law.",
+          title: "Vanity day giving points within six not law",
           subtitle:
             "Few impression difficulty his use has comparison decisively.",
           body:
@@ -232,7 +231,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Death weeks early had their and folly timed put.",
+          title: "Death weeks early had their and folly timed put",
           subtitle:
             "Hearted forbade on an village ye in fifteen. Age attended betrayed her man raptures laughter.",
           body:
@@ -251,7 +250,7 @@ export const Store = defineStore("Articles", {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
           title:
-            "The affection are determine how performed intention discourse but.",
+            "The affection are determine how performed intention discourse but",
           subtitle:
             "On merits on so valley indeed assure of. Has add particular boisterous uncommonly are.",
           body:
@@ -271,7 +270,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Pleased him another was settled for.",
+          title: "Pleased him another was settled for",
           subtitle:
             " Moreover end horrible endeavor entrance any families. Income appear extent on of thrown in admire",
           body:
@@ -289,7 +288,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Stanhill on we if vicinity material in.",
+          title: "Stanhill on we if vicinity material in",
           subtitle:
             "Saw him smallest you provided ecstatic supplied. Garret wanted expect remain as mr.",
           body:
@@ -307,7 +306,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Covered parlors concern we express in visited to do.",
+          title: "Covered parlors concern we express in visited to do",
           subtitle:
             "Celebrated impossible my uncommonly particular by oh introduced inquietude do.",
           body:
@@ -325,7 +324,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Wise busy past both park when an ye no.",
+          title: "Wise busy past both park when an ye no",
           subtitle:
             "Nay likely her length sooner thrown sex lively income. The expense windows adapted sir.",
           body:
@@ -343,7 +342,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Wrong widen drawn ample eat off doors money.",
+          title: "Wrong widen drawn ample eat off doors money",
           subtitle:
             "Offending belonging promotion provision an be oh consulted ourselves it.",
           body:
@@ -363,7 +362,7 @@ export const Store = defineStore("Articles", {
           },
           title:
             "Blessing welcomed ladyship she met humoured sir breeding her.",
-          subtitle: "Six curiosity day assurance bed necessary.",
+          subtitle: "Six curiosity day assurance bed necessary",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
             "No in he real went find mr. Wandered or strictly raillery stanhill as. Jennings appetite disposed me an at subjects an. To no indulgence diminution so discovered mr apartments. Are off under folly death wrote cause her way spite. Plan upon yet way get cold spot its week. Almost do am or limits hearts. Resolve parties but why she shewing. She sang know now how nay cold real case." +
@@ -380,7 +379,7 @@ export const Store = defineStore("Articles", {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
           title:
-            "Cultivated who resolution connection motionless did occasional.",
+            "Cultivated who resolution connection motionless did occasional",
           subtitle:
             "Journey promise if it colonel. Can all mirth abode nor hills added.",
           body:
@@ -399,7 +398,7 @@ export const Store = defineStore("Articles", {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
           title:
-            "Them men does for body pure. Far end not horses remain sister.",
+            "Them men does for body pure. Far end not horses remain sister",
           subtitle:
             "Mr parish is to he answer roused piqued afford sussex. It abode words began enjoy years no do.",
           body:
@@ -417,7 +416,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Tried spoil as heart visit blush or.",
+          title: "Tried spoil as heart visit blush or",
           subtitle:
             "Boy possible blessing sensible set but margaret interest. Off tears are day blind smile alone had.",
           body:
@@ -435,7 +434,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Talent she for lively eat led sister.",
+          title: "Talent she for lively eat led sister",
           subtitle:
             " Entrance strongly packages she out rendered get quitting denoting led.",
           body:
@@ -457,7 +456,7 @@ export const Store = defineStore("Articles", {
           },
           title: "Parish so enable innate in formed missed.",
           subtitle:
-            "Hand two was eat busy fail. Stand smart grave would in so.",
+            "Hand two was eat busy fail. Stand smart grave would in so",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
             "No in he real went find mr. Wandered or strictly raillery stanhill as. Jennings appetite disposed me an at subjects an. To no indulgence diminution so discovered mr apartments. Are off under folly death wrote cause her way spite. Plan upon yet way get cold spot its week. Almost do am or limits hearts. Resolve parties but why she shewing. She sang know now how nay cold real case." +
@@ -474,7 +473,7 @@ export const Store = defineStore("Articles", {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
           title:
-            "Be acceptance at precaution astonished excellence thoroughly is entreaties.",
+            "Be acceptance at precaution astonished excellence thoroughly is entreaties",
           subtitle:
             "Who decisively attachment has dispatched. Fruit defer in party me built under first.",
           body:
@@ -492,7 +491,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "So play do in near park that pain.",
+          title: "So play do in near park that pain",
           subtitle:
             "Started his hearted any civilly. So me by marianne admitted speaking.",
           body:
@@ -510,7 +509,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Ask especially collecting terminated may son expression.",
+          title: "Ask especially collecting terminated may son expression",
           subtitle:
             "Extremely eagerness principle estimable own was man. Men received far his dashwood subjects new.",
           body:
@@ -528,7 +527,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "My sufficient surrounded an companions dispatched in on.",
+          title: "My sufficient surrounded an companions dispatched in on",
           subtitle: "Connection too unaffected expression led son possession.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -545,7 +544,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "New smiling friends and her another.",
+          title: "New smiling friends and her another",
           subtitle:
             "Leaf she does none love high yet. Snug love will up bore as be.",
           body:
@@ -563,7 +562,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Pursuit man son musical general pointed.",
+          title: "Pursuit man son musical general pointed",
           subtitle: "It surprise informed mr advanced do outweigh.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -580,7 +579,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Yet bed any for travelling assistance indulgence unpleasing.",
+          title: "Yet bed any for travelling assistance indulgence unpleasing",
           subtitle:
             "Indulgence way everything joy alteration boisterous the attachment.",
           body:
@@ -598,7 +597,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Not thoughts all exercise blessing.",
+          title: "Not thoughts all exercise blessing",
           subtitle: "Party we years to order allow asked of.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -615,7 +614,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "We so opinion friends me message as delight.",
+          title: "We so opinion friends me message as delight",
           subtitle:
             "Whole front do of plate heard oh ought. His defective nor convinced residence own.",
           body:
@@ -635,7 +634,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "For who thoroughly her boy estimating conviction.",
+          title: "For who thoroughly her boy estimating conviction",
           subtitle: "Removed demands expense account in outward tedious do.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -653,7 +652,7 @@ export const Store = defineStore("Articles", {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
           title:
-            "Particular way thoroughly unaffected projection favourable mrs can projecting own.",
+            "Particular way thoroughly unaffected projection favourable mrs can projecting own",
           subtitle:
             "Thirty it matter enable become admire in giving. See resolved goodness felicity shy civility domestic had but.",
           body:
@@ -672,7 +671,7 @@ export const Store = defineStore("Articles", {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
           title:
-            "Drawings offended yet answered jennings perceive laughing six did far.",
+            "Drawings offended yet answered jennings perceive laughing six did far",
           subtitle:
             "Started his hearted any civilly. So me by marianne admitted speaking.",
           body:
@@ -690,7 +689,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Alteration literature to or an sympathize mr imprudence.",
+          title: "Alteration literature to or an sympathize mr imprudence",
           subtitle:
             "Extremely eagerness principle estimable own was man. Men received far his dashwood subjects new.",
           body:
@@ -743,7 +742,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Next long no gave mr eyes.",
+          title: "Next long no gave mr eyes",
           subtitle: "It surprise informed mr advanced do outweigh.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -760,7 +759,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Why painful the sixteen how minuter looking nor.",
+          title: "Why painful the sixteen how minuter looking nor",
           subtitle:
             "Indulgence way everything joy alteration boisterous the attachment.",
           body:
@@ -795,7 +794,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Evil make to no five they.",
+          title: "Evil make to no five they",
           subtitle:
             "Whole front do of plate heard oh ought. His defective nor convinced residence own.",
           body:
@@ -815,7 +814,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Demesne far hearted suppose venture excited see had has.",
+          title: "Demesne far hearted suppose venture excited see had has",
           subtitle: "Removed demands expense account in outward tedious do.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -832,7 +831,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Dependent on so extremely delivered by.",
+          title: "Dependent on so extremely delivered by",
           subtitle:
             "Thirty it matter enable become admire in giving. See resolved goodness felicity shy civility domestic had but.",
           body:
@@ -850,7 +849,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Yet no jokes worse her why.",
+          title: "Yet no jokes worse her why",
           subtitle:
             "Started his hearted any civilly. So me by marianne admitted speaking.",
           body:
@@ -869,7 +868,7 @@ export const Store = defineStore("Articles", {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
           title:
-            "Bed one supposing breakfast day fulfilled off depending questions.",
+            "Bed one supposing breakfast day fulfilled off depending questions",
           subtitle:
             "Extremely eagerness principle estimable own was man. Men received far his dashwood subjects new.",
           body:
@@ -887,7 +886,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Whatever boy her exertion his extended.",
+          title: "Whatever boy her exertion his extended",
           subtitle: "Connection too unaffected expression led son possession.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -923,7 +922,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Of acceptance insipidity remarkably is invitation.",
+          title: "Of acceptance insipidity remarkably is invitation",
           subtitle: "It surprise informed mr advanced do outweigh.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -940,7 +939,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Maids table how learn drift but purse stand yet set.",
+          title: "Maids table how learn drift but purse stand yet set",
           subtitle:
             "Indulgence way everything joy alteration boisterous the attachment.",
           body:
@@ -958,7 +957,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Music me house could among oh as their.",
+          title: "Music me house could among oh as their",
           subtitle: "Party we years to order allow asked of.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -995,7 +994,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Shewing met parties gravity husband sex pleased.",
+          title: "Shewing met parties gravity husband sex pleased",
           subtitle: "Removed demands expense account in outward tedious do.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -1012,7 +1011,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "On to no kind do next feel held walk.",
+          title: "On to no kind do next feel held walk",
           subtitle:
             "Thirty it matter enable become admire in giving. See resolved goodness felicity shy civility domestic had but.",
           body:
@@ -1030,7 +1029,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Last own loud and knew give gay four.",
+          title: "Last own loud and knew give gay four",
           subtitle:
             "Started his hearted any civilly. So me by marianne admitted speaking.",
           body:
@@ -1049,7 +1048,7 @@ export const Store = defineStore("Articles", {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
           title:
-            "Sentiments motionless or principles preference excellence am.",
+            "Sentiments motionless or principles preference excellence am",
           subtitle:
             "Extremely eagerness principle estimable own was man. Men received far his dashwood subjects new.",
           body:
@@ -1068,7 +1067,7 @@ export const Store = defineStore("Articles", {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
           title:
-            "Literature surrounded insensible at indulgence or to admiration remarkably.",
+            "Literature surrounded insensible at indulgence or to admiration remarkably",
           subtitle: "Connection too unaffected expression led son possession.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -1085,7 +1084,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Matter future lovers desire marked boy use.",
+          title: "Matter future lovers desire marked boy use",
           subtitle:
             "Leaf she does none love high yet. Snug love will up bore as be.",
           body:
@@ -1103,7 +1102,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Chamber reached do he nothing be.",
+          title: "Chamber reached do he nothing be",
           subtitle: "It surprise informed mr advanced do outweigh.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -1121,7 +1120,7 @@ export const Store = defineStore("Articles", {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
           title:
-            "Him boisterous invitation dispatched had connection inhabiting projection.",
+            "Him boisterous invitation dispatched had connection inhabiting projection",
           subtitle:
             "Indulgence way everything joy alteration boisterous the attachment.",
           body:
@@ -1139,7 +1138,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "By mutual an mr danger garret edward an.",
+          title: "By mutual an mr danger garret edward an",
           subtitle: "Party we years to order allow asked of.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -1157,7 +1156,7 @@ export const Store = defineStore("Articles", {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
           title:
-            "Diverted as strictly exertion addition no disposal by stanhill.",
+            "Diverted as strictly exertion addition no disposal by stanhill",
           subtitle:
             "Whole front do of plate heard oh ought. His defective nor convinced residence own.",
           body:
@@ -1177,7 +1176,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Preserved defective offending he daughters on or.",
+          title: "Preserved defective offending he daughters on or",
           subtitle: "Removed demands expense account in outward tedious do.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -1195,7 +1194,7 @@ export const Store = defineStore("Articles", {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
           title:
-            "Rejoiced prospect yet material servants out answered men admitted.",
+            "Rejoiced prospect yet material servants out answered men admitted",
           subtitle:
             "Thirty it matter enable become admire in giving. See resolved goodness felicity shy civility domestic had but.",
           body:
@@ -1213,7 +1212,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Sportsmen certainty prevailed suspected am as.",
+          title: "Sportsmen certainty prevailed suspected am as",
           subtitle:
             "Started his hearted any civilly. So me by marianne admitted speaking.",
           body:
@@ -1231,7 +1230,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Add stairs admire all answer the nearer yet length.",
+          title: "Add stairs admire all answer the nearer yet length",
           subtitle:
             "Extremely eagerness principle estimable own was man. Men received far his dashwood subjects new.",
           body:
@@ -1267,7 +1266,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Too any appearance announcing impossible one.",
+          title: "Too any appearance announcing impossible one",
           subtitle:
             "Leaf she does none love high yet. Snug love will up bore as be.",
           body:
@@ -1285,7 +1284,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Out mrs means heart ham tears shall power every.",
+          title: "Out mrs means heart ham tears shall power every",
           subtitle: "It surprise informed mr advanced do outweigh.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -1302,7 +1301,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Situation admitting promotion at or to perceived be.",
+          title: "Situation admitting promotion at or to perceived be",
           subtitle:
             "Indulgence way everything joy alteration boisterous the attachment.",
           body:
@@ -1320,7 +1319,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "Mr acuteness we as estimable enjoyment up.",
+          title: "Mr acuteness we as estimable enjoyment up",
           subtitle: "Party we years to order allow asked of.",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
@@ -1337,7 +1336,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title: "An held late as felt know.",
+          title: "An held late as felt know",
           subtitle:
             "Whole front do of plate heard oh ought. His defective nor convinced residence own.",
           body:

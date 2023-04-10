@@ -13,7 +13,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { RouterLink } from "vue-router";
 import RightBar from "../RightBar/RightBar.vue";
 import DailyNews from "./DailyNews.vue";
 import Last_previousNews from "./Last_previousNews.vue";
@@ -28,10 +27,6 @@ export default defineComponent({
     TopNewsSwiper,
     ADS,
     restNEWsBody,
-  },
-  setup() {
-
-    return { };
   },
 });
 </script>

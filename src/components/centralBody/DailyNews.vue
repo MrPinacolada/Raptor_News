@@ -29,14 +29,13 @@ import { Store } from "@/piniaStorage/dbPinia";
 import { load_ONE_IMG } from "@/firebase/config";
 import "animate.css";
 export default defineComponent({
-  components: {},
   setup() {
     let checkTheLoader = computed(
       () => Store().$state.TurnOffTheErrorLoaderIMG
     );
     let CurrentArt = ref();
     let currentTitleMajorPage =
-      "Sportsmen certainty prevailed suspected am as.";
+      "Sportsmen certainty prevailed suspected am as";
     let Topics = {
       Politic: Store().$state.PoliticARTS,
       Sport: Store().$state.SportARTS,

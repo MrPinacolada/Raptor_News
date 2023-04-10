@@ -26,7 +26,6 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue'
-import { RouterLink } from 'vue-router'
 import axios from 'axios'
 export default defineComponent({
   components: {},

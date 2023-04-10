@@ -2,7 +2,6 @@
   <article class="fiatPriceContainer">
     <div class="ifERROR" v-if="!error">
       <div class="indexes" v-for="index in indexes">
-        <!-- <p>{{ index?.name }}</p> -->
         <p id="indexSymbol">{{ index?.symbol }}</p>
         <p id="IndexPrice">{{ index?.price.toFixed(2) }}</p>
         <p

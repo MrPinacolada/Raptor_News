@@ -5,11 +5,10 @@ import {
   onMounted,
   ref,
   onBeforeUnmount,
-  reactive,
   watch,
-computed,
+  computed,
 } from "vue";
-import SingIn from "@/components/Autentification/SingIn.vue";
+import SingIn from "@/components/Autentification/SingIN.vue";
 import CreateAccount from "@/components/Autentification/CreateAccount.vue";
 import HeadBar from "@/components/Header/HeadBar.vue";
 import Swiper from "@/components/HotNewsHead/Swiper.vue";
@@ -35,9 +34,12 @@ export default defineComponent({
     onBeforeUnmount(() => {
       document.removeEventListener("scroll", checkScroll);
     });
-    let overflowY = document.body.style.overflowY;
-let checkSingORCreateAccButt = computed
-    watch(store.$state.CreateAccount, () => {});
+    let checkSingORCreateAccButt = computed(
+      () => store.$state.CreateAccount
+    ) as any;
+    watch(checkSingORCreateAccButt, () => {
+      document.body.style.overflowY = "hidden";
+    });
     return { SCROLLtop, scrolling, store };
   },
 });
@@ -47,13 +49,9 @@ let checkSingORCreateAccButt = computed
   <header>
     <HeadBar />
   </header>
-  <Swiper />
+  <!-- <Swiper /> -->
   <main>
-    <RouterView v-slot="{ Component }">
-      <KeepAlive>
-        <component :is="Component" />
-      </KeepAlive>
-    </RouterView>
+    <RouterView />
   </main>
   <div
     class="animate__animated UpButt"

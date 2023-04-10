@@ -56,9 +56,9 @@ export default defineComponent({
     let Current_PREVIOUS_Art = ref();
     let Current_LAST_Art = ref();
     let current_TITLE_MajorPageLastNews =
-      "Drawings offended yet answered jennings perceive laughing six did far.";
+      "Drawings offended yet answered jennings perceive laughing six did far";
     let current_TITLE_MajorPagePreviousNews =
-      "Too objection for elsewhere her preferred allowance her.";
+      "Too objection for elsewhere her preferred allowance her";
     let Topics = {
       Politic: Store().$state.PoliticARTS,
       Sport: Store().$state.SportARTS,
