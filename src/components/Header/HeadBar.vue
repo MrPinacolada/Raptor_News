@@ -2,7 +2,10 @@
   <div class="styleline"></div>
   <div class="flexcontainer">
     <RouterLink :to="{ name: 'Home' }">
-      <img id="LOGO" src="@/assets/HeadBar/Raptor_News_Network_Logo.webp" alt="Raptor news LOGO"
+      <img
+        id="LOGO"
+        src="@/assets/HeadBar/Raptor_News_Network_Logo.webp"
+        alt="Raptor news LOGO"
     /></RouterLink>
     <RouterLink :to="{ name: 'Politics' }">
       <div class="refs forall"><p>Politics</p></div>
@@ -31,11 +34,20 @@
       <div class="refs forall"><p>Lifestyle</p></div>
     </RouterLink>
 
-    <div class="buttons">
+    <div class="buttons" >
       <ion-icon name="search-outline"></ion-icon>
-      <button class="singin forall">Sing In</button>
-      <button class="createacc forall" @click="store.$state.CreateAccount = !store.$state.CreateAccount">Create Account</button>
-      
+      <button
+        class="singin forall" id="singINbutt"
+        @click="store.$state.SingIN = !store.$state.SingIN"
+      >
+        Sing In
+      </button>
+      <button
+        class="createacc forall"
+        @click="store.$state.CreateAccount = !store.$state.CreateAccount"
+      >
+        Create Account
+      </button>
     </div>
   </div>
   <div class="hwrap">
@@ -49,23 +61,32 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { RouterLink } from 'vue-router'
-import { ref, onMounted } from 'vue'
-import FiatPriceModule from './FiatPriceModule.vue'
+import { defineComponent } from "vue";
+import { RouterLink } from "vue-router";
+import { ref, onMounted } from "vue";
+import FiatPriceModule from "./FiatPriceModule.vue";
 import { Store } from "@/piniaStorage/dbPinia";
 
 export default defineComponent({
   components: { FiatPriceModule },
   setup() {
-    let store = Store()
-    return {store}
-  }
-})
+    let store = Store();
+    onMounted(() => {
+      if (typeof Storage !== undefined) {
+        let timeToSingIN = localStorage.getItem("SingIN-Butt-Class");
+      let SingINButt = document.getElementById("singINbutt");
+      SingINButt?.classList.add(timeToSingIN as string);
+      }
+      
+    });
+
+    return { store };
+  },
+});
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 .styleline {
   position: sticky;
   width: 100%;
@@ -94,7 +115,7 @@ export default defineComponent({
   position: relative;
 }
 .refs::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   transform: scaleX(0);
@@ -119,7 +140,7 @@ ion-icon:hover {
   color: #ccc;
 }
 .forall {
-  font-family: 'PT Sans', sans-serif;
+  font-family: "PT Sans", sans-serif;
   cursor: pointer;
   color: #ccc;
 }
@@ -154,7 +175,7 @@ p {
   align-content: center;
   justify-content: center;
   gap: 80px;
-  font-family: 'PT Sans', sans-serif;
+  font-family: "PT Sans", sans-serif;
   font-weight: bold;
   letter-spacing: 1px;
   cursor: default;
@@ -195,5 +216,31 @@ p {
 a:-webkit-any-link {
   display: flex;
   text-decoration: none;
+}
+.SingIN-Butt-b4-SingIN {
+  animation: heartbeat 1.5s ease-in-out infinite both;
+}
+@keyframes heartbeat {
+  from {
+    transform: scale(1);
+    transform-origin: center center;
+    animation-timing-function: ease-out;
+  }
+  10% {
+    transform: scale(0.91);
+    animation-timing-function: ease-in;
+  }
+  17% {
+    transform: scale(0.98);
+    animation-timing-function: ease-out;
+  }
+  33% {
+    transform: scale(0.87);
+    animation-timing-function: ease-in;
+  }
+  45% {
+    transform: scale(1);
+    animation-timing-function: ease-out;
+  }
 }
 </style>

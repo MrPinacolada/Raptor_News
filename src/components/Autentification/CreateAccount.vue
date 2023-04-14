@@ -1,19 +1,52 @@
 <template>
-  <div v-if="store.$state.CreateAccount" class="CreateAccountContainer">
-    <form @submit.prevent>
-      <div
-        class="ChooseURplace"
-        v-if="(asUser || asEditor) != true && !AuthSucces"
-      >
+  <div
+    v-if="store.$state.CreateAccount"
+    class="animate__animated CreateAccountContainer animate__fadeIn"
+    :class="{ animate__fadeOut: closeForm }"
+  >
+    <form
+      @submit.prevent
+      class="animate__animated animate__backInLeft"
+      :class="{ animate__backOutRight: asUser || asEditor || closeForm }"
+    >
+      <div class="ChooseURplace">
+        <img
+          class="CloseButt"
+          src="@/assets/AuthAssets/icons8-close.svg"
+          @click="HandleCloseForm"
+        />
         <span class="animatedText" @click="asUser = true">I'm a new User</span>
         <br />
         <span class="animatedText" @click="asEditor = true">I'm an Editor</span>
       </div>
-      <div class="HandleSucces" v-if="AuthSucces"></div>
-
-      <div class="userForm" v-if="asUser && !AuthSucces">
+      <div class="ChooseURplace" v-if="AuthError">
+        <span class="animatedText"
+          >Something went wrong. Please, refresh the page and try again.</span
+        >
+      </div>
+      <div class="HandleSucces" v-if="AuthSucces">
+        <p>Created successfully!</p>
+      </div>
+    </form>
+    <form
+      @submit.prevent
+      v-if="asUser && !AuthSucces"
+      class="animate__animated animate__backInLeft"
+      :class="{ animate__shakeX: AuthError, animate__backOutRight: closeForm }"
+    >
+      <div class="userForm">
+        <img
+          class="CloseButt"
+          src="@/assets/AuthAssets/icons8-close.svg"
+          @click="HandleCloseForm"
+        />
         <label>User name:</label>
-        <input required type="text" v-model="userName" />
+        <input
+          required
+          type="text"
+          v-model="userName"
+          placeholder="Bob Bobson"
+        />
         <label>Email:</label>
         <input
           placeholder="example@example.com"
@@ -35,9 +68,27 @@
           <span class="submSpan">Create Account</span>
         </button>
       </div>
-      <div class="editorForm" v-if="asEditor && !AuthSucces">
+    </form>
+
+    <form
+      @submit.prevent
+      v-if="asEditor && !AuthSucces"
+      class="animate__animated animate__backInLeft"
+      :class="{ animate__backOutRight: closeForm }"
+    >
+      <div class="editorForm">
+        <img
+          class="CloseButt"
+          src="@/assets/AuthAssets/icons8-close.svg"
+          @click="HandleCloseForm"
+        />
         <label>User name:</label>
-        <input required type="text" v-model="userName" />
+        <input
+          required
+          type="text"
+          v-model="userName"
+          placeholder="Bob Bobson"
+        />
         <label>Email:</label>
         <input
           placeholder="example@example.com"
@@ -67,7 +118,16 @@
 import { defineComponent, ref, watch } from "vue";
 import { RouterLink } from "vue-router";
 import { Store } from "@/piniaStorage/dbPinia";
-import { load_ONE_IMG } from "@/firebase/config";
+import { load_ONE_IMG, RaptorNewsStore } from "@/firebase/config";
+import {
+  getDocFromCache,
+  collection,
+  doc,
+  setDoc,
+  getDocs,
+  query,
+} from "firebase/firestore";
+
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 export default defineComponent({
   setup() {
@@ -84,6 +144,18 @@ export default defineComponent({
     let errorRepeatPassword = ref();
     let AuthSucces = ref(false);
     let AuthError = ref(false);
+    let closeForm = ref(false);
+    let HandleCloseForm = () => {
+      closeForm.value = true;
+      setTimeout(() => {
+        closeForm.value = false;
+        store.$state.CreateAccount = false;
+        asUser.value = false;
+        asEditor.value = false;
+        AuthSucces.value = false;
+        AuthError.value = false;
+      }, 500);
+    };
     let HandleSucces = () => {
       AuthSucces.value = true;
       setTimeout(() => {
@@ -112,7 +184,7 @@ export default defineComponent({
     watch(repeatPassword, () => {
       errorRepeatPassword.value =
         password.value != repeatPassword.value
-          ? "Your passwords are not equal"
+          ? "Your passwords are not equally"
           : "";
     });
     let handleSubmitUser = () => {
@@ -120,7 +192,16 @@ export default defineComponent({
         if (!errorPassword.value && !errorRepeatPassword.value) {
           createUserWithEmailAndPassword(auth, email.value, password.value)
             .then((userCredential) => {
-              const user = userCredential.user;
+              if (typeof Storage !== undefined) {
+                localStorage.setItem("user-name", userName.value as string);
+                localStorage.setItem("auth-token", userCredential.user.uid as string);
+                localStorage.setItem(
+                  "SingIN-Butt-Class",
+                  "SingIN-Butt-b4-SingIN"
+                );
+              }
+            })
+            .then(() => {
               HandleSucces();
             })
             .catch((error) => {
@@ -133,7 +214,43 @@ export default defineComponent({
       }
     };
 
-    let handleSubmitEditor = () => {};
+    let handleSubmitEditor = async () => {
+      if (asEditor.value) {
+        let Req = query(collection(RaptorNewsStore, "Editor_mode"));
+        let querySnapshot = await getDocs(Req);
+        let response = querySnapshot.docs.find((doc) => {
+          return doc.data().code == (editorCode.value as string);
+        });
+        if (
+          !errorPassword.value &&
+          !errorRepeatPassword.value &&
+          response?.data().code != undefined
+        ) {
+          createUserWithEmailAndPassword(auth, email.value, password.value)
+            .then((userCredential) => {
+              if (typeof Storage !== undefined) {
+                localStorage.setItem("user-name", userName.value as string);
+                localStorage.setItem("isEditor", 'true');
+                localStorage.setItem("auth-token", userCredential.user.uid);
+                localStorage.setItem(
+                  "SingIN-Butt-Class",
+                  "SingIN-Butt-b4-SingIN"
+                );
+              }
+            })
+            .then(() => {
+              HandleSucces();
+            })
+            .catch((error) => {
+              AuthSucces.value = false;
+              AuthError.value = true;
+              const errorCode = error.code;
+              const errorMessage = error.message;
+            });
+        }
+      }
+    };
+
     return {
       store,
       asUser,
@@ -149,6 +266,8 @@ export default defineComponent({
       handleSubmitUser,
       AuthSucces,
       AuthError,
+      HandleCloseForm,
+      closeForm,
     };
   },
 });
@@ -334,8 +453,14 @@ p {
   }
 }
 .HandleSucces {
-  width: 400px;
-  height: 200px;
-  background-color: red;
+  width: 100%;
+  height: 100%;
+}
+.CloseButt {
+  position: absolute;
+  top: 2%;
+  left: 92%;
+  opacity: 60%;
+  cursor: pointer;
 }
 </style>

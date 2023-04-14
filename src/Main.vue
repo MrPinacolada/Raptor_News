@@ -14,11 +14,15 @@ import HeadBar from "@/components/Header/HeadBar.vue";
 import Swiper from "@/components/HotNewsHead/Swiper.vue";
 import BodyContainer from "@/components/centralBody/BodyContainer.vue";
 import { Store } from "@/piniaStorage/dbPinia";
+import "animate.css";
 export default defineComponent({
   components: { HeadBar, Swiper, BodyContainer, SingIn, CreateAccount },
   setup() {
+    // ------------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    localStorage.clear();
+    //-------------------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     let store = Store();
-    const SCROLLtop = ref();
+    let SCROLLtop = ref(200);
     let checkScroll = () => {
       SCROLLtop.value = window.scrollY;
     };
@@ -34,11 +38,15 @@ export default defineComponent({
     onBeforeUnmount(() => {
       document.removeEventListener("scroll", checkScroll);
     });
-    let checkSingORCreateAccButt = computed(
-      () => store.$state.CreateAccount
-    ) as any;
-    watch(checkSingORCreateAccButt, () => {
-      document.body.style.overflowY = "hidden";
+    let checkCreateAcc = computed(() => store.$state.CreateAccount) as any;
+    let checkSingIN = computed(() => store.$state.SingIN) as any;
+    watch([checkCreateAcc, checkSingIN], () => {
+      document.body.style.overflowY =
+        checkCreateAcc.value || checkSingIN.value
+          ? "hidden"
+          : !checkCreateAcc.value || !checkSingIN.value
+          ? "visible"
+          : "visible";
     });
     return { SCROLLtop, scrolling, store };
   },
@@ -54,10 +62,10 @@ export default defineComponent({
     <RouterView />
   </main>
   <div
-    class="animate__animated UpButt"
+    class="UpButt animate__animated"
     :class="{
       animate__flipInY: SCROLLtop >= 400,
-      animate__flipOutY: SCROLLtop < 410,
+      animate__flipOutY: SCROLLtop <= 430,
     }"
     @click="scrolling"
   ></div>
@@ -108,5 +116,8 @@ a:-webkit-any-link {
   color: black;
   cursor: pointer;
   text-decoration: none;
+}
+.UpButtOn {
+  opacity: 1;
 }
 </style>

@@ -3,8 +3,10 @@ import { load_ONE_IMG } from "@/firebase/config";
 export const Store = defineStore("Articles", {
   state: () => {
     return {
+      UserUID:'',
+      UserName:'',
       CreateAccount: false,
-      SinIn: false,
+      SingIN: false,
       TurnOffTheErrorLoaderIMG: false,
       currentTopicMajorPage: {
         Politic: "Politic",
