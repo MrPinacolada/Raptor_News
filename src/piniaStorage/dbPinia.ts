@@ -3,8 +3,8 @@ import { load_ONE_IMG } from "@/firebase/config";
 export const Store = defineStore("Articles", {
   state: () => {
     return {
-      UserUID:'',
-      UserName:'',
+      UserUID:undefined as any,
+      UserName:undefined as any,
       CreateAccount: false,
       SingIN: false,
       TurnOffTheErrorLoaderIMG: false,

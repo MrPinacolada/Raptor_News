@@ -19,7 +19,7 @@ export default defineComponent({
   components: { HeadBar, Swiper, BodyContainer, SingIn, CreateAccount },
   setup() {
     // ------------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    localStorage.clear();
+    // localStorage.clear();
     //-------------------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     let store = Store();
     let SCROLLtop = ref(200);
@@ -34,6 +34,8 @@ export default defineComponent({
     };
     onMounted(() => {
       document.addEventListener("scroll", checkScroll);
+      store.$state.UserUID = localStorage.getItem("auth-token") as string;
+      store.$state.UserName = localStorage.getItem("user-name") as string;
     });
     onBeforeUnmount(() => {
       document.removeEventListener("scroll", checkScroll);

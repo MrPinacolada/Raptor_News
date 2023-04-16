@@ -34,15 +34,23 @@
       <div class="refs forall"><p>Lifestyle</p></div>
     </RouterLink>
 
-    <div class="buttons" >
+    <div class="buttons">
       <ion-icon name="search-outline"></ion-icon>
+      <div class="userView" v-if="store.$state.UserUID">
+    <RouterLink :to="{ name: 'UserPage' }">
+        <img src="@/assets/HeadBar/user.png" id="userIconIMG"/>
+    </RouterLink>
+      </div>
       <button
-        class="singin forall" id="singINbutt"
+        v-if="store.$state.UserUID == undefined"
+        class="singin forall"
+        id="singINbutt"
         @click="store.$state.SingIN = !store.$state.SingIN"
       >
         Sing In
       </button>
       <button
+        v-if="store.$state.UserUID == undefined"
         class="createacc forall"
         @click="store.$state.CreateAccount = !store.$state.CreateAccount"
       >
@@ -74,10 +82,9 @@ export default defineComponent({
     onMounted(() => {
       if (typeof Storage !== undefined) {
         let timeToSingIN = localStorage.getItem("SingIN-Butt-Class");
-      let SingINButt = document.getElementById("singINbutt");
-      SingINButt?.classList.add(timeToSingIN as string);
+        let SingINButt = document.getElementById("singINbutt");
+        SingINButt?.classList.add(timeToSingIN as string);
       }
-      
     });
 
     return { store };
@@ -241,6 +248,25 @@ a:-webkit-any-link {
   45% {
     transform: scale(1);
     animation-timing-function: ease-out;
+  }
+}
+#userIconIMG{
+  width: 35px;
+  height: 35px;
+  margin-right: 20px;
+  margin-top: 3px;
+  cursor: pointer;
+}
+#userIconIMG:hover{
+  animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+
+}
+@keyframes scale-up-center {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
   }
 }
 </style>
