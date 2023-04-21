@@ -5,9 +5,11 @@ export const Store = defineStore("Articles", {
     return {
       UserUID:undefined as any,
       UserName:undefined as any,
+      UserGender:undefined as any,
       CreateAccount: false,
       SingIN: false,
       TurnOffTheErrorLoaderIMG: false,
+      OpenCloseAccountModalWindow: false,
       currentTopicMajorPage: {
         Politic: "Politic",
         Sport: "Sport",

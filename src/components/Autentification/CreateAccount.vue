@@ -47,6 +47,12 @@
           v-model="userName"
           placeholder="Bob Bobson"
         />
+        <label>I am:</label>
+        <select v-model="gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="noone">Don't want to say</option>
+        </select>
         <label>Email:</label>
         <input
           placeholder="example@example.com"
@@ -89,6 +95,12 @@
           v-model="userName"
           placeholder="Bob Bobson"
         />
+        <label>I am:</label>
+        <select v-model="gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="noone">Don't want to say</option>
+        </select>
         <label>Email:</label>
         <input
           placeholder="example@example.com"
@@ -139,6 +151,7 @@ export default defineComponent({
     let repeatPassword = ref();
     let email = ref();
     let userName = ref();
+    let gender = ref();
     let editorCode = ref();
     let errorPassword = ref();
     let errorRepeatPassword = ref();
@@ -173,15 +186,13 @@ export default defineComponent({
       return false;
     };
 
-    watch(password, () => {
+    watch([password, repeatPassword], () => {
       errorPassword.value =
         password.value.length < 8
           ? "Your password must have at least 8 symbols"
           : checkRepeatedChars(password.value)
           ? "We found repeated symbols in your password. Please, change that."
           : "";
-    });
-    watch(repeatPassword, () => {
       errorRepeatPassword.value =
         password.value != repeatPassword.value
           ? "Your passwords are not equally"
@@ -194,11 +205,15 @@ export default defineComponent({
             .then((userCredential) => {
               if (typeof Storage !== undefined) {
                 localStorage.setItem("user-name", userName.value as string);
-                localStorage.setItem("auth-token", userCredential.user.uid as string);
+                localStorage.setItem(
+                  "auth-token",
+                  userCredential.user.uid as string
+                );
                 localStorage.setItem(
                   "SingIN-Butt-Class",
                   "SingIN-Butt-b4-SingIN"
                 );
+                localStorage.setItem("gender", gender.value as string);
               }
             })
             .then(() => {
@@ -230,7 +245,7 @@ export default defineComponent({
             .then((userCredential) => {
               if (typeof Storage !== undefined) {
                 localStorage.setItem("user-name", userName.value as string);
-                localStorage.setItem("isEditor", 'true');
+                localStorage.setItem("isEditor", "true");
                 localStorage.setItem("auth-token", userCredential.user.uid);
                 localStorage.setItem(
                   "SingIN-Butt-Class",
@@ -268,6 +283,7 @@ export default defineComponent({
       AuthError,
       HandleCloseForm,
       closeForm,
+      gender,
     };
   },
 });

@@ -14,6 +14,7 @@ import HeadBar from "@/components/Header/HeadBar.vue";
 import Swiper from "@/components/HotNewsHead/Swiper.vue";
 import BodyContainer from "@/components/centralBody/BodyContainer.vue";
 import { Store } from "@/piniaStorage/dbPinia";
+
 import "animate.css";
 export default defineComponent({
   components: { HeadBar, Swiper, BodyContainer, SingIn, CreateAccount },
@@ -46,7 +47,7 @@ export default defineComponent({
       document.body.style.overflowY =
         checkCreateAcc.value || checkSingIN.value
           ? "hidden"
-          : !checkCreateAcc.value || !checkSingIN.value
+          : !checkCreateAcc.value || !checkSingIN.value 
           ? "visible"
           : "visible";
     });

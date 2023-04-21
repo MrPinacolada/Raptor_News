@@ -1,5 +1,6 @@
 <template>
   <div class="gridContainer">
+    <UserPage v-if="store.$state.OpenCloseAccountModalWindow" />
     <DailyNews />
     <div class="rightSide">
       <RightBar />
@@ -19,6 +20,9 @@ import Last_previousNews from "./Last_previousNews.vue";
 import TopNewsSwiper from "./TopNewsSwiper.vue";
 import ADS from "./ADS.vue";
 import restNEWsBody from "./restNEWsBody.vue";
+import UserPage from "@/components/UserPageAccount/UserPage.vue";
+import { Store } from "@/piniaStorage/dbPinia";
+
 export default defineComponent({
   components: {
     RightBar,
@@ -27,6 +31,11 @@ export default defineComponent({
     TopNewsSwiper,
     ADS,
     restNEWsBody,
+    UserPage,
+  },
+  setup() {
+    let store = Store();
+    return { store };
   },
 });
 </script>

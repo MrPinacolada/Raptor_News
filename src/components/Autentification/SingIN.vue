@@ -68,6 +68,7 @@ export default defineComponent({
           AuthError.value = true;
           const errorCode = error.code;
           const errorMessage = error.message;
+          console.log(error);
         });
     };
 

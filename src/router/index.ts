@@ -1,119 +1,118 @@
-import { createRouter, createWebHistory} from 'vue-router'
-import PoliticsNewsVue from '@/views/Politics/PoliticsNews.vue'
-import BodyContainerVue from '@/components/centralBody/BodyContainer.vue'
-import BusinessNewsVue from '@/views/Business/BusinessNews.vue'
-import LifeStyleNewsVue from '@/views/LifeStyle/LifeStyleNews.vue'
-import OpinionNewsVue from '@/views/Opinion/OpinionNews.vue'
-import SportsNewsVue from '@/views/Sports/SportsNews.vue'
-import GamesNews from '@/views/Games/GamesNews.vue'
-import WeatherNews from '@/views/Weather/WeatherNews.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import PoliticsNewsVue from "@/views/Politics/PoliticsNews.vue";
+import BodyContainerVue from "@/components/centralBody/BodyContainer.vue";
+import BusinessNewsVue from "@/views/Business/BusinessNews.vue";
+import LifeStyleNewsVue from "@/views/LifeStyle/LifeStyleNews.vue";
+import OpinionNewsVue from "@/views/Opinion/OpinionNews.vue";
+import SportsNewsVue from "@/views/Sports/SportsNews.vue";
+import GamesNews from "@/views/Games/GamesNews.vue";
+import WeatherNews from "@/views/Weather/WeatherNews.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/:catchAll(.*)',
-      name: 'NotFound',
-      component: BodyContainerVue
+      path: "/:catchAll(.*)",
+      name: "NotFound",
+      component: BodyContainerVue,
     },
     {
-      path: '/',
-      name: 'Home',
+      path: "/",
+      name: "Home",
       props: true,
-      component: BodyContainerVue
+      component: BodyContainerVue,
     },
     {
-      path: '/Politics',
-      name: 'Politics',
+      path: "/Politics",
+      name: "Politics",
       props: true,
-      component: PoliticsNewsVue
+      component: PoliticsNewsVue,
     },
     {
-      path: '/Business',
-      name: 'Business',
+      path: "/Business",
+      name: "Business",
       props: true,
-      component: BusinessNewsVue
+      component: BusinessNewsVue,
     },
     {
-      path: '/Sport',
-      name: 'Sport',
+      path: "/Sport",
+      name: "Sport",
       props: true,
-      component: SportsNewsVue
+      component: SportsNewsVue,
     },
     {
-      path: '/Weather',
-      name: 'Weather',
+      path: "/Weather",
+      name: "Weather",
       props: true,
-      component: WeatherNews
+      component: WeatherNews,
     },
     {
-      path: '/Opinion',
-      name: 'Opinion',
+      path: "/Opinion",
+      name: "Opinion",
       props: true,
-      component: OpinionNewsVue
+      component: OpinionNewsVue,
     },
     {
-      path: '/LifeStyle',
-      name: 'LifeStyle',
+      path: "/LifeStyle",
+      name: "LifeStyle",
       props: true,
-      component: LifeStyleNewsVue
+      component: LifeStyleNewsVue,
     },
     {
-      path: '/Games',
-      name: 'Games',
+      path: "/Games",
+      name: "Games",
       props: true,
-      component: GamesNews
+      component: GamesNews,
     },
     {
-      path: '/Politics/:id',
-      name: 'PoliticsArts',
+      path: "/Politics/:id",
+      name: "PoliticsArts",
       props: true,
-      component:() => import("@/views/Politics/Articles/PoliticsArts.vue")
+      component: () => import("@/views/Politics/Articles/PoliticsArts.vue"),
     },
     {
-      path: '/Opinion/:id',
-      name: 'OpinionArts',
+      path: "/Opinion/:id",
+      name: "OpinionArts",
       props: true,
-      component:() => import("@/views/Opinion/Articles/OpinionArts.vue")
+      component: () => import("@/views/Opinion/Articles/OpinionArts.vue"),
     },
     {
-      path: '/LifeStyle/:id',
-      name: 'LifeStyleArts',
+      path: "/LifeStyle/:id",
+      name: "LifeStyleArts",
       props: true,
-      component:() => import("@/views/LifeStyle/Articles/LifeStyleArts.vue")
+      component: () => import("@/views/LifeStyle/Articles/LifeStyleArts.vue"),
     },
-    
+
     {
-      path: '/Business/:id',
-      name: 'BusinessArts',
+      path: "/Business/:id",
+      name: "BusinessArts",
       props: true,
-      component:() => import("@/views/Business/Articles/BusinessArts.vue")
-    },
-    {
-      path: '/Games/:id',
-      name: 'GamesArts',
-      props: true,
-      component:() => import("@/views/Games/Articles/GamesArts.vue")
+      component: () => import("@/views/Business/Articles/BusinessArts.vue"),
     },
     {
-      path: '/Sport/:id',
-      name: 'SportsArts',
+      path: "/Games/:id",
+      name: "GamesArts",
       props: true,
-      component:() => import("@/views/Sports/Articles/SportsArts.vue")
+      component: () => import("@/views/Games/Articles/GamesArts.vue"),
     },
     {
-      path: '/Weather/:id',
-      name: 'WeatherArts',
+      path: "/Sport/:id",
+      name: "SportsArts",
       props: true,
-      component:() => import("@/views/Weather/Articles/WeatherArts.vue")
+      component: () => import("@/views/Sports/Articles/SportsArts.vue"),
     },
     {
-      path: '/account',
-      name: 'UserPage',
+      path: "/Weather/:id",
+      name: "WeatherArts",
       props: true,
-      component:() => import("@/components/UserPageAccount/UserPage.vue")
+      component: () => import("@/views/Weather/Articles/WeatherArts.vue"),
     },
-    
-  ]
-})
-export default router
+    // {
+    //   path: "/account",
+    //   name: "UserPage",
+    //   props: true,
+    //   component: () => import("@/components/UserPageAccount/UserPage.vue"),
+    // },
+  ],
+});
+export default router;

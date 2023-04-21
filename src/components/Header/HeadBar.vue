@@ -37,9 +37,7 @@
     <div class="buttons">
       <ion-icon name="search-outline"></ion-icon>
       <div class="userView" v-if="store.$state.UserUID">
-    <RouterLink :to="{ name: 'UserPage' }">
-        <img src="@/assets/HeadBar/user.png" id="userIconIMG"/>
-    </RouterLink>
+          <img src="@/assets/HeadBar/user.png" id="userIconIMG" @click="openModal" />
       </div>
       <button
         v-if="store.$state.UserUID == undefined"
@@ -70,15 +68,22 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { RouterLink } from "vue-router";
+import { RouterLink,useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 import FiatPriceModule from "./FiatPriceModule.vue";
 import { Store } from "@/piniaStorage/dbPinia";
 
 export default defineComponent({
   components: { FiatPriceModule },
-  setup() {
+ 
+  setup(props) {
+    
     let store = Store();
+    let router = useRouter()
+    let openModal = () => {
+      store.$state.OpenCloseAccountModalWindow = true
+      router.push({ path: '/account' })
+    }
     onMounted(() => {
       if (typeof Storage !== undefined) {
         let timeToSingIN = localStorage.getItem("SingIN-Butt-Class");
@@ -87,7 +92,7 @@ export default defineComponent({
       }
     });
 
-    return { store };
+    return { store, openModal };
   },
 });
 </script>
@@ -250,16 +255,15 @@ a:-webkit-any-link {
     animation-timing-function: ease-out;
   }
 }
-#userIconIMG{
+#userIconIMG {
   width: 35px;
   height: 35px;
   margin-right: 20px;
   margin-top: 3px;
   cursor: pointer;
 }
-#userIconIMG:hover{
-  animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-
+#userIconIMG:hover {
+  animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
 @keyframes scale-up-center {
   0% {
