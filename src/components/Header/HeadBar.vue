@@ -37,7 +37,7 @@
     <div class="buttons">
       <ion-icon name="search-outline"></ion-icon>
       <div class="userView" v-if="store.$state.UserUID">
-          <img src="@/assets/HeadBar/user.png" id="userIconIMG" @click="openModal" />
+        <img :src="userPhotoAcc" id="userIconIMG" :class="{userPhotoAccBorder50:store.$state.isUserPhotoExists}" @click="openModal" />
       </div>
       <button
         v-if="store.$state.UserUID == undefined"
@@ -47,12 +47,20 @@
       >
         Sing In
       </button>
+      
       <button
         v-if="store.$state.UserUID == undefined"
         class="createacc forall"
         @click="store.$state.CreateAccount = !store.$state.CreateAccount"
       >
         Create Account
+      </button>
+      <button
+        v-if="store.$state.UserUID"
+        class="singOut forall"
+        @click="singOutUser"
+      >
+        Sing Out
       </button>
     </div>
   </div>
@@ -68,31 +76,35 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { RouterLink,useRouter } from "vue-router";
-import { ref, onMounted } from "vue";
+import { RouterLink, useRouter } from "vue-router";
+import { ref, onMounted,watch } from "vue";
 import FiatPriceModule from "./FiatPriceModule.vue";
 import { Store } from "@/piniaStorage/dbPinia";
+import getUserAvatar from "@/composables/getUserAccPhoto";
+import singOutUser from "@/composables/singOutUser";
+
+
 
 export default defineComponent({
   components: { FiatPriceModule },
- 
+
   setup(props) {
-    
     let store = Store();
-    let router = useRouter()
+    let router = useRouter();
+    let userPhotoAcc = ref(store.$state.userPhotoAcc);
     let openModal = () => {
-      store.$state.OpenCloseAccountModalWindow = true
-      router.push({ path: '/account' })
-    }
+      store.$state.OpenCloseAccountModalWindow = true;
+      router.push({ path: "/account" });
+    };
     onMounted(() => {
+      getUserAvatar(userPhotoAcc,store);
       if (typeof Storage !== undefined) {
         let timeToSingIN = localStorage.getItem("SingIN-Butt-Class");
         let SingINButt = document.getElementById("singINbutt");
         SingINButt?.classList.add(timeToSingIN as string);
       }
     });
-
-    return { store, openModal };
+    return { store, openModal,userPhotoAcc,singOutUser };
   },
 });
 </script>
@@ -179,7 +191,15 @@ p {
   background-color: rgb(17, 43, 69);
   font-size: 1em;
 }
-.indexbar {
+.singOut{
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(6, 63, 119, 0.807);
+  font-size: 1em;
+  margin-right: 10px;
+}
+/* .indexbar {
   width: 100%;
   height: 25px;
   background-color: rgb(192, 187, 183);
@@ -191,7 +211,7 @@ p {
   font-weight: bold;
   letter-spacing: 1px;
   cursor: default;
-}
+} */
 .hwrap {
   overflow: hidden;
   background: rgb(111, 33, 21, 0.9);
@@ -272,5 +292,8 @@ a:-webkit-any-link {
   100% {
     transform: scale(1.2);
   }
+}
+.userPhotoAccBorder50 {
+  border-radius: 50%;
 }
 </style>

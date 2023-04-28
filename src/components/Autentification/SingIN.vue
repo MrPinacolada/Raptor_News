@@ -60,8 +60,8 @@ export default defineComponent({
       AuthError.value = false;
       signInWithEmailAndPassword(auth, email.value, password.value)
         .then((userCredential) => {
-          store.$state.UserUID = localStorage.getItem("auth-token") as string;
-          store.$state.UserName = localStorage.getItem("user-name") as string;
+          localStorage.setItem("auth-token", userCredential.user.uid as string);
+          location.reload();
         })
         .catch((error) => {
           errorPassword.value = "We could not find your account.";

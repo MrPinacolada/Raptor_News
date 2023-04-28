@@ -13,7 +13,9 @@ import CreateAccount from "@/components/Autentification/CreateAccount.vue";
 import HeadBar from "@/components/Header/HeadBar.vue";
 import Swiper from "@/components/HotNewsHead/Swiper.vue";
 import BodyContainer from "@/components/centralBody/BodyContainer.vue";
+import { doc, getDoc } from "firebase/firestore";
 import { Store } from "@/piniaStorage/dbPinia";
+import { RaptorNewsStore } from "@/firebase/config";
 
 import "animate.css";
 export default defineComponent({
@@ -33,10 +35,10 @@ export default defineComponent({
         behavior: "smooth",
       });
     };
+    store.$state.UserUID = localStorage.getItem("auth-token");
+
     onMounted(() => {
       document.addEventListener("scroll", checkScroll);
-      store.$state.UserUID = localStorage.getItem("auth-token") as string;
-      store.$state.UserName = localStorage.getItem("user-name") as string;
     });
     onBeforeUnmount(() => {
       document.removeEventListener("scroll", checkScroll);
@@ -47,7 +49,7 @@ export default defineComponent({
       document.body.style.overflowY =
         checkCreateAcc.value || checkSingIN.value
           ? "hidden"
-          : !checkCreateAcc.value || !checkSingIN.value 
+          : !checkCreateAcc.value || !checkSingIN.value
           ? "visible"
           : "visible";
     });
@@ -78,6 +80,13 @@ export default defineComponent({
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&family=Roboto&display=swap");
+.cropper-view-box {
+  border-radius: 50% !important;
+}
+.cropper-face {
+  border-radius: 50% !important;
+}
+
 body {
   margin: 0;
   padding: 0;

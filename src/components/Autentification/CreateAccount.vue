@@ -131,7 +131,9 @@ import { defineComponent, ref, watch } from "vue";
 import { RouterLink } from "vue-router";
 import { Store } from "@/piniaStorage/dbPinia";
 import { load_ONE_IMG, RaptorNewsStore } from "@/firebase/config";
+
 import {
+  addDoc,
   getDocFromCache,
   collection,
   doc,
@@ -204,7 +206,18 @@ export default defineComponent({
           createUserWithEmailAndPassword(auth, email.value, password.value)
             .then((userCredential) => {
               if (typeof Storage !== undefined) {
-                localStorage.setItem("user-name", userName.value as string);
+                let userNamesCollection = collection(
+                  RaptorNewsStore,
+                  "userNames"
+                );
+                let myDocRef = doc(
+                  userNamesCollection,
+                  userCredential.user.uid as string
+                );
+                setDoc(myDocRef, {
+                  userName: userName.value as string,
+                  gender: gender.value as string,
+                });
                 localStorage.setItem(
                   "auth-token",
                   userCredential.user.uid as string
@@ -213,7 +226,6 @@ export default defineComponent({
                   "SingIN-Butt-Class",
                   "SingIN-Butt-b4-SingIN"
                 );
-                localStorage.setItem("gender", gender.value as string);
               }
             })
             .then(() => {
@@ -224,6 +236,7 @@ export default defineComponent({
               AuthError.value = true;
               const errorCode = error.code;
               const errorMessage = error.message;
+              console.log(errorMessage, errorCode);
             });
         }
       }

@@ -3,9 +3,11 @@ import { load_ONE_IMG } from "@/firebase/config";
 export const Store = defineStore("Articles", {
   state: () => {
     return {
-      UserUID:undefined as any,
-      UserName:undefined as any,
-      UserGender:undefined as any,
+      UserUID: undefined as any,
+      UserName: undefined as any,
+      UserGender: undefined as any,
+      userPhotoAcc:"/src/assets/HeadBar/user.png",
+      isUserPhotoExists:false,
       CreateAccount: false,
       SingIN: false,
       TurnOffTheErrorLoaderIMG: false,
@@ -78,8 +80,9 @@ export const Store = defineStore("Articles", {
       DailyArtBusinessPage: "Shewing met parties gravity husband sex pleased",
       DailyArtGamesPage: "Yet no jokes worse her why",
       DailyArtSportsPage: "Covered parlors concern we express in visited to do",
-      DailyArtWeatherPage: "Be acceptance at precaution astonished excellence thoroughly is entreaties",
-      PoliticARTS: [ 
+      DailyArtWeatherPage:
+        "Be acceptance at precaution astonished excellence thoroughly is entreaties",
+      PoliticARTS: [
         {
           tag: "Politics",
           path: "/PoliticsPage/Politics_articles/pexels-asad-photo-maldives-2245194.webp",
@@ -459,8 +462,7 @@ export const Store = defineStore("Articles", {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
           title: "Parish so enable innate in formed missed.",
-          subtitle:
-            "Hand two was eat busy fail. Stand smart grave would in so",
+          subtitle: "Hand two was eat busy fail. Stand smart grave would in so",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
             "No in he real went find mr. Wandered or strictly raillery stanhill as. Jennings appetite disposed me an at subjects an. To no indulgence diminution so discovered mr apartments. Are off under folly death wrote cause her way spite. Plan upon yet way get cold spot its week. Almost do am or limits hearts. Resolve parties but why she shewing. She sang know now how nay cold real case." +
@@ -1051,8 +1053,7 @@ export const Store = defineStore("Articles", {
           get loaderID() {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
-          title:
-            "Sentiments motionless or principles preference excellence am",
+          title: "Sentiments motionless or principles preference excellence am",
           subtitle:
             "Extremely eagerness principle estimable own was man. Men received far his dashwood subjects new.",
           body:
