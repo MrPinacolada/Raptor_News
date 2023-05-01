@@ -19,6 +19,9 @@
         </p>
       </div>
     </RouterLink>
+    <div class="likesContainer">
+      <likesModal :artNumb="CurrentArt" />
+    </div>
   </article>
 </template>
 
@@ -27,15 +30,17 @@ import { defineComponent, computed, ref, onMounted } from "vue";
 import { RouterLink } from "vue-router";
 import { Store } from "@/piniaStorage/dbPinia";
 import { load_ONE_IMG } from "@/firebase/config";
+import likesModal from "../UserPageAccount/likesModal.vue";
+
 import "animate.css";
 export default defineComponent({
+  components: { likesModal },
   setup() {
     let checkTheLoader = computed(
       () => Store().$state.TurnOffTheErrorLoaderIMG
     );
     let CurrentArt = ref();
-    let currentTitleMajorPage =
-      "Sportsmen certainty prevailed suspected am as";
+    let currentTitleMajorPage = "Sportsmen certainty prevailed suspected am as";
     let Topics = {
       Politic: Store().$state.PoliticARTS,
       Sport: Store().$state.SportARTS,
@@ -50,7 +55,7 @@ export default defineComponent({
       CurrentArt.value = currentTopicMajorPage.filter((item: any) => {
         return item.title == currentTitleMajorPage;
       });
-      CurrentArt.value.map((item: any) => {
+      CurrentArt.value.map(async (item: any) => {
         load_ONE_IMG(item.path, item.id, item.loaderID);
       });
     });
@@ -64,6 +69,7 @@ picture {
   position: relative;
 }
 .dailyNews {
+  position: relative;
   display: grid;
   margin: 0;
   padding: 0;
@@ -131,5 +137,11 @@ img {
   padding: 7px;
   display: block;
   z-index: 5;
+}
+.likesContainer {
+  position: absolute;
+  display: block;
+  top: 96%;
+  left: 90%;
 }
 </style>

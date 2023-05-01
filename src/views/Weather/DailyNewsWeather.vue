@@ -16,6 +16,9 @@
         {{ art.subtitle }}
       </p>
     </div>
+    <div class="likesContainer">
+      <likesModal :artNumb="ArtToRender" />
+    </div>
   </article>
 </template>
 
@@ -32,8 +35,10 @@ import { RouterLink, useRouter } from "vue-router";
 import { Store } from "@/piniaStorage/dbPinia";
 import { load_ONE_IMG } from "@/firebase/config";
 import "animate.css";
+import likesModal from "@/components/UserPageAccount/likesModal.vue";
+
 export default defineComponent({
-  components: {},
+  components: { likesModal },
   setup() {
     let checkTheLoader = computed(
       () => Store().$state.TurnOffTheErrorLoaderIMG
@@ -47,7 +52,7 @@ export default defineComponent({
     ArtToRender.value.forEach((art: any) => {
       load_ONE_IMG(art.path, art.id, art.loaderID);
     });
-    
+
     return { ArtToRender, checkTheLoader };
   },
 });
@@ -136,5 +141,11 @@ img {
   100% {
     transform: rotate(360deg);
   }
+}
+.likesContainer {
+  position: absolute;
+  display: block;
+  top: 94%;
+  left: 86%;
 }
 </style>

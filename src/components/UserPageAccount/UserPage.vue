@@ -187,8 +187,8 @@ export default defineComponent({
     // Modal of loading IMG------------------------------------------------------
     let onFileChange = (event: any) => {
       let fileInput = event.target.files[0];
-      let file = event[0];
-      if (file || fileInput) {
+      let fileDragDrop = event[0];
+      if (fileDragDrop || fileInput) {
         let reader = new FileReader();
         reader.onload = (e) => {
           cropperIMGvalue.value = e.target?.result;
@@ -216,7 +216,7 @@ export default defineComponent({
             },
           });
         };
-        reader.readAsDataURL(file || fileInput);
+        reader.readAsDataURL(fileDragDrop || fileInput);
       }
     };
     let saveCroppedImage = () => {
@@ -277,7 +277,10 @@ export default defineComponent({
 
     onMounted(() => {
       document.addEventListener("scroll", checkScroll);
-      getUserAvatar(UserGenderPhoto, store);
+      if (store.$state.UserUID) {
+        getUserAvatar(UserGenderPhoto, store);
+      }
+
       onAuthStateChanged(auth, (user) => {
         if (user) {
           UserUid = user.uid;
@@ -578,7 +581,7 @@ input[type="file"] {
 .logout-btn:hover {
   background-color: #0062cc;
 }
-.mainContentUserPage{
+.mainContentUserPage {
   display: grid;
 }
 </style>

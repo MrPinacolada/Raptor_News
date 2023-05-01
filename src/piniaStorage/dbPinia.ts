@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
 import { load_ONE_IMG } from "@/firebase/config";
+import {getLIkesandDisLikes} from "@/composables/AddGetLikes";
+
 export const Store = defineStore("Articles", {
   state: () => {
     return {
@@ -86,6 +88,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Politics",
           path: "/PoliticsPage/Politics_articles/pexels-asad-photo-maldives-2245194.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -104,6 +108,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Politics",
           path: "/PoliticsPage/Politics_articles/pexels-august-de-richelieu-4427630.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -122,6 +128,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Politics",
           path: "/PoliticsPage/Politics_articles/pexels-element-digital-1550336.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -140,6 +148,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Politics",
           path: "/PoliticsPage/Politics_articles/pexels-element-digital-1550340.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -158,6 +168,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Politics",
           path: "/PoliticsPage/Politics_articles/pexels-markus-spiske-2027062.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -177,6 +189,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Politics",
           path: "/PoliticsPage/Politics_articles/pexels-markus-spiske-2990617.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -195,6 +209,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Politics",
           path: "/PoliticsPage/Politics_articles/pexels-rosemary-ketchum-1464209.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -213,6 +229,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Politics",
           path: "/PoliticsPage/Politics_articles/pexels-rosemary-ketchum-1464210.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -231,6 +249,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Politics",
           path: "/PoliticsPage/Politics_articles/pexels-rosemary-ketchum-1464213.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -249,6 +269,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Politics",
           path: "/PoliticsPage/Politics_articles/pexels-tara-winstead-8850709.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -270,6 +292,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Sport",
           path: "/SportsPage/Sports_Articles/pexels-andrea-piacquadio-863977.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -288,6 +312,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Sport",
           path: "/SportsPage/Sports_Articles/pexels-kawê-rodrigues-15686444.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -306,6 +332,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Sport",
           path: "/SportsPage/Sports_Articles/pexels-pixabay-221210.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -324,6 +352,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Sport",
           path: "/SportsPage/Sports_Articles/pexels-pixabay-248547.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -342,6 +372,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Sport",
           path: "/SportsPage/Sports_Articles/pexels-pixabay-262524.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -360,6 +392,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Sport",
           path: "/SportsPage/Sports_Articles/pexels-pixabay-33703.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -378,6 +412,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Sport",
           path: "/SportsPage/Sports_Articles/pexels-pixabay-71104.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -397,6 +433,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Sport",
           path: "/SportsPage/Sports_Articles/pexels-rodnae-productions-12169236.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -416,6 +454,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Sport",
           path: "/SportsPage/Sports_Articles/pexels-thirdman-5247203.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -434,6 +474,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Sport",
           path: "/SportsPage/Sports_Articles/pexels-tony-schnagl-6468590.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -454,6 +496,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Weather",
           path: "/WeatherPage/Weather_Articles/pexels-aleksandar-pasaric-325185.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -471,6 +515,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Weather",
           path: "/WeatherPage/Weather_Articles/pexels-andre-furtado-1162251.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -490,6 +536,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Weather",
           path: "/WeatherPage/Weather_Articles/pexels-gabriela-palai-395196.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -508,6 +556,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Weather",
           path: "/WeatherPage/Weather_Articles/pexels-genaro-servín-763398.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -526,6 +576,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Weather",
           path: "/WeatherPage/Weather_Articles/pexels-george-desipris-753619.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -543,6 +595,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Weather",
           path: "/WeatherPage/Weather_Articles/pexels-kaique-rocha-125510.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -561,6 +615,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Weather",
           path: "/WeatherPage/Weather_Articles/pexels-pixabay-259620.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -578,6 +634,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Weather",
           path: "/WeatherPage/Weather_Articles/pexels-pixabay-268791.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -596,6 +654,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Weather",
           path: "/WeatherPage/Weather_Articles/pexels-pixabay-314726.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -613,6 +673,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Weather",
           path: "/WeatherPage/Weather_Articles/pexels-pixabay-76969.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -633,6 +695,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Opinion",
           path: "/OpinionPage/Opinion_Articles/pexels-alex-green-5699474.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -650,6 +714,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Opinion",
           path: "/OpinionPage/Opinion_Articles/pexels-anete-lusina-5721097.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -669,6 +735,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Opinion",
           path: "/OpinionPage/Opinion_Articles/pexels-anete-lusina-5723266.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -688,6 +756,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Opinion",
           path: "/OpinionPage/Opinion_Articles/pexels-centre-for-ageing-better-9729879.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -706,6 +776,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Opinion",
           path: "/OpinionPage/Opinion_Articles/pexels-centre-for-ageing-better-9729879.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -723,6 +795,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Opinion",
           path: "/OpinionPage/Opinion_Articles/pexels-ekaterina-bolovtsova-4049960.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -741,6 +815,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Opinion",
           path: "/OpinionPage/Opinion_Articles/pexels-kelly-4570695.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -758,6 +834,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Opinion",
           path: "/OpinionPage/Opinion_Articles/pexels-laker-6156939.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -776,6 +854,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Opinion",
           path: "/OpinionPage/Opinion_Articles/pexels-shvets-production-7194743.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -793,6 +873,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Opinion",
           path: "/OpinionPage/Opinion_Articles/pexels-thirdman-5981703.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -813,6 +895,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Games",
           path: "/GamesPage/Games_Articles/pexels-craig-adderley-1543766.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -830,6 +914,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Games",
           path: "/GamesPage/Games_Articles/pexels-element-digital-1293269.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -848,6 +934,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Games",
           path: "/GamesPage/Games_Articles/pexels-jeshootscom-442576.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -866,6 +954,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Games",
           path: "/GamesPage/Games_Articles/pexels-jéshoots-21067.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -885,6 +975,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Games",
           path: "/GamesPage/Games_Articles/pexels-lucie-liz-3165335.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -902,6 +994,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Games",
           path: "/GamesPage/Games_Articles/pexels-marc-695266.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -921,6 +1015,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Games",
           path: "/GamesPage/Games_Articles/pexels-pixabay-262438.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -938,6 +1034,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Games",
           path: "/GamesPage/Games_Articles/pexels-pixabay-371924.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -956,6 +1054,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Games",
           path: "/GamesPage/Games_Articles/pexels-suzy-hazelwood-1422673.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -973,6 +1073,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Games",
           path: "/GamesPage/Games_Articles/pexels-ylanite-koppens-776654.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -993,6 +1095,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Business",
           path: "/BusinessPage/Business_Articles/pexels-fauxels-3183197.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1010,6 +1114,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Business",
           path: "/BusinessPage/Business_Articles/pexels-john-guccione-wwwadvergroupcom-3483098.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1028,6 +1134,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Business",
           path: "/BusinessPage/Business_Articles/pexels-karolina-grabowska-4386340.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1046,6 +1154,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Business",
           path: "/BusinessPage/Business_Articles/pexels-karolina-grabowska-4386395.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1064,6 +1174,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Business",
           path: "/BusinessPage/Business_Articles/pexels-liza-summer-6347719.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1082,6 +1194,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Business",
           path: "/BusinessPage/Business_Articles/pexels-maximilian-ruther-11589778.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1100,6 +1214,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Business",
           path: "/BusinessPage/Business_Articles/pexels-michael-steinberg-342943.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1117,6 +1233,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Business",
           path: "/BusinessPage/Business_Articles/pexels-pixabay-220365.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1136,6 +1254,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Business",
           path: "/BusinessPage/Business_Articles/pexels-rfstudio-4177725.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1153,6 +1273,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "Business",
           path: "/BusinessPage/Business_Articles/pexels-tima-miroshnichenko-7567443.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1174,6 +1296,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "LifeStyle",
           path: "/LifeStylePage/LIfeStyle_Articles/pexels-andrea-piacquadio-783243.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1191,6 +1315,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "LifeStyle",
           path: "/LifeStylePage/LIfeStyle_Articles/pexels-clem-onojeghuo-173301.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1210,6 +1336,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "LifeStyle",
           path: "/LifeStylePage/LIfeStyle_Articles/pexels-destiawan-nur-agustra-1034940.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1228,6 +1356,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "LifeStyle",
           path: "/LifeStylePage/LIfeStyle_Articles/pexels-engin-akyurt-1451040.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1246,6 +1376,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "LifeStyle",
           path: "/LifeStylePage/LIfeStyle_Articles/pexels-jonas-svidras-1434819.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1264,6 +1396,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "LifeStyle",
           path: "/LifeStylePage/LIfeStyle_Articles/pexels-oleksandr-pidvalnyi-1172253.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1282,6 +1416,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "LifeStyle",
           path: "/LifeStylePage/LIfeStyle_Articles/pexels-picjumbocom-196668.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1299,6 +1435,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "LifeStyle",
           path: "/LifeStylePage/LIfeStyle_Articles/pexels-pixabay-247597.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1317,6 +1455,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "LifeStyle",
           path: "/LifeStylePage/LIfeStyle_Articles/pexels-pixabay-267684.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },
@@ -1334,6 +1474,8 @@ export const Store = defineStore("Articles", {
         {
           tag: "LifeStyle",
           path: "/LifeStylePage/LIfeStyle_Articles/pexels-vidal-balielo-jr-1250643.webp",
+          amountOfDisLikes:0,
+          amountOfLikes:0,
           get id() {
             return this.title.replace(/\s/g, "-");
           },

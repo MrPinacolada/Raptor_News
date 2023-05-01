@@ -18,6 +18,9 @@
           <p>{{ art.subtitle }}</p>
         </RouterLink>
       </div>
+      <div class="likesContainer">
+        <likesModal :artNumb="Current_LAST_Art" />
+      </div>
     </article>
     <article class="previous" v-for="art in Current_PREVIOUS_Art">
       <div id="loaderimg2" v-show="!checkTheLoader">
@@ -37,6 +40,9 @@
           <p>{{ art.subtitle }}</p>
         </RouterLink>
       </div>
+      <div class="likesContainer">
+        <likesModal :artNumb="Current_PREVIOUS_Art" />
+      </div>
     </article>
   </div>
 </template>
@@ -46,9 +52,10 @@ import { RouterLink, RouterView } from "vue-router";
 import { defineComponent, ref, computed, onMounted } from "vue";
 import { load_ONE_IMG } from "@/firebase/config";
 import { Store } from "@/piniaStorage/dbPinia";
+import likesModal from "../UserPageAccount/likesModal.vue";
 
 export default defineComponent({
-  components: {},
+  components: { likesModal },
   setup() {
     let checkTheLoader = computed(
       () => Store().$state.TurnOffTheErrorLoaderIMG
@@ -184,10 +191,17 @@ img {
   background-color: rgb(65, 65, 65, 0.8);
 }
 h3 {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 p {
   margin-bottom: 5px;
   margin-top: 0;
+}
+.likesContainer {
+  position: absolute;
+  display: block;
+  top: 71%;
+  left: 3%;
+  z-index: 999999;
 }
 </style>

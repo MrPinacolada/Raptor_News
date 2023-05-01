@@ -97,7 +97,10 @@ export default defineComponent({
       router.push({ path: "/account" });
     };
     onMounted(() => {
+      if(store.$state.UserUID){
       getUserAvatar(userPhotoAcc,store);
+
+      }
       if (typeof Storage !== undefined) {
         let timeToSingIN = localStorage.getItem("SingIN-Butt-Class");
         let SingINButt = document.getElementById("singINbutt");

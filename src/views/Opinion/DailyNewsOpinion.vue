@@ -5,7 +5,7 @@
         <span class="loader"></span>
       </div>
       <RouterLink :to="{ name: 'OpinionArts', params: { id: art.id } }">
-        <img src="" alt="" :id="art.id" v-show="checkTheLoader"/>
+        <img src="" alt="" :id="art.id" v-show="checkTheLoader" />
       </RouterLink>
     </picture>
     <div class="dailyReadPolitics">
@@ -16,17 +16,21 @@
         {{ art.subtitle }}
       </p>
     </div>
+    <div class="likesContainer">
+      <likesModal :artNumb="ArtToRender" />
+    </div>
   </article>
 </template>
 
 <script lang="ts">
-import { defineComponent,computed, ref, defineEmits, onMounted } from "vue";
+import { defineComponent, computed, ref, defineEmits, onMounted } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 import { Store } from "@/piniaStorage/dbPinia";
 import { load_ONE_IMG } from "@/firebase/config";
+import likesModal from "@/components/UserPageAccount/likesModal.vue";
 import "animate.css";
 export default defineComponent({
-  components: {},
+  components: { likesModal },
   setup() {
     let checkTheLoader = computed(
       () => Store().$state.TurnOffTheErrorLoaderIMG
@@ -39,7 +43,7 @@ export default defineComponent({
         return art.title == Store().$state.DailyArtOpinionPage;
       })
     );
-    return { ArtToRender,checkTheLoader };
+    return { ArtToRender, checkTheLoader };
   },
 });
 </script>
@@ -127,5 +131,11 @@ img {
   100% {
     transform: rotate(360deg);
   }
+}
+.likesContainer {
+  position: absolute;
+  display: block;
+  top: 96%;
+  left: 90%;
 }
 </style>

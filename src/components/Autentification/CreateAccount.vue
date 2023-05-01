@@ -99,7 +99,7 @@
         <select v-model="gender">
           <option value="male">Male</option>
           <option value="female">Female</option>
-          <option value="noone">Don't want to say</option>
+          <option value="noone">Another</option>
         </select>
         <label>Email:</label>
         <input
@@ -118,6 +118,7 @@
 
         <label>Personal code:</label>
         <input type="text" required v-model="editorCode" />
+        <p v-if="editorCodeError">Your personal code isn't correct</p>
         <button type="submit" class="submButt" @click="handleSubmitEditor">
           <span class="submSpan">Create Account</span>
         </button>
@@ -155,6 +156,7 @@ export default defineComponent({
     let userName = ref();
     let gender = ref();
     let editorCode = ref();
+    let editorCodeError = ref(false);
     let errorPassword = ref();
     let errorRepeatPassword = ref();
     let AuthSucces = ref(false);
@@ -190,13 +192,17 @@ export default defineComponent({
 
     watch([password, repeatPassword], () => {
       errorPassword.value =
-        password.value.length < 8
+        password.value.length == 0
+          ? " "
+          : password.value.length < 8
           ? "Your password must have at least 8 symbols"
           : checkRepeatedChars(password.value)
           ? "We found repeated symbols in your password. Please, change that."
           : "";
       errorRepeatPassword.value =
-        password.value != repeatPassword.value
+        password.value.length == 0
+          ? " "
+          : password.value != repeatPassword.value
           ? "Your passwords are not equally"
           : "";
     });
@@ -243,17 +249,17 @@ export default defineComponent({
     };
 
     let handleSubmitEditor = async () => {
-      if (asEditor.value) {
+      if (
+        asEditor.value &&
+        !errorPassword.value &&
+        !errorRepeatPassword.value
+      ) {
         let Req = query(collection(RaptorNewsStore, "Editor_mode"));
         let querySnapshot = await getDocs(Req);
         let response = querySnapshot.docs.find((doc) => {
           return doc.data().code == (editorCode.value as string);
         });
-        if (
-          !errorPassword.value &&
-          !errorRepeatPassword.value &&
-          response?.data().code != undefined
-        ) {
+        if (response?.data().code != undefined) {
           createUserWithEmailAndPassword(auth, email.value, password.value)
             .then((userCredential) => {
               if (typeof Storage !== undefined) {
@@ -275,7 +281,7 @@ export default defineComponent({
               const errorCode = error.code;
               const errorMessage = error.message;
             });
-        }
+        } else editorCodeError.value = true;
       }
     };
 
@@ -288,6 +294,7 @@ export default defineComponent({
       email,
       userName,
       editorCode,
+      editorCodeError,
       errorPassword,
       errorRepeatPassword,
       handleSubmitEditor,
@@ -387,6 +394,8 @@ select {
   background-color: whitesmoke;
   border-bottom: 1px solid #e2bebe;
   padding: 5px 6px;
+  border-radius: 10px;
+
 }
 input:focus {
   outline: none;
@@ -492,4 +501,6 @@ p {
   opacity: 60%;
   cursor: pointer;
 }
+
+
 </style>
