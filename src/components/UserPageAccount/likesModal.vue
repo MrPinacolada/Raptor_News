@@ -1,14 +1,22 @@
 <template>
   <div class="likesbar" v-if="store.$state.UserUID">
     <div class="likesFlex">
-      <div class="Dislikes" :data-content="Dislikes">
+      <div
+        class="Dislikes"
+        :data-content="Dislikes"
+        :class="{ DisLikeClicked: isDisLiked }"
+      >
         <img
           src="@/assets/UserAcc/likesModal/icons8-facebook-dislike-100.png"
           alt=""
           @click="clickLike(false)"
         />
       </div>
-      <div class="likes" :data-content="likes">
+      <div
+        class="likes"
+        :class="{ LikeClicked: isLiked }"
+        :data-content="likes"
+      >
         <img
           src="@/assets/UserAcc/likesModal/icons8-facebook-like-100.png"
           alt=""
@@ -32,16 +40,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref, onMounted, onBeforeUnmount } from "vue";
 import { Store } from "@/piniaStorage/dbPinia";
 import {
-  addDoc,
-  getDocFromCache,
   collection,
   doc,
-  setDoc,
   getDocs,
-  query,
   updateDoc,
   getDoc,
   arrayUnion,
@@ -60,13 +64,15 @@ export default defineComponent({
     let store = Store();
     let art: any = props.artNumb;
     let artObj = art[0];
-    let likes = ref(artObj.amountOfLikes);
-    let Dislikes = ref(artObj.amountOfDisLikes);
+    let likes = ref();
+    let Dislikes = ref();
     let Copied = ref(false);
-    const likesRef = collection(RaptorNewsStore, "Likes");
-    const DislikesRef = collection(RaptorNewsStore, "DisLikes");
-    let GetLIkes = doc(RaptorNewsStore, "Likes", artObj.id);
+    let likesRef = collection(RaptorNewsStore, "Likes");
+    let DislikesRef = collection(RaptorNewsStore, "DisLikes");
+    let GetLikes = doc(RaptorNewsStore, "Likes", artObj.id);
     let GetDisLikes = doc(RaptorNewsStore, "DisLikes", artObj.id);
+    let isLiked = ref(false);
+    let isDisLiked = ref(false);
     let ShowUpCopied = () => {
       Copied.value = true;
       setTimeout(() => {
@@ -74,25 +80,39 @@ export default defineComponent({
       }, 1000);
     };
     let clickLike = async (like: boolean) => {
-      let plusORminusLikeRef = like ? GetLIkes : GetDisLikes;
+      let plusORminusLikeRef = like ? GetLikes : GetDisLikes;
       let plusLikeDoc = await getDoc(plusORminusLikeRef);
-      const users = plusLikeDoc.get("users");
-      const userIndex = users.indexOf(store.$state.UserUID);
-      const currentAmount = plusLikeDoc.get("amount");
+      let users = plusLikeDoc.get("users");
+      let userIndex = users.indexOf(store.$state.UserUID);
+      let currentAmount = plusLikeDoc.get("amount");
       if (userIndex !== -1) {
-        await updateDoc(plusORminusLikeRef, {
+        if (like) {
+          likes.value -= 1;
+          isLiked.value = false;
+        } else {
+          Dislikes.value -= 1;
+          isDisLiked.value = false;
+        }
+        updateDoc(plusORminusLikeRef, {
           users: arrayRemove(store.$state.UserUID),
           amount: currentAmount - 1,
         });
-        likes.value -= 1;
       } else {
-        await updateDoc(plusORminusLikeRef, {
+        if (like) {
+          likes.value += 1;
+          isLiked.value = true;
+        } else {
+          Dislikes.value += 1;
+          isDisLiked.value = true;
+        }
+        updateDoc(plusORminusLikeRef, {
           users: arrayUnion(store.$state.UserUID),
           amount: currentAmount + 1,
         });
-        likes.value += 1;
       }
+      // updateLikes();
     };
+
     let clickShare = () => {
       let type = "text/plain";
       let blob = new Blob(
@@ -115,7 +135,16 @@ export default defineComponent({
           Dislikes.value = doc.data().amount;
         }
       });
+      let LikeDoc = await getDoc(GetLikes);
+      let DisLikeDoc = await getDoc(GetDisLikes);
+      let usersLike = LikeDoc.get("users");
+      let usersDisLike = DisLikeDoc.get("users");
+      isLiked.value = usersLike.indexOf(store.$state.UserUID) ? false : true;
+      isDisLiked.value = usersDisLike.indexOf(store.$state.UserUID)
+        ? false
+        : true;
     };
+
     onMounted(() => {
       updateLikes();
     });
@@ -127,6 +156,8 @@ export default defineComponent({
       clickLike,
       clickShare,
       store,
+      isLiked,
+      isDisLiked,
     };
   },
 });
@@ -152,11 +183,22 @@ img {
   position: relative;
   z-index: 1;
 }
-img:hover,
-img:hover + .likes::after,
+
+img:hover {
+  transform: scale(1.7);
+  font-size: 10px;
+}
 img:hover + .Dislikes::after {
   transform: scale(1.7);
+  font-size: 10px;
 }
+/* .likes:hover::after{
+  transform: scale(1.4);
+  top: -4px;
+  left: 48px;
+
+} */
+
 .likes::after {
   content: attr(data-content);
   display: block;
@@ -164,10 +206,10 @@ img:hover + .Dislikes::after {
   top: -1px;
   left: 45px;
   font-size: 7px;
-  transform: scale(1);
   transition: 0.5s;
   z-index: 2;
 }
+
 .Dislikes::after {
   content: attr(data-content);
   display: block;
@@ -175,7 +217,6 @@ img:hover + .Dislikes::after {
   top: 13px;
   left: 1px;
   font-size: 7px;
-  transform: scale(1);
   transition: 0.5s;
   z-index: 2;
 }
@@ -208,5 +249,13 @@ img:hover + .Dislikes::after {
 }
 .spanCopied {
   opacity: 1;
+}
+.LikeClicked > img {
+  filter: invert(75%) sepia(58%) saturate(506%) hue-rotate(78deg)
+    brightness(86%) contrast(87%);
+}
+.DisLikeClicked > img {
+  filter: invert(31%) sepia(73%) saturate(1461%) hue-rotate(341deg)
+    brightness(112%) contrast(86%);
 }
 </style>

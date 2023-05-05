@@ -7,15 +7,19 @@
         <p class="CryptoNameFade">{{ coin?.symbol }}</p>
         <p
           :class="{
-            CryptoPercentDown: coin?.quote.USD.percent_change_1h.toString().includes('-'),
-            CryptoPercentUp: !coin?.quote.USD.percent_change_1h.toString().includes('-')
+            CryptoPercentDown: coin?.quote.USD.percent_change_1h
+              .toString()
+              .includes('-'),
+            CryptoPercentUp: !coin?.quote.USD.percent_change_1h
+              .toString()
+              .includes('-'),
           }"
           v-if="responseAPI != undefined"
         >
-          {{ coin?.quote.USD.percent_change_1h.toFixed(1) + '%' }}
+          {{ coin?.quote.USD.percent_change_1h.toFixed(1) + "%" }}
         </p>
         <p class="CryptoPrice" v-if="responseAPI != undefined">
-          {{ Number(coin?.quote.USD.price.toFixed(2)) + ' USD' }}
+          {{ Number(coin?.quote.USD.price.toFixed(2)) + " USD" }}
         </p>
         <div v-else><span class="loader"></span></div>
       </article>
@@ -25,76 +29,79 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
-import axios from 'axios'
+import { defineComponent, ref, onMounted } from "vue";
+import axios from "axios";
 export default defineComponent({
   components: {},
   setup() {
-    let responseAPI: any = ref(undefined)
-    let CoinContainer: any = ref([])
-    let upORdownPercent = ref(true)
+    let responseAPI: any = ref(undefined);
+    let CoinContainer: any = ref([]);
+    let upORdownPercent = ref(true);
     let GetCurrentCryptoIndex = async () => {
       try {
-        await axios('https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest', {
-          headers: {
-            'X-CMC_PRO_API_KEY': 'da29a1ba-4d7a-4cd0-93d4-926654c69524',
-            Accept: 'application/json'
-          },
-          params: {
-            convert: 'USD',
-            limit: '20'
+        await axios(
+          "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
+          {
+            headers: {
+              "X-CMC_PRO_API_KEY": "da29a1ba-4d7a-4cd0-93d4-926654c69524",
+              Accept: "application/json",
+            },
+            params: {
+              convert: "USD",
+              limit: "20",
+            },
           }
-        })
+        )
           .then(async (res: any) => {
-            responseAPI.value = await res.data.data
+            responseAPI.value = await res.data.data;
           })
           .then(() => {
             function findSymbol(symbol: string) {
               let found = responseAPI.value.find((item: any) => {
-                return item.symbol == symbol
-              })
-              return found
+                return item.symbol == symbol;
+              });
+              return found;
             }
             let BTC = {
-              img: 'src/assets/CryptoModule/bitcoin-btc-logo.svg',
-              ...findSymbol('BTC')
-            }
+              img: "src/assets/CryptoModule/bitcoin-btc-logo.svg",
+              ...findSymbol("BTC"),
+            };
             let ETH = {
-              img: 'src/assets/CryptoModule/ethereum-eth-logo.svg',
-              ...findSymbol('ETH')
-            }
+              img: "src/assets/CryptoModule/ethereum-eth-logo.svg",
+              ...findSymbol("ETH"),
+            };
             let BNB = {
-              img: 'src/assets/CryptoModule/bnb-bnb-logo.svg',
-              ...findSymbol('BNB')
-            }
+              img: "src/assets/CryptoModule/bnb-bnb-logo.svg",
+              ...findSymbol("BNB"),
+            };
             let XRP = {
-              img: 'src/assets/CryptoModule/xrp-xrp-logo.svg',
-              ...findSymbol('XRP')
-            }
+              img: "src/assets/CryptoModule/xrp-xrp-logo.svg",
+              ...findSymbol("XRP"),
+            };
             let SOL = {
-              img: 'src/assets/CryptoModule/solana-sol-logo.svg',
-              ...findSymbol('SOL')
-            }
+              img: "src/assets/CryptoModule/solana-sol-logo.svg",
+              ...findSymbol("SOL"),
+            };
             let TRX = {
-              img: 'src/assets/CryptoModule/tron-trx-logo.svg',
-              ...findSymbol('TRX')
-            }
-            CoinContainer.value.push(BTC, ETH, BNB, XRP, SOL, TRX)
+              img: "src/assets/CryptoModule/tron-trx-logo.svg",
+              ...findSymbol("TRX"),
+            };
+            CoinContainer.value.push(BTC, ETH, BNB, XRP, SOL, TRX);
           })
           .catch((error) => {
-            responseAPI.value = undefined
-          })
+            responseAPI.value = undefined;
+          });
       } catch {
-        responseAPI.value = undefined
+        responseAPI.value = undefined;
       }
-    }
+    };
     onMounted(() => {
-      GetCurrentCryptoIndex()
-    })
+      GetCurrentCryptoIndex();
+    });
 
-    return { responseAPI, CoinContainer, upORdownPercent }
-  }
-})
+    return { responseAPI, CoinContainer, upORdownPercent };
+  },
+});
 </script>
 
 <style scoped>
@@ -143,7 +150,7 @@ img {
   position: relative;
 }
 .CryptoPercentUp::after {
-  content: '';
+  content: "";
   border-bottom: 4px solid green;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
@@ -155,7 +162,7 @@ img {
   position: relative;
 }
 .CryptoPercentDown::after {
-  content: '';
+  content: "";
   border-top: 4px solid #cc0000;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
@@ -175,7 +182,7 @@ img {
   margin-left: 20px;
 }
 .loader::after {
-  content: '';
+  content: "";
   box-sizing: border-box;
   position: absolute;
   left: 50%;
@@ -206,7 +213,7 @@ img {
   animation: rotation 2s linear infinite;
 }
 .loaderfull::after {
-  content: '';
+  content: "";
   box-sizing: border-box;
   position: absolute;
   left: 50%;
