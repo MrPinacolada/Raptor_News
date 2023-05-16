@@ -13,18 +13,25 @@ import CreateAccount from "@/components/Autentification/CreateAccount.vue";
 import HeadBar from "@/components/Header/HeadBar.vue";
 import Swiper from "@/components/HotNewsHead/Swiper.vue";
 import BodyContainer from "@/components/centralBody/BodyContainer.vue";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection } from "firebase/firestore";
 import { Store } from "@/piniaStorage/dbPinia";
 import { RaptorNewsStore } from "@/firebase/config";
-
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+  updateEmail,
+  updatePassword,
+  reauthenticateWithCredential,
+  signInWithEmailAndPassword,
+  EmailAuthProvider,
+} from "firebase/auth";
 import "animate.css";
 export default defineComponent({
   components: { HeadBar, Swiper, BodyContainer, SingIn, CreateAccount },
   setup() {
-    // ------------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // localStorage.clear();
-    //-------------------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     let store = Store();
+    let auth = getAuth();
     let SCROLLtop = ref(200);
     let checkScroll = () => {
       SCROLLtop.value = window.scrollY;
@@ -35,10 +42,15 @@ export default defineComponent({
         behavior: "smooth",
       });
     };
+    
     store.$state.UserUID = localStorage.getItem("auth-token");
-
     onMounted(() => {
       document.addEventListener("scroll", checkScroll);
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          store.$state.UserUID = user.uid;
+        }
+      });
     });
     onBeforeUnmount(() => {
       document.removeEventListener("scroll", checkScroll);

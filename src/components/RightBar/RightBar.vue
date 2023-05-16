@@ -1,8 +1,8 @@
 <template>
   <div class="RightBarContainer">
-    <!-- <WeatherModule /> -->
-    <CurrencyPrice />
+    <WeatherModule />
     <MostLikedNews />
+    <CurrencyPrice />
   </div>
 </template>
 

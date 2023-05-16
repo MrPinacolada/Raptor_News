@@ -7,6 +7,7 @@ export const Store = defineStore("Articles", {
       UserUID: undefined as any,
       UserName: undefined as any,
       UserGender: undefined as any,
+      isEditor: true,
       userPhotoAcc: "/src/assets/HeadBar/user.png",
       userLikedContainer: undefined as any,
       isUserPhotoExists: false,
@@ -81,7 +82,7 @@ export const Store = defineStore("Articles", {
         "Rejoiced prospect yet material servants out answered men admitted",
       DailyArtBusinessPage: "Shewing met parties gravity husband sex pleased",
       DailyArtGamesPage: "Yet no jokes worse her why",
-      DailyArtSportsPage: "Covered parlors concern we express in visited to do",
+      DailyArtSportsPage: "Pleased him another was settled for",
       DailyArtWeatherPage:
         "Be acceptance at precaution astonished excellence thoroughly is entreaties",
       PoliticARTS: [

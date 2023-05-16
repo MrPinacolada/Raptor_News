@@ -55,6 +55,7 @@ export default defineComponent({
       CurrentArt.value = currentTopicMajorPage.filter((item: any) => {
         return item.title == currentTitleMajorPage;
       });
+      console.log(CurrentArt.value);
       CurrentArt.value.map(async (item: any) => {
         load_ONE_IMG(item.path, item.id, item.loaderID);
       });
@@ -137,6 +138,7 @@ img {
   padding: 7px;
   display: block;
   z-index: 5;
+  border-top-left-radius: 3px;
 }
 .likesContainer {
   position: absolute;

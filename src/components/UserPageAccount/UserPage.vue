@@ -15,12 +15,12 @@
       src="@/assets/UserAcc/ModalWindowAcc/icons8-left-arrow-96.png"
       alt="Back"
       @click="goBackToMajorModal"
-      v-if="ChangeUserPhoto"
+      v-if="ChangeUserPhoto || userSettingsON"
       id="arrowBack"
     />
     <!-- arrows back and forward -->
     <!-- main content -->
-    <div v-if="!ChangeUserPhoto" class="mainContentUserPage">
+    <div v-if="!ChangeUserPhoto && !userSettingsON" class="mainContentUserPage">
       <h3>Hello {{ store.$state.UserName }}!</h3>
       <div class="userSettings">
         <div class="img-wrapper">
@@ -28,6 +28,7 @@
             src="@/assets/UserAcc/ModalWindowAcc/icons8-test-account-48.png"
             alt="Account settings"
             class="forAll"
+            @click="userSettingsON = !userSettingsON"
           />
           <span class="text">Settings</span>
         </div>
@@ -61,7 +62,11 @@
           <span class="text">Change photo</span>
         </div>
       </div>
-      <button class="logout-btn" v-if="!ChangeUserPhoto" @click="singOutUser">
+      <button
+        class="logout-btn"
+        v-if="!ChangeUserPhoto && !userSettingsON"
+        @click="singOutUser"
+      >
         Sing Out
       </button>
     </div>
@@ -112,14 +117,65 @@
       </button>
     </div>
     <!-- //--------------change photoContainer -->
+    <!-- userSetting container -->
+    <form @submit.prevent v-if="userSettingsON">
+      <div class="changedSuccesfully" v-if="changedSuccess">
+        <img
+          id="svgSpace"
+          src="@/assets/UserAcc/ModalWindowAcc/space.svg"
+          alt=""
+        />
+
+        <div class="loadingProcess">
+          <span class="loader"></span>
+          <span class="loaderChange"></span>
+        </div>
+      </div>
+      <label>Please, write your old email:</label>
+      <input v-model="oldEmail" type="email" required />
+      <p class="Perror" v-if="errorOldEmail">
+        It isn't your old email. Pleas, try again
+      </p>
+
+      <label>Please, write your new email:</label>
+      <input
+        placeholder="example@example.com"
+        v-model="newEmail"
+        type="email"
+        required
+      />
+      <label>Please, write your old password:</label>
+      <input v-model="oldPass" type="password" required />
+      <label>Please, write your new password:</label>
+      <input v-model="newPass" type="password" required />
+      <p class="Perror" v-if="passCheck">
+        {{ passCheck }}
+      </p>
+      <p v-if="errorTotalMessage" id="UserSetsTotalError">
+        Something went wrong. Please, refresh the page.
+      </p>
+      <button class="ChangePassAndEmailButt" @click="changeEmailandPassword">
+        Confirm changes
+      </button>
+    </form>
+    <!-- userSetting container -->
   </div>
 </template>
 
 <script lang="ts">
 import { RouterLink, useRouter } from "vue-router";
-import { ref, onMounted, defineComponent, onBeforeUnmount } from "vue";
+import { ref, onMounted, defineComponent, onBeforeUnmount, watch } from "vue";
 import { Store } from "@/piniaStorage/dbPinia";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+  updateEmail,
+  updatePassword,
+  reauthenticateWithCredential,
+  signInWithEmailAndPassword,
+  EmailAuthProvider,
+} from "firebase/auth";
 import {
   getStorage,
   ref as fireRef,
@@ -137,6 +193,17 @@ export default defineComponent({
     let storage = getStorage();
     let store = Store();
     let router = useRouter();
+    // Modal of UserSettings------------------------------------------------------
+    let userSettingsON = ref(false);
+    let oldEmail = ref();
+    let newEmail = ref();
+    let oldPass = ref();
+    let newPass = ref();
+    let passCheck = ref();
+    let changedSuccess = ref(false);
+    let errorTotalMessage = ref(false);
+    let errorOldEmail = ref(false);
+    // Modal of UserSettings------------------------------------------------------
     // Modal of loading IMG------------------------------------------------------
     let UserGenderPhoto = ref();
     let cropperIMGvalue = ref();
@@ -162,7 +229,8 @@ export default defineComponent({
       router.push({ path: "/" });
     };
     let goBackToMajorModal = () => {
-      ChangeUserPhoto.value = !ChangeUserPhoto.value;
+      ChangeUserPhoto.value = ChangeUserPhoto.value ? false : false;
+      userSettingsON.value = userSettingsON.value ? false : false;
     };
     //--------------drag&drop Area-----------------------------
     const isDragOver = ref(false);
@@ -170,18 +238,18 @@ export default defineComponent({
       isDragOver.value = true;
     }
 
-    function handleDragLeave() {
+    let handleDragLeave = () => {
       isDragOver.value = false;
-    }
+    };
 
-    function handleDrop(event: DragEvent) {
+    let handleDrop = (event: DragEvent) => {
       event.preventDefault();
       isDragOver.value = false;
       if (event.dataTransfer?.types?.includes("Files")) {
         const files = Array.from(event.dataTransfer?.files) as File[];
         onFileChange(files);
       }
-    }
+    };
     //--------------drag&drop Area-------------------------------------------
 
     // Modal of loading IMG------------------------------------------------------
@@ -247,26 +315,19 @@ export default defineComponent({
             // }
           },
           (error) => {
-            // A full list of error codes is available at
-            // https://firebase.google.com/docs/storage/web/handle-errors
             switch (error.code) {
               case "storage/unauthorized":
-                // User doesn't have permission to access the object
                 break;
               case "storage/canceled":
-                // User canceled the upload
                 break;
-
-              // ...
-
               case "storage/unknown":
-                // Unknown error occurred, inspect error.serverResponse
                 break;
             }
           },
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               store.$state.userPhotoAcc = downloadURL as string;
+              console.log(store.$state.userPhotoAcc);
             });
             closeModal();
           }
@@ -274,6 +335,53 @@ export default defineComponent({
       });
     };
     // Modal of loading IMG------------------------------------------------------
+    // modal of user settings
+
+    const changeEmailandPassword = async () => {
+      try {
+        const user = auth.currentUser;
+        const userOldEmail = user?.email;
+        if (!userOldEmail || userOldEmail !== oldEmail.value) {
+          errorOldEmail.value = true;
+          return;
+        } else errorOldEmail.value = false;
+        const credential = EmailAuthProvider.credential(
+          userOldEmail,
+          oldPass.value
+        );
+        await reauthenticateWithCredential(user, credential);
+        await updateEmail(user, newEmail.value);
+        await updatePassword(user, newPass.value);
+        changedSuccess.value = true;
+        setTimeout(() => {
+          localStorage.setItem("SingIN-Butt-Class", "SingIN-Butt-b4-SingIN");
+          closeModal();
+          singOutUser();
+        }, 2900);
+      } catch (error) {
+        errorTotalMessage.value = true;
+      }
+    };
+
+    let checkRepeatedChars = (str: any) => {
+      for (let i = 0; i < str.length; i++) {
+        if (str.indexOf(str[i]) !== i) {
+          return true;
+        }
+      }
+      return false;
+    };
+    watch(newPass, () => {
+      passCheck.value =
+        newPass.value.length == 0
+          ? " "
+          : newPass.value.length < 8
+          ? "Your password must have at least 8 symbols"
+          : checkRepeatedChars(newPass.value)
+          ? "We've found repeated symbols in your password. Please, change that."
+          : false;
+    });
+    // modal of user settings
 
     onMounted(() => {
       document.addEventListener("scroll", checkScroll);
@@ -281,12 +389,12 @@ export default defineComponent({
         getUserAvatar(UserGenderPhoto, store);
       }
 
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          UserUid = user.uid;
-        } else {
-        }
-      });
+      // onAuthStateChanged(auth, (user) => {
+      //   if (user) {
+      //     UserUid = user.uid;
+      //   } else {
+      //   }
+      // });
       onBeforeUnmount(() => {
         document.removeEventListener("scroll", checkScroll);
       });
@@ -312,6 +420,16 @@ export default defineComponent({
       handleDrop,
       cropperIMGvalue,
       singOutUser,
+      userSettingsON,
+      oldEmail,
+      newEmail,
+      newPass,
+      errorTotalMessage,
+      errorOldEmail,
+      changeEmailandPassword,
+      passCheck,
+      changedSuccess,
+      oldPass,
     };
   },
 });
@@ -456,6 +574,7 @@ input[type="file"] {
   position: absolute;
   top: 0;
   left: 0;
+  border-radius: 10px;
 }
 .loadingProcess > p {
   text-align: center;
@@ -584,4 +703,118 @@ input[type="file"] {
 .mainContentUserPage {
   display: grid;
 }
+.userSetContainer {
+}
+#UserSetsTotalError {
+}
+form {
+  border-radius: 10px;
+  background: #f5f5f5;
+  text-align: left;
+  padding: 60px;
+}
+label {
+  color: #aaa;
+  text-transform: uppercase;
+  margin: 25px 0px 15px;
+  display: inline-block;
+  font-size: 0.9em;
+}
+input {
+  display: block;
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: whitesmoke;
+  border-bottom: 1px solid #e2bebe;
+  padding: 5px 6px;
+}
+input:focus {
+  outline: none;
+}
+.Perror {
+  color: rgba(231, 9, 9, 0.49);
+  font-size: 10px;
+  margin: 0;
+  padding: 0;
+}
+.changedSuccesfully {
+  position: absolute;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: start;
+}
+.changedSuccesfully > img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.loaderChange {
+  width: 100%;
+  height: 4.8px;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+  top: 318px;
+}
+.loaderChange::after {
+  content: "";
+  width: 0%;
+  height: 4.8px;
+  background-color: #fff;
+  font-size: 15px;
+  background-image: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.25) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.25) 50%,
+    rgba(0, 0, 0, 0.25) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1em 1em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  animation: animFw 3s ease-in infinite, barStripe 1s linear infinite;
+}
+
+@keyframes barStripe {
+  0% {
+    background-position: 1em 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+@keyframes animFw {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+.ChangePassAndEmailButt {
+  left: 64px;
+  top: 23px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  position: relative;
+  padding: 10px;
+  cursor: pointer;
+}
+.ChangePassAndEmailButt:hover {
+  background-color: #f2f2f2;
+}
+
 </style>

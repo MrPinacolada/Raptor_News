@@ -107,12 +107,12 @@ const router = createRouter({
       props: true,
       component: () => import("@/views/Weather/Articles/WeatherArts.vue"),
     },
-    // {
-    //   path: "/account",
-    //   name: "UserPage",
-    //   props: true,
-    //   component: () => import("@/components/UserPageAccount/UserPage.vue"),
-    // },
+    {
+      path: "/EditorPage",
+      name: "EditorPage",
+      props: true,
+      component: () => import("@/components/editirMode/editorPage.vue"),
+    },
   ],
 });
 export default router;

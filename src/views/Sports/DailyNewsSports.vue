@@ -4,12 +4,12 @@
       <div :id="art.loaderID" class="loaderwrap" v-show="!checkTheLoader">
         <span class="loader"></span>
       </div>
-      <RouterLink :to="{ name: 'GamesArts', params: { id: art.id } }">
+      <RouterLink :to="{ name: 'SportsArts', params: { id: art.id } }">
         <img src="" alt="" :id="art.id" v-show="checkTheLoader" />
       </RouterLink>
     </picture>
     <div class="dailyRead">
-      <RouterLink :to="{ name: 'GamesArts', params: { id: art.id } }">
+      <RouterLink :to="{ name: 'SportsArts', params: { id: art.id } }">
         <h1>{{ art.title }}</h1>
       </RouterLink>
       <p>
@@ -40,13 +40,12 @@ import "animate.css";
 export default defineComponent({
   components: { likesModal },
   setup() {
-    let checkTheLoader = computed(
-      () => Store().$state.TurnOffTheErrorLoaderIMG
-    );
+    let store = Store();
+    let checkTheLoader = computed(() => store.$state.TurnOffTheErrorLoaderIMG);
 
     let ArtToRender = ref(
-      Store().$state.SportARTS.filter((art: any) => {
-        return art.title == Store().$state.DailyArtSportsPage;
+      store.$state.SportARTS.filter((art: any) => {
+        return art.title == store.$state.DailyArtSportsPage;
       })
     );
     ArtToRender.value.forEach((art: any) => {
@@ -69,7 +68,7 @@ export default defineComponent({
   grid-template-columns: 1fr 1fr;
 }
 .dailyNews::after {
-  content: "Games";
+  content: "Sports";
   position: absolute;
   top: 0;
   left: 0;

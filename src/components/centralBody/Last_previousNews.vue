@@ -189,6 +189,7 @@ img {
   z-index: 10;
   color: #fff;
   background-color: rgb(65, 65, 65, 0.8);
+  border-top-left-radius: 2px;
 }
 h3 {
   margin-top: 15px;

@@ -197,7 +197,7 @@ export default defineComponent({
           : password.value.length < 8
           ? "Your password must have at least 8 symbols"
           : checkRepeatedChars(password.value)
-          ? "We found repeated symbols in your password. Please, change that."
+          ? "We've found repeated symbols in your password. Please, change that."
           : "";
       errorRepeatPassword.value =
         password.value.length == 0

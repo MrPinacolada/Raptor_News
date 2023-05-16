@@ -82,9 +82,9 @@ export default defineComponent({
     let clickLike = async (like: boolean) => {
       let plusORminusLikeRef = like ? GetLikes : GetDisLikes;
       let plusLikeDoc = await getDoc(plusORminusLikeRef);
-      let users = plusLikeDoc.get("users");
+      let users = await plusLikeDoc.get("users");
       let userIndex = users.indexOf(store.$state.UserUID);
-      let currentAmount = plusLikeDoc.get("amount");
+      let currentAmount = await plusLikeDoc.get("amount");
       if (userIndex !== -1) {
         if (like) {
           likes.value -= 1;

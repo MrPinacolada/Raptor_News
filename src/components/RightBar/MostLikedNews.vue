@@ -1,24 +1,31 @@
 <template>
-  <div class="MostLikedNewsContainer">
+  <div
+    class="MostLikedNewsContainer"
+    v-if="store.$state.UserUID && likedNewsExists"
+  >
     <swiper
       :slidesPerView="1"
       :loop="true"
       :autoplay="{
-        delay: 500,
+        delay: 1500,
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
       }"
       :modules="modules"
     >
       <swiper-slide v-for="art in LikedNewsContainer">
-        <div class="likedNews">
-          <picture>
-            <img :id="art.id + 'LikedNews'" alt="" />
-          </picture>
-          <p>
-            {{ art.title }}
-          </p>
-        </div>
+        <RouterLink :to="{ name: art.tag + 'Arts', params: { id: art.id } }">
+          <div class="likedNews">
+            <picture>
+              <span class="TagSpan">{{ art.tag }}</span>
+              <img :id="art.id + 'LikedNews'" alt="" />
+              <span class="LikedSpan">News you liked</span>
+            </picture>
+            <p>
+              {{ art.title }}
+            </p>
+          </div>
+        </RouterLink>
       </swiper-slide>
     </swiper>
   </div>
@@ -26,6 +33,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, watch } from "vue";
+import { RouterLink } from "vue-router";
 import { Store } from "@/piniaStorage/dbPinia";
 import {
   addDoc,
@@ -53,8 +61,9 @@ export default defineComponent({
     let store = Store();
     let FirebaseFunc = getFunctions();
     let LikedNewsContainer = ref([] as any);
+    let likedNewsExists = ref(false);
     let topics = [
-      store.$state.PoliticARTS, 
+      store.$state.PoliticARTS,
       store.$state.BusinessARTS,
       store.$state.WeatherARTS,
       store.$state.GamesARTS,
@@ -75,14 +84,21 @@ export default defineComponent({
             return art.id == id.id;
           });
           LikedNewsContainer.value.push(...search);
-          LikedNewsContainer.value.map((item: any) => {
-            load_ONE_IMG(item.path, item.id + "LikedNews", item.loaderID);
-          });
+          if (LikedNewsContainer.value) {
+            LikedNewsContainer.value.map((item: any) => {
+              load_ONE_IMG(item.path, item.id + "LikedNews", item.loaderID);
+            });
+            likedNewsExists.value = true
+          }else console.log('hi');
         });
       }
     );
-
-    return { store, LikedNewsContainer, modules: [Pagination, Autoplay] };
+    return {
+      store,
+      LikedNewsContainer,
+      modules: [Pagination, Autoplay],
+      likedNewsExists,
+    };
   },
 });
 </script>
@@ -106,15 +122,16 @@ export default defineComponent({
   justify-items: center;
 }
 
-/* picture {
+picture {
   border-radius: 7px;
-  max-width: 300px;
-  max-height: auto;
-} */
+  width: 301px;
+  height: 201px;
+}
 picture > img {
   width: 100%;
   height: 100%;
   border-radius: 7px;
+  position: relative;
 }
 .swiper {
   margin: 0;
@@ -123,7 +140,7 @@ picture > img {
 }
 .swiper-slide {
   width: 300px;
-  height: 100%;
+  height: auto;
   position: relative;
   text-align: center;
   font-size: 16px;
@@ -138,5 +155,40 @@ picture > img {
 .swiper-slide > p {
   padding: 10px;
   margin: 0;
+}
+p {
+  text-align: center;
+}
+.TagSpan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: fit-content;
+  height: fit-content;
+  background-color: rgb(65, 65, 65, 0.8);
+  cursor: pointer;
+  font-size: 15px;
+  color: #fff;
+  /* border-radius: 3px; */
+  padding: 5px;
+  display: block;
+  z-index: 5;
+  border-top-left-radius: 7px;
+}
+.LikedSpan {
+  position: absolute;
+  top: 172px;
+  left: 0px;
+  width: fit-content;
+  height: fit-content;
+  background-color: rgb(65, 65, 65, 0.8);
+  cursor: pointer;
+  font-size: 15px;
+  color: #fff;
+  /* border-radius: 3px; */
+  padding: 5px;
+  display: block;
+  z-index: 5;
+  border-bottom-left-radius: 7px;
 }
 </style>

@@ -230,8 +230,8 @@ img {
 }
 .TagSpan {
   position: absolute;
-  top: 2px;
-  left: -8px;
+  top: 0px;
+  left: -10px;
   width: fit-content;
   height: fit-content;
   background-color: rgb(65, 65, 65, 0.8);
@@ -242,5 +242,7 @@ img {
   padding: 5px;
   display: block;
   z-index: 5;
+  border-top-left-radius: 5px;
+
 }
 </style>

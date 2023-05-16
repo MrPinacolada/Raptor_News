@@ -37,7 +37,12 @@
     <div class="buttons">
       <ion-icon name="search-outline"></ion-icon>
       <div class="userView" v-if="store.$state.UserUID">
-        <img :src="userPhotoAcc" id="userIconIMG" :class="{userPhotoAccBorder50:store.$state.isUserPhotoExists}" @click="openModal" />
+        <img
+          :src="userPhotoAcc"
+          id="userIconIMG"
+          :class="{ userPhotoAccBorder50: store.$state.isUserPhotoExists }"
+          @click="openModal"
+        />
       </div>
       <button
         v-if="store.$state.UserUID == undefined"
@@ -47,13 +52,20 @@
       >
         Sing In
       </button>
-      
+
       <button
         v-if="store.$state.UserUID == undefined"
         class="createacc forall"
         @click="store.$state.CreateAccount = !store.$state.CreateAccount"
       >
         Create Account
+      </button>
+      <button
+        v-if="store.$state.isEditor"
+        class="editorModeButt forall"
+        @click="goToEditorPage"
+      >
+        <span class="editorModeButtSpan">Create new topic</span>
       </button>
       <button
         v-if="store.$state.UserUID"
@@ -77,13 +89,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { RouterLink, useRouter } from "vue-router";
-import { ref, onMounted,watch } from "vue";
+import { ref, onMounted, watch } from "vue";
 import FiatPriceModule from "./FiatPriceModule.vue";
 import { Store } from "@/piniaStorage/dbPinia";
 import getUserAvatar from "@/composables/getUserAccPhoto";
 import singOutUser from "@/composables/singOutUser";
-
-
 
 export default defineComponent({
   components: { FiatPriceModule },
@@ -96,10 +106,12 @@ export default defineComponent({
       store.$state.OpenCloseAccountModalWindow = true;
       router.push({ path: "/account" });
     };
+    let goToEditorPage = () => {
+      router.push({ path: "/EditorPage" });
+    };
     onMounted(() => {
-      if(store.$state.UserUID){
-      getUserAvatar(userPhotoAcc,store);
-
+      if (store.$state.UserUID) {
+        getUserAvatar(userPhotoAcc, store);
       }
       if (typeof Storage !== undefined) {
         let timeToSingIN = localStorage.getItem("SingIN-Butt-Class");
@@ -107,7 +119,7 @@ export default defineComponent({
         SingINButt?.classList.add(timeToSingIN as string);
       }
     });
-    return { store, openModal,userPhotoAcc,singOutUser };
+    return { goToEditorPage, store, openModal, userPhotoAcc, singOutUser };
   },
 });
 </script>
@@ -194,13 +206,41 @@ p {
   background-color: rgb(17, 43, 69);
   font-size: 1em;
 }
-.singOut{
+.singOut {
   height: 40px;
   border: none;
   border-radius: 5px;
   background-color: rgba(6, 63, 119, 0.807);
-  font-size: 1em;
   margin-right: 10px;
+}
+.editorModeButt {
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(
+    -45deg,
+    #4bc0c8 25%,
+    #feac5e 25%,
+    #feac5e 50%,
+    #4bc0c8 50%,
+    #4bc0c8 75%,
+    #feac5e 75%,
+    #feac5e
+  );
+  background-size: 20px 20px;
+  animation: stripes-4a720dd8 1s linear infinite;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.editorModeButtSpan {
+  color: #fffdfd;
+  text-transform: uppercase;
+  font-size: 1em;
+}
+@keyframes stripes {
+  100% {
+    background-position: 20px 0, 20px 0, 20px 0;
+  }
 }
 /* .indexbar {
   width: 100%;

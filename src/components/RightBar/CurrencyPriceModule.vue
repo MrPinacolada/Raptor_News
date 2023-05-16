@@ -86,7 +86,7 @@ export default defineComponent({
               img: "src/assets/CryptoModule/tron-trx-logo.svg",
               ...findSymbol("TRX"),
             };
-            CoinContainer.value.push(BTC, ETH, BNB, XRP, SOL, TRX);
+            CoinContainer.value.push(BTC, ETH, BNB, XRP, SOL);
           })
           .catch((error) => {
             responseAPI.value = undefined;
