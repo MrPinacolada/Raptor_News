@@ -21,6 +21,12 @@
       <div class="likesContainer">
         <likesModal :artNumb="Current_LAST_Art" />
       </div>
+      <div class="editorContainer">
+        <editorMode
+          :topic="toEditorTopicLast"
+          @RefreshPosition="uploadTheTopic()"
+        />
+      </div>
     </article>
     <article class="previous" v-for="art in Current_PREVIOUS_Art">
       <div id="loaderimg2" v-show="!checkTheLoader">
@@ -43,59 +49,79 @@
       <div class="likesContainer">
         <likesModal :artNumb="Current_PREVIOUS_Art" />
       </div>
+      <div class="editorContainer">
+        <editorMode
+          :topic="toEditorTopicPrevious"
+          @RefreshPosition="uploadTheTopic()"
+        />
+      </div>
     </article>
   </div>
 </template>
 
 <script lang="ts">
+import editorMode from "../editirMode/editorMode.vue";
 import { RouterLink, RouterView } from "vue-router";
 import { defineComponent, ref, computed, onMounted } from "vue";
 import { load_ONE_IMG } from "@/firebase/config";
 import { Store } from "@/piniaStorage/dbPinia";
+import { RaptorNewsStore } from "@/firebase/config";
 import likesModal from "../UserPageAccount/likesModal.vue";
-
+import {
+  collection,
+  doc,
+  getDocs,
+  updateDoc,
+  getDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
 export default defineComponent({
-  components: { likesModal },
+  components: { editorMode, likesModal },
   setup() {
-    let checkTheLoader = computed(
-      () => Store().$state.TurnOffTheErrorLoaderIMG
-    );
+    let store = Store();
+    let checkTheLoader = computed(() => store.$state.TurnOffTheErrorLoaderIMG);
     let Current_PREVIOUS_Art = ref();
     let Current_LAST_Art = ref();
-    let current_TITLE_MajorPageLastNews =
-      "Drawings offended yet answered jennings perceive laughing six did far";
-    let current_TITLE_MajorPagePreviousNews =
-      "Too objection for elsewhere her preferred allowance her";
-    let Topics = {
-      Politic: Store().$state.PoliticARTS,
-      Sport: Store().$state.SportARTS,
-      Weather: Store().$state.WeatherARTS,
-      Opinion: Store().$state.OpinionARTS,
-      Busines: Store().$state.BusinessARTS,
-      LifeStyle: Store().$state.LifeStyleARTS,
-      Games: Store().$state.GamesARTS,
-    };
-    let current_TOPIC_MajorPageLastNews = Topics.Opinion;
-    let current_TOPIC_MajorPagePreviousNews = Topics.Politic;
-    Current_LAST_Art.value = current_TOPIC_MajorPageLastNews.filter(
-      (item: any) => {
+    let GetTopics = doc(RaptorNewsStore, "Editor_mode", "Topics");
+
+    let current_TITLE_MajorPageLastNews = "";
+    let current_TITLE_MajorPagePreviousNews = "";
+    const toEditorTopicLast = "MajorPageLast";
+    const toEditorTopicPrevious = "MajorPagePrevious";
+
+    let uploadTheTopic = async () => {
+      let TopicDoc = await getDoc(GetTopics);
+      current_TITLE_MajorPageLastNews = await TopicDoc.get(toEditorTopicLast);
+      current_TITLE_MajorPagePreviousNews = await TopicDoc.get(
+        toEditorTopicPrevious
+      );
+      Current_LAST_Art.value = store.$state.ArraysConcat.filter((item: any) => {
         return item.title == current_TITLE_MajorPageLastNews;
-      }
-    );
-    Current_PREVIOUS_Art.value = current_TOPIC_MajorPagePreviousNews.filter(
-      (item: any) => {
-        return item.title == current_TITLE_MajorPagePreviousNews;
-      }
-    );
-    onMounted(() => {
+      });
+      Current_PREVIOUS_Art.value = store.$state.ArraysConcat.filter(
+        (item: any) => {
+          return item.title == current_TITLE_MajorPagePreviousNews;
+        }
+      );
       Current_PREVIOUS_Art.value.map((item: any) => {
         load_ONE_IMG(item.path, item.id, item.loaderID);
       });
       Current_LAST_Art.value.map((item: any) => {
         load_ONE_IMG(item.path, item.id, item.loaderID);
       });
+    };
+    onMounted(() => {
+      uploadTheTopic();
     });
-    return { Current_PREVIOUS_Art, Current_LAST_Art, checkTheLoader };
+    return {
+      uploadTheTopic,
+      toEditorTopicLast,
+      toEditorTopicPrevious,
+      Current_PREVIOUS_Art,
+      Current_LAST_Art,
+      checkTheLoader,
+    };
   },
 });
 </script>
@@ -204,5 +230,10 @@ p {
   top: 71%;
   left: 3%;
   z-index: 999999;
+}
+.editorContainer {
+  position: absolute;
+  top: 5px;
+  left: 297px;
 }
 </style>

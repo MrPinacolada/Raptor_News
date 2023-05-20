@@ -97,7 +97,7 @@ const router = createRouter({
     },
     {
       path: "/Sport/:id",
-      name: "SportsArts",
+      name: "SportArts",
       props: true,
       component: () => import("@/views/Sports/Articles/SportsArts.vue"),
     },

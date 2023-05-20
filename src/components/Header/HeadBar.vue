@@ -62,10 +62,17 @@
       </button>
       <button
         v-if="store.$state.isEditor"
-        class="editorModeButt forall"
+        class="createNewTopic forall"
         @click="goToEditorPage"
       >
-        <span class="editorModeButtSpan">Create new topic</span>
+        <span class="createNewTopicSpan">Create new topic</span>
+      </button>
+      <button
+        v-if="store.$state.isEditor"
+        class="editorModeOn forall"
+        @click="turnEditorModeONorOFF"
+      >
+        <span class="editorModeOnSpan">{{ EditorModeInner }}</span>
       </button>
       <button
         v-if="store.$state.UserUID"
@@ -102,6 +109,13 @@ export default defineComponent({
     let store = Store();
     let router = useRouter();
     let userPhotoAcc = ref(store.$state.userPhotoAcc);
+    let EditorModeInner = ref("Editor mode ON");
+    let turnEditorModeONorOFF = () => {
+      store.$state.editorModeOn = !store.$state.editorModeOn;
+      EditorModeInner.value = !store.$state.editorModeOn
+        ? "Editor mode ON"
+        : "Editor mode OFF";
+    };
     let openModal = () => {
       store.$state.OpenCloseAccountModalWindow = true;
       router.push({ path: "/account" });
@@ -119,7 +133,15 @@ export default defineComponent({
         SingINButt?.classList.add(timeToSingIN as string);
       }
     });
-    return { goToEditorPage, store, openModal, userPhotoAcc, singOutUser };
+    return {
+      turnEditorModeONorOFF,
+      goToEditorPage,
+      store,
+      openModal,
+      userPhotoAcc,
+      singOutUser,
+      EditorModeInner,
+    };
   },
 });
 </script>
@@ -213,7 +235,7 @@ p {
   background-color: rgba(6, 63, 119, 0.807);
   margin-right: 10px;
 }
-.editorModeButt {
+.createNewTopic {
   height: 40px;
   border: none;
   border-radius: 5px;
@@ -228,14 +250,39 @@ p {
     #feac5e
   );
   background-size: 20px 20px;
-  animation: stripes-4a720dd8 1s linear infinite;
+  animation: stripes 1s linear infinite;
   margin-right: 10px;
   cursor: pointer;
 }
-.editorModeButtSpan {
+.createNewTopicSpan {
   color: #fffdfd;
   text-transform: uppercase;
   font-size: 1em;
+}
+.editorModeOn {
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(
+    -45deg,
+    #4bc0c8 25%,
+    #d9e310 25%,
+    #d9e310 50%,
+    #4bc0c8 50%,
+    #4bc0c8 75%,
+    #d9e310 75%,
+    #d9e310
+  );
+  background-size: 20px 20px;
+  animation: stripes 2s linear infinite;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.editorModeOnSpan {
+  color: #060606;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
 }
 @keyframes stripes {
   100% {

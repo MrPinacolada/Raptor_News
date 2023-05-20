@@ -69,31 +69,39 @@
       </picture>
       <div class="dailyRead">
         <label>Write the major Title:</label>
+        <span class="counterSpan" v-if="titleCounter"
+          >Chars left: {{ 50 - titleCounter }}</span
+        >
         <input
           type="text"
           required
           v-model="title"
+          @input="handleCharsInput"
           placeholder="50 chars max"
         />
         <label>Write the SubTitle:</label>
+        <span class="counterSpan" v-if="subTitleCounter"
+          >Chars left: {{ 70 - subTitleCounter }}</span
+        >
         <input
           type="text"
           required
           v-model="subTitle"
+          @input="handleCharsInput"
           placeholder="70 chars max"
         />
       </div>
-      <button @click="uploadHandle">test</button>
     </article>
     <div
       class="bodyContainer animate__animated"
       :class="{
         animate__backInRight: changeToBodyTextArea,
-        animate__backOutRight: !changeToBodyTextArea,
+        animate__backOutRight: goTofirstModule,
       }"
       v-if="changeToBodyTextArea"
     >
       <h3 style="text-align: center">Write the body of article:</h3>
+
       <textarea v-model="bodyArticle" rows="5" class="notes"></textarea>
     </div>
     <span
@@ -102,8 +110,8 @@
       class="stepArrows"
       >NEXT STEP</span
     >
-    <span v-if="seePreview" @click="fillThebodyTextArea" class="stepArrows"
-      >SEE RPEVIEW</span
+    <span v-if="seePreview" @click="uploadHandle" class="stepArrows"
+      >PUBLISH</span
     >
   </div>
 </template>
@@ -140,7 +148,7 @@ export default defineComponent({
     let title = ref();
     let subTitle = ref();
     let NewsTAGS = ref();
-    let IMGvalue = ref();
+    let IMGvalue: any = ref(undefined);
     let isDragOver = ref(false);
     let isPick = ref(false);
     let innerLoadProcess = ref();
@@ -149,16 +157,31 @@ export default defineComponent({
     let changeToBodyTextArea = ref(false);
     let hideFirstModule = ref(false);
     let seePreview = ref(false);
+    let goTofirstModule = ref(false);
     let bodyArticle = ref();
+    let titleCounter = ref();
+    let subTitleCounter = ref();
     let fillThebodyTextArea = () => {
       changeToBodyTextArea.value = true;
       setTimeout(() => {
         hideFirstModule.value = true;
       }, 500);
     };
+    let handleCharsInput = (event: Event) => {
+      if (titleCounter.value >= 50) {
+        title.value = title.value.substring(0, 50);
+      }
+
+      if (subTitleCounter.value >= 70) {
+        subTitle.value = subTitle.value.substring(0, 70);
+      }
+    };
     let backToFIrstModule = () => {
-      changeToBodyTextArea.value = false;
+      goTofirstModule.value = true;
       setTimeout(() => {
+        seePreview.value = false;
+        goTofirstModule.value = false;
+        changeToBodyTextArea.value = false;
         hideFirstModule.value = false;
       }, 500);
     };
@@ -201,6 +224,7 @@ export default defineComponent({
       canvas.height = imgFile.naturalHeight;
       ctx?.drawImage(img, 0, 0);
       canvas.toBlob((blob: any) => {
+        console.log("blob");
         let formData = new FormData();
         formData.append("imgFile", blob as Blob);
         let linkToStorage = `${NewsTAGS.value}/${imgName}`;
@@ -227,12 +251,16 @@ export default defineComponent({
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then(
               async (downloadURL) => {
-                await setDoc(doc(ArtsRef, title.value), {
+                console.log("done");
+                await setDoc(doc(ArtsRef, title.value.replace(/\s/g, "-")), {
                   tag: NewsTAGS.value,
                   title: title.value,
+                  id: title.value.replace(/\s/g, "-"),
+                  YTid: "jfKfPfyJRdk",
+                  path: downloadURL,
                   subtitle: subTitle.value,
+                  body: bodyArticle.value,
                 });
-                console.log(downloadURL);
               }
             );
           }
@@ -259,10 +287,12 @@ export default defineComponent({
       return result;
     };
     let imgName = generateRandomString(20);
-    watch([title, subTitle, NewsTAGS], () => {
+    watch([title, subTitle, NewsTAGS, IMGvalue], () => {
+      titleCounter.value = title.value ? title.value.length : "";
+      subTitleCounter.value = subTitle.value ? subTitle.value.length : "";
       if (
-        (title.value && subTitle.value && NewsTAGS.value) != undefined ||
-        null
+        (title.value && subTitle.value && NewsTAGS.value && IMGvalue.value) !=
+        undefined
       ) {
         nextStepApprove.value = true;
       } else nextStepApprove.value = false;
@@ -294,6 +324,10 @@ export default defineComponent({
       bodyArticle,
       seePreview,
       backToFIrstModule,
+      goTofirstModule,
+      titleCounter,
+      handleCharsInput,
+      subTitleCounter,
     };
   },
 });
@@ -356,8 +390,12 @@ img {
 .dailyRead {
   padding: 10px;
   text-align: left;
+  display: grid;
   letter-spacing: 0.3px;
   border: 1px rgb(100, 146, 210, 0.5) solid;
+  align-content: center;
+  align-items: center;
+  justify-items: start;
 }
 
 .TagSpan {
@@ -402,7 +440,7 @@ input:focus {
 label {
   color: #aaa;
   text-transform: uppercase;
-  margin: 25px 0px 15px;
+  margin: 10px 0px 15px;
   display: inline-block;
   font-size: 0.9em;
 }
@@ -469,5 +507,9 @@ textarea:hover {
   outline: none;
   box-shadow: none !important;
   border-color: #daeafb !important;
+}
+.counterSpan {
+  font-size: 10px;
+  color: red;
 }
 </style>

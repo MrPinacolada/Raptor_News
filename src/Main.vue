@@ -33,6 +33,15 @@ export default defineComponent({
     let store = Store();
     let auth = getAuth();
     let SCROLLtop = ref(200);
+    store.$state.ArraysConcat = [
+      ...store.$state.GamesARTS,
+      ...store.$state.LifeStyleARTS,
+      ...store.$state.BusinessARTS,
+      ...store.$state.OpinionARTS,
+      ...store.$state.WeatherARTS,
+      ...store.$state.SportARTS,
+      ...store.$state.PoliticARTS,
+    ];
     let checkScroll = () => {
       SCROLLtop.value = window.scrollY;
     };
@@ -42,7 +51,7 @@ export default defineComponent({
         behavior: "smooth",
       });
     };
-    
+
     store.$state.UserUID = localStorage.getItem("auth-token");
     onMounted(() => {
       document.addEventListener("scroll", checkScroll);

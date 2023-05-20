@@ -8,6 +8,10 @@
         <span class="TagSpan">{{ art.tag }}</span>
         <img src="" alt="" :id="art.id" v-show="checkTheLoader" />
       </RouterLink>
+        <editorMode
+          :topic="toEditorTopic"
+          @RefreshPosition="uploadTheTopic()"
+        />
     </picture>
     <RouterLink :to="{ name: art.tag + 'Arts', params: { id: art.id } }">
       <div class="dailyRead">
@@ -26,41 +30,47 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onMounted } from "vue";
+import { defineComponent, watch, computed, ref, onMounted } from "vue";
 import { RouterLink } from "vue-router";
 import { Store } from "@/piniaStorage/dbPinia";
 import { load_ONE_IMG } from "@/firebase/config";
 import likesModal from "../UserPageAccount/likesModal.vue";
-
+import editorMode from "../editirMode/editorMode.vue";
+import { RaptorNewsStore } from "@/firebase/config";
+import {
+  collection,
+  doc,
+  getDocs,
+  updateDoc,
+  getDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
 import "animate.css";
 export default defineComponent({
-  components: { likesModal },
+  components: { likesModal, editorMode },
   setup() {
-    let checkTheLoader = computed(
-      () => Store().$state.TurnOffTheErrorLoaderIMG
-    );
+    let store = Store();
+    let checkTheLoader = computed(() => store.$state.TurnOffTheErrorLoaderIMG);
     let CurrentArt = ref();
-    let currentTitleMajorPage = "Sportsmen certainty prevailed suspected am as";
-    let Topics = {
-      Politic: Store().$state.PoliticARTS,
-      Sport: Store().$state.SportARTS,
-      Weather: Store().$state.WeatherARTS,
-      Opinion: Store().$state.OpinionARTS,
-      Busines: Store().$state.BusinessARTS,
-      LifeStyle: Store().$state.LifeStyleARTS,
-      Games: Store().$state.GamesARTS,
-    };
-    let currentTopicMajorPage = Topics.LifeStyle;
-    onMounted(() => {
-      CurrentArt.value = currentTopicMajorPage.filter((item: any) => {
+    let GetTopics = doc(RaptorNewsStore, "Editor_mode", "Topics");
+    const toEditorTopic = "MajorPageCurrent";
+    let currentTitleMajorPage: string;
+
+    let uploadTheTopic = async () => {
+      let TopicDoc = await getDoc(GetTopics);
+      currentTitleMajorPage = await TopicDoc.get(toEditorTopic);
+      CurrentArt.value = store.$state.ArraysConcat.filter((item: any) => {
         return item.title == currentTitleMajorPage;
       });
-      console.log(CurrentArt.value);
       CurrentArt.value.map(async (item: any) => {
         load_ONE_IMG(item.path, item.id, item.loaderID);
       });
+    };
+    onMounted(() => {
+      uploadTheTopic();
     });
-    return { checkTheLoader, CurrentArt };
+    return { uploadTheTopic, toEditorTopic, checkTheLoader, CurrentArt };
   },
 });
 </script>

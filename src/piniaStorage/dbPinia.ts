@@ -13,6 +13,7 @@ export const Store = defineStore("Articles", {
       isUserPhotoExists: false,
       CreateAccount: false,
       SingIN: false,
+      editorModeOn: false,
       TurnOffTheErrorLoaderIMG: false,
       OpenCloseAccountModalWindow: false,
       currentTopicMajorPage: {
@@ -85,7 +86,8 @@ export const Store = defineStore("Articles", {
       DailyArtSportsPage: "Pleased him another was settled for",
       DailyArtWeatherPage:
         "Be acceptance at precaution astonished excellence thoroughly is entreaties",
-      PoliticARTS: [
+       ArraysConcat:[] as any,
+        PoliticARTS: [
         {
           tag: "Politics",
           path: "/PoliticsPage/Politics_articles/pexels-asad-photo-maldives-2245194.webp",
@@ -371,7 +373,7 @@ export const Store = defineStore("Articles", {
             return this.title.replace(/\s/g, "-") + "loaderERROR";
           },
           title:
-            "Blessing welcomed ladyship she met humoured sir breeding her.",
+            "Blessing welcomed ladyship she met humoured sir breeding her",
           subtitle: "Six curiosity day assurance bed necessary",
           body:
             "Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated. As edward settle limits at in." +
