@@ -7,7 +7,12 @@
       <picture>
         <p class="timeline">{{ art.tag }}</p>
         <RouterLink :to="{ name: art.tag + 'Arts', params: { id: art.id } }">
-          <img v-show="checkTheLoader" :id="art.id" src="" alt="" />
+          <img
+            v-show="checkTheLoader"
+            :id="art.id + 'LastPrevious'"
+            src=""
+            alt=""
+          />
         </RouterLink>
       </picture>
       <div class="dailyRead">
@@ -21,12 +26,12 @@
       <div class="likesContainer">
         <likesModal :artNumb="Current_LAST_Art" />
       </div>
-      <div class="editorContainer">
+      <!-- <div class="editorContainer">
         <editorMode
           :topic="toEditorTopicLast"
           @RefreshPosition="uploadTheTopic()"
         />
-      </div>
+      </div> -->
     </article>
     <article class="previous" v-for="art in Current_PREVIOUS_Art">
       <div id="loaderimg2" v-show="!checkTheLoader">
@@ -35,7 +40,12 @@
       <picture>
         <p class="timeline">{{ art.tag }}</p>
         <RouterLink :to="{ name: art.tag + 'Arts', params: { id: art.id } }">
-          <img :id="art.id" v-show="checkTheLoader" src="" alt="" />
+          <img
+            :id="art.id + 'LastPrevious'"
+            v-show="checkTheLoader"
+            src=""
+            alt=""
+          />
         </RouterLink>
       </picture>
       <div class="dailyRead">
@@ -49,33 +59,25 @@
       <div class="likesContainer">
         <likesModal :artNumb="Current_PREVIOUS_Art" />
       </div>
-      <div class="editorContainer">
+      <!-- <div class="editorContainer">
         <editorMode
           :topic="toEditorTopicPrevious"
           @RefreshPosition="uploadTheTopic()"
         />
-      </div>
+      </div> -->
     </article>
   </div>
 </template>
 
 <script lang="ts">
 import editorMode from "../editirMode/editorMode.vue";
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink } from "vue-router";
 import { defineComponent, ref, computed, onMounted } from "vue";
 import { load_ONE_IMG } from "@/firebase/config";
 import { Store } from "@/piniaStorage/dbPinia";
 import { RaptorNewsStore } from "@/firebase/config";
 import likesModal from "../UserPageAccount/likesModal.vue";
-import {
-  collection,
-  doc,
-  getDocs,
-  updateDoc,
-  getDoc,
-  arrayUnion,
-  arrayRemove,
-} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 export default defineComponent({
   components: { editorMode, likesModal },
   setup() {
@@ -84,12 +86,10 @@ export default defineComponent({
     let Current_PREVIOUS_Art = ref();
     let Current_LAST_Art = ref();
     let GetTopics = doc(RaptorNewsStore, "Editor_mode", "Topics");
-
     let current_TITLE_MajorPageLastNews = "";
     let current_TITLE_MajorPagePreviousNews = "";
-    const toEditorTopicLast = "MajorPageLast";
-    const toEditorTopicPrevious = "MajorPagePrevious";
-
+    let toEditorTopicLast = "MajorPageLast";
+    let toEditorTopicPrevious = "MajorPagePrevious";
     let uploadTheTopic = async () => {
       let TopicDoc = await getDoc(GetTopics);
       current_TITLE_MajorPageLastNews = await TopicDoc.get(toEditorTopicLast);
@@ -105,10 +105,10 @@ export default defineComponent({
         }
       );
       Current_PREVIOUS_Art.value.map((item: any) => {
-        load_ONE_IMG(item.path, item.id, item.loaderID);
+        load_ONE_IMG(item.path, item.id + "LastPrevious", item.loaderID);
       });
       Current_LAST_Art.value.map((item: any) => {
-        load_ONE_IMG(item.path, item.id, item.loaderID);
+        load_ONE_IMG(item.path, item.id + "LastPrevious", item.loaderID);
       });
     };
     onMounted(() => {
@@ -133,6 +133,7 @@ export default defineComponent({
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+  position: relative;
 }
 .last {
   position: relative;
@@ -155,7 +156,6 @@ picture {
   border-bottom: 1px rgb(100, 146, 210, 0.5) solid;
   border-left: 1px rgb(100, 146, 210, 0.5) solid;
   border-right: 1px rgb(100, 146, 210, 0.5) solid;
-  align-self: flex-start;
 }
 
 img {
@@ -231,9 +231,12 @@ p {
   left: 3%;
   z-index: 999999;
 }
+
 .editorContainer {
+  display: flex;
   position: absolute;
   top: 5px;
   left: 297px;
+  grid-column: span 2;
 }
 </style>

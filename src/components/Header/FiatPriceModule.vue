@@ -7,7 +7,7 @@
         <p
           :class="{
             DownRed: index?.changesPercentage.toString().includes('-'),
-            UpGreen: !index?.changesPercentage.toString().includes('-')
+            UpGreen: !index?.changesPercentage.toString().includes('-'),
           }"
         >
           {{ index?.changesPercentage.toFixed(2) }}
@@ -17,45 +17,46 @@
     <span v-else class="loaderfull"></span>
   </article>
 </template>
-
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { RouterLink } from 'vue-router'
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
+import { defineComponent } from "vue";
+import { ref, onMounted } from "vue";
+import axios from "axios";
 export default defineComponent({
   setup() {
-    const error = ref(true)
-    const indexes = ref()
-    let IndexRequests = 'AAPL,META,MSFT,AMZN,TSLA,PEP,BAC,KO'
+    const error = ref(true);
+    const indexes = ref();
+    let IndexRequests = "AAPL,META,MSFT,AMZN,TSLA,PEP,BAC,KO";
     let GetCurrentCryptoIndex = async () => {
       try {
-        await axios('https://financialmodelingprep.com/api/v3/quote/' + IndexRequests, {
-          headers: {
-            Accept: 'application/json'
-          },
-          params: {
-            apikey: import.meta.env.VITE_FIAT_API_INDEX
+        await axios(
+          "https://financialmodelingprep.com/api/v3/quote/" + IndexRequests,
+          {
+            headers: {
+              Accept: "application/json",
+            },
+            params: {
+              apikey: import.meta.env.VITE_FIAT_API_INDEX,
+            },
           }
-        })
+        )
           .then(async (res: any) => {
-            indexes.value = await res.data
-            error.value = indexes.value != undefined || false || null ? false : true
+            indexes.value = await res.data;
+            error.value =
+              indexes.value != undefined || false || null ? false : true;
           })
-
           .catch(() => {
-            error.value = true
-          })
+            error.value = true;
+          });
       } catch {
-        error.value = true
+        error.value = true;
       }
-    }
+    };
     onMounted(() => {
-      GetCurrentCryptoIndex()
-    })
-    return { indexes, error }
-  }
-})
+      GetCurrentCryptoIndex();
+    });
+    return { indexes, error };
+  },
+});
 </script>
 
 <style scoped>
@@ -92,7 +93,7 @@ p {
   font-weight: 800;
 }
 #IndexPrice::after {
-  content: 'USD';
+  content: "USD";
   position: relative;
   top: -0.5em;
   font-size: 80%;
@@ -108,7 +109,7 @@ p {
   position: relative;
 }
 .DownRed::after {
-  content: '';
+  content: "";
   border-top: 4px solid #cc0000;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
@@ -116,7 +117,7 @@ p {
   top: 25%;
 }
 .UpGreen::after {
-  content: '';
+  content: "";
   border-bottom: 4px solid green;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
@@ -134,7 +135,7 @@ p {
   overflow: hidden;
 }
 .loaderfull::after {
-  content: '';
+  content: "";
   width: 96px;
   height: 4.8px;
   background: #fff;

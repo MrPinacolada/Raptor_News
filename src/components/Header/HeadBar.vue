@@ -13,29 +13,25 @@
     <RouterLink :to="{ name: 'Sport' }">
       <div class="refs forall"><p>Sports</p></div>
     </RouterLink>
-
     <RouterLink :to="{ name: 'Weather' }">
       <div class="refs forall"><p>Weather</p></div>
     </RouterLink>
-
     <RouterLink :to="{ name: 'Opinion' }">
       <div class="refs forall"><p>Opinion</p></div>
     </RouterLink>
-
     <RouterLink :to="{ name: 'Games' }">
       <div class="refs forall"><p>Games</p></div>
     </RouterLink>
-
     <RouterLink :to="{ name: 'Business' }">
       <div class="refs forall"><p>Business</p></div>
     </RouterLink>
-
     <RouterLink :to="{ name: 'LifeStyle' }">
       <div class="refs forall"><p>Lifestyle</p></div>
     </RouterLink>
-
     <div class="buttons">
-      <ion-icon name="search-outline"></ion-icon>
+      <RouterLink :to="{ name: 'SearchPage' }">
+        <ion-icon name="search-outline"></ion-icon>
+      </RouterLink>
       <div class="userView" v-if="store.$state.UserUID">
         <img
           :src="userPhotoAcc"
@@ -52,7 +48,6 @@
       >
         Sing In
       </button>
-
       <button
         v-if="store.$state.UserUID == undefined"
         class="createacc forall"
@@ -85,9 +80,9 @@
   </div>
   <div class="hwrap">
     <div class="hmove">
-      <div class="hitem">All text on this resourse is dummy &#128517</div>
-      <div class="hitem">All text on this resourse is dummy &#128517</div>
-      <div class="hitem">All text on this resourse is dummy &#128517</div>
+      <div class="hitem">All text on this resourse is dummy &#128517 (editor code is qqqqq)</div>
+      <div class="hitem">All text on this resourse is dummy &#128517 (editor code is qqqqq)</div>
+      <div class="hitem">All text on this resourse is dummy &#128517 (editor code is qqqqq)</div>
     </div>
   </div>
   <FiatPriceModule />
@@ -96,7 +91,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { RouterLink, useRouter } from "vue-router";
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted } from "vue";
 import FiatPriceModule from "./FiatPriceModule.vue";
 import { Store } from "@/piniaStorage/dbPinia";
 import getUserAvatar from "@/composables/getUserAccPhoto";
@@ -104,8 +99,7 @@ import singOutUser from "@/composables/singOutUser";
 
 export default defineComponent({
   components: { FiatPriceModule },
-
-  setup(props) {
+  setup() {
     let store = Store();
     let router = useRouter();
     let userPhotoAcc = ref(store.$state.userPhotoAcc);

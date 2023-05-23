@@ -7,7 +7,7 @@ export const Store = defineStore("Articles", {
       UserUID: undefined as any,
       UserName: undefined as any,
       UserGender: undefined as any,
-      isEditor: true,
+      isEditor: false,
       userPhotoAcc: "/src/assets/HeadBar/user.png",
       userLikedContainer: undefined as any,
       isUserPhotoExists: false,

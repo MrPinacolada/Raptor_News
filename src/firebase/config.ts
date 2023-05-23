@@ -1,9 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import { Store } from "@/piniaStorage/dbPinia";
-
 const firebaseConfig = {
   apiKey: "AIzaSyD0QMUgarT7H4Knkeq3lWabN8WjbNTXQts",
   authDomain: "raptor-news-58e13.firebaseapp.com",
@@ -20,7 +19,7 @@ const load_ONE_IMG = async (path: any, imgid: any, loaderID: any) => {
   try {
     const url = await getDownloadURL(ref(RaptorNewsStorage, path));
     let img = document.getElementById(imgid);
-    if (url != undefined || null || false) {
+    if (url != undefined && url != null) {
       img?.setAttribute("src", url);
       img?.setAttribute("class", "animate__animated animate__fadeIn");
       setTimeout(() => {

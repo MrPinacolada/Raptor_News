@@ -1,5 +1,4 @@
 <template>
-  <!-- arrows back and forward -->
   <div
     class="accountContainer animate__backInDown animate__animated"
     :class="{ animate__backOutUp: closeModalClass }"
@@ -18,8 +17,6 @@
       v-if="ChangeUserPhoto || userSettingsON"
       id="arrowBack"
     />
-    <!-- arrows back and forward -->
-    <!-- main content -->
     <div v-if="!ChangeUserPhoto && !userSettingsON" class="mainContentUserPage">
       <h3>Hello {{ store.$state.UserName }}!</h3>
       <div class="userSettings">
@@ -70,9 +67,6 @@
         Sing Out
       </button>
     </div>
-    <!-- main content -->
-
-    <!-- //--------------change photoContainer -->
     <div class="changePhoto" v-if="ChangeUserPhoto">
       <img
         id="svgSpace"
@@ -116,8 +110,6 @@
         Save this cute fase!
       </button>
     </div>
-    <!-- //--------------change photoContainer -->
-    <!-- userSetting container -->
     <form @submit.prevent v-if="userSettingsON">
       <div class="changedSuccesfully" v-if="changedSuccess">
         <img
@@ -158,22 +150,18 @@
         Confirm changes
       </button>
     </form>
-    <!-- userSetting container -->
   </div>
 </template>
 
 <script lang="ts">
-import { RouterLink, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import { ref, onMounted, defineComponent, onBeforeUnmount, watch } from "vue";
 import { Store } from "@/piniaStorage/dbPinia";
 import {
   getAuth,
-  onAuthStateChanged,
-  signOut,
   updateEmail,
   updatePassword,
   reauthenticateWithCredential,
-  signInWithEmailAndPassword,
   EmailAuthProvider,
 } from "firebase/auth";
 import {
@@ -237,11 +225,9 @@ export default defineComponent({
     function handleDragEnter() {
       isDragOver.value = true;
     }
-
     let handleDragLeave = () => {
       isDragOver.value = false;
     };
-
     let handleDrop = (event: DragEvent) => {
       event.preventDefault();
       isDragOver.value = false;
@@ -251,7 +237,6 @@ export default defineComponent({
       }
     };
     //--------------drag&drop Area-------------------------------------------
-
     // Modal of loading IMG------------------------------------------------------
     let onFileChange = (event: any) => {
       let fileInput = event.target.files[0];
@@ -265,7 +250,6 @@ export default defineComponent({
           let cropFile = document.getElementById(
             "IMGCropper"
           ) as HTMLImageElement;
-
           cropper = new Cropper(cropFile, {
             aspectRatio: 1,
             guides: false,
@@ -305,14 +289,6 @@ export default defineComponent({
             innerLoadProcess.value =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             isloadIMGProcess.value = true;
-            // switch (snapshot.state) {
-            //   case "paused":
-            //     console.log("Upload is paused");
-            //     break;
-            //   case "running":
-            //     console.log("Upload is running");
-            //     break;
-            // }
           },
           (error) => {
             switch (error.code) {
@@ -336,7 +312,6 @@ export default defineComponent({
     };
     // Modal of loading IMG------------------------------------------------------
     // modal of user settings
-
     const changeEmailandPassword = async () => {
       try {
         const user = auth.currentUser;
@@ -362,7 +337,6 @@ export default defineComponent({
         errorTotalMessage.value = true;
       }
     };
-
     let checkRepeatedChars = (str: any) => {
       for (let i = 0; i < str.length; i++) {
         if (str.indexOf(str[i]) !== i) {
@@ -382,19 +356,11 @@ export default defineComponent({
           : false;
     });
     // modal of user settings
-
     onMounted(() => {
       document.addEventListener("scroll", checkScroll);
       if (store.$state.UserUID) {
         getUserAvatar(UserGenderPhoto, store);
       }
-
-      // onAuthStateChanged(auth, (user) => {
-      //   if (user) {
-      //     UserUid = user.uid;
-      //   } else {
-      //   }
-      // });
       onBeforeUnmount(() => {
         document.removeEventListener("scroll", checkScroll);
       });
@@ -816,5 +782,4 @@ input:focus {
 .ChangePassAndEmailButt:hover {
   background-color: #f2f2f2;
 }
-
 </style>

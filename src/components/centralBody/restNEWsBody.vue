@@ -2,9 +2,11 @@
   <div class="otherNewsBlock">
     <div class="newsitem" v-for="art in titlesToRender">
       <picture>
-        <p class="timeline">{{ art.tag }}</p>
-        <img :id="art.id + 'restNews'" src="" alt=""
-      /></picture>
+        <RouterLink :to="{ name: art.tag + 'Arts', params: { id: art.id } }">
+          <p class="timeline">{{ art.tag }}</p>
+          <img :id="art.id + 'restNews'" src="" alt="" />
+        </RouterLink>
+      </picture>
       <article>
         <p>{{ art.title }}</p>
         <p>{{ art.subtitle }}</p>
@@ -13,24 +15,14 @@
     <button class="button-80" @click="LoadMoreTitels">Load more...</button>
   </div>
 </template>
-
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
 import { Store } from "@/piniaStorage/dbPinia";
 import { load_ONE_IMG } from "@/firebase/config";
-
 export default defineComponent({
   setup() {
     const store = Store();
-    let AllTitles = [
-      ...store.$state.PoliticARTS,
-      ...store.$state.SportARTS,
-      ...store.$state.WeatherARTS,
-      ...store.$state.OpinionARTS,
-      ...store.$state.GamesARTS,
-      ...store.$state.BusinessARTS,
-      ...store.$state.LifeStyleARTS,
-    ].sort(() => Math.random() - 0.5);
+    let AllTitles = store.$state.ArraysConcat.sort(() => Math.random() - 0.5);
     let lenghtToRender = ref(9);
     let titlesToRender = ref(AllTitles.slice(0, lenghtToRender.value));
     titlesToRender.value.forEach((item: any) => {
@@ -43,7 +35,6 @@ export default defineComponent({
         load_ONE_IMG(item.path, item.id + "restNews", item.loaderID);
       });
     };
-
     return { titlesToRender, LoadMoreTitels };
   },
 });
@@ -103,28 +94,27 @@ picture {
   width: 350px;
 }
 
-
 .button-80 {
   background: #fff;
   backface-visibility: hidden;
-  border-radius: .375rem;
+  border-radius: 0.375rem;
   border-style: solid;
-  border-width: .125rem;
+  border-width: 0.125rem;
   box-sizing: border-box;
   color: #212121;
   cursor: pointer;
   display: inline-block;
-  font-family: Circular,Helvetica,sans-serif;
+  font-family: Circular, Helvetica, sans-serif;
   font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: -.01em;
+  letter-spacing: -0.01em;
   line-height: 1.3;
-  padding: .875rem 1.125rem;
+  padding: 0.875rem 1.125rem;
   position: relative;
   text-align: left;
   text-decoration: none;
   transform: translateZ(0) scale(1);
-  transition: transform .2s;
+  transition: transform 0.2s;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
@@ -137,7 +127,7 @@ picture {
 }
 
 .button-80:not(:disabled):hover:active {
-  transform: scale(1.05) translateY(.125rem);
+  transform: scale(1.05) translateY(0.125rem);
 }
 
 .button-80:focus {
@@ -146,10 +136,10 @@ picture {
 
 .button-80:focus:before {
   content: "";
-  left: calc(-1*.375rem);
+  left: calc(-1 * 0.375rem);
   pointer-events: none;
   position: absolute;
-  top: calc(-1*.375rem);
+  top: calc(-1 * 0.375rem);
   transition: border-radius;
   user-select: none;
 }
@@ -163,6 +153,6 @@ picture {
 }
 
 .button-80:not(:disabled):active {
-  transform: translateY(.125rem);
+  transform: translateY(0.125rem);
 }
 </style>

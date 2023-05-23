@@ -1,6 +1,6 @@
 <template>
   <div class="gridContainer">
-    <UserPage v-if="store.$state.OpenCloseAccountModalWindow" />
+    <UserPage v-if="store.$state.OpenCloseAccountModalWindow && store.$state.UserUID" />
     <DailyNews />
     <div class="rightSide">
       <RightBar />

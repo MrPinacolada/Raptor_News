@@ -1,5 +1,5 @@
 <script lang="ts">
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
 import {
   defineComponent,
   onMounted,
@@ -16,16 +16,7 @@ import BodyContainer from "@/components/centralBody/BodyContainer.vue";
 import { doc, getDoc, collection } from "firebase/firestore";
 import { Store } from "@/piniaStorage/dbPinia";
 import { RaptorNewsStore } from "@/firebase/config";
-import {
-  getAuth,
-  onAuthStateChanged,
-  signOut,
-  updateEmail,
-  updatePassword,
-  reauthenticateWithCredential,
-  signInWithEmailAndPassword,
-  EmailAuthProvider,
-} from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import "animate.css";
 export default defineComponent({
   components: { HeadBar, Swiper, BodyContainer, SingIn, CreateAccount },
@@ -51,13 +42,21 @@ export default defineComponent({
         behavior: "smooth",
       });
     };
-
     store.$state.UserUID = localStorage.getItem("auth-token");
     onMounted(() => {
       document.addEventListener("scroll", checkScroll);
-      auth.onAuthStateChanged((user) => {
+      auth.onAuthStateChanged(async (user) => {
         if (user) {
           store.$state.UserUID = user.uid;
+          let Ref = doc(RaptorNewsStore, "Editor_mode", "Editors");
+          let querySnapshot = await getDoc(Ref);
+          let Editors = await querySnapshot.get("Editors");
+          let response = Editors.find((doc: any) => {
+            return doc.userUID == user.uid;
+          });
+          if (response) {
+            store.$state.isEditor = true;
+          }
         }
       });
     });

@@ -32,29 +32,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, watch } from "vue";
+import { defineComponent, ref } from "vue";
 import { RouterLink } from "vue-router";
 import { Store } from "@/piniaStorage/dbPinia";
-import {
-  addDoc,
-  getDocFromCache,
-  collection,
-  doc,
-  setDoc,
-  getDocs,
-  query,
-  updateDoc,
-  getDoc,
-  arrayUnion,
-  arrayRemove,
-} from "firebase/firestore";
 import { getFunctions, httpsCallable } from "firebase/functions";
 import { load_ONE_IMG } from "@/firebase/config";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Pagination, Autoplay } from "swiper";
 import "@SwiperBundleCss";
 import "swiper/css/bundle";
-
 export default defineComponent({
   components: { Swiper, SwiperSlide },
   setup() {
@@ -62,35 +48,28 @@ export default defineComponent({
     let FirebaseFunc = getFunctions();
     let LikedNewsContainer = ref([] as any);
     let likedNewsExists = ref(false);
-    let topics = [
-      store.$state.PoliticARTS,
-      store.$state.BusinessARTS,
-      store.$state.WeatherARTS,
-      store.$state.GamesARTS,
-      store.$state.OpinionARTS,
-      store.$state.LifeStyleARTS,
-      store.$state.SportARTS,
-    ];
-    let mergeArr = topics.flat();
+    let mergeArr = store.$state.ArraysConcat;
     const GetLikedUsersNewsFIRESTORE = httpsCallable(
       FirebaseFunc,
       "GetLikedUsersNewsFIRESTORE"
     );
     GetLikedUsersNewsFIRESTORE(store.$state.UserUID as string).then(
       (result) => {
-        store.$state.userLikedContainer = result.data;
-        store.$state.userLikedContainer.userLiked.map((id: any) => {
-          let search = mergeArr.filter((art: any) => {
-            return art.id == id.id;
-          });
-          LikedNewsContainer.value.push(...search);
-          if (LikedNewsContainer.value) {
-            LikedNewsContainer.value.map((item: any) => {
-              load_ONE_IMG(item.path, item.id + "LikedNews", item.loaderID);
+        if (result.data != null) {
+          store.$state.userLikedContainer = result.data;
+          store.$state.userLikedContainer.userLiked.map((id: any) => {
+            let search = mergeArr.filter((art: any) => {
+              return art.id == id.id;
             });
-            likedNewsExists.value = true
-          }else console.log('hi');
-        });
+            LikedNewsContainer.value.push(...search);
+            if (LikedNewsContainer.value) {
+              LikedNewsContainer.value.map((item: any) => {
+                load_ONE_IMG(item.path, item.id + "LikedNews", item.loaderID);
+              });
+              likedNewsExists.value = true;
+            }
+          });
+        }
       }
     );
     return {

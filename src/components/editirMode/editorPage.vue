@@ -47,7 +47,6 @@
               id="artIMG"
             />
           </div>
-
           <div
             v-if="!isPick"
             @dragover.prevent
@@ -101,7 +100,6 @@
       v-if="changeToBodyTextArea"
     >
       <h3 style="text-align: center">Write the body of article:</h3>
-
       <textarea v-model="bodyArticle" rows="5" class="notes"></textarea>
     </div>
     <span
@@ -126,18 +124,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import {
-  collection,
-  doc,
-  getDocs,
-  updateDoc,
-  getDoc,
-  arrayUnion,
-  arrayRemove,
-  setDoc,
-} from "firebase/firestore";
-import Cropper from "cropperjs";
-
+import { collection, doc, setDoc } from "firebase/firestore";
 export default defineComponent({
   components: {},
   setup() {
@@ -167,11 +154,10 @@ export default defineComponent({
         hideFirstModule.value = true;
       }, 500);
     };
-    let handleCharsInput = (event: Event) => {
+    let handleCharsInput = () => {
       if (titleCounter.value >= 50) {
         title.value = title.value.substring(0, 50);
       }
-
       if (subTitleCounter.value >= 70) {
         subTitle.value = subTitle.value.substring(0, 70);
       }
@@ -188,11 +174,9 @@ export default defineComponent({
     let handleDragEnter = () => {
       isDragOver.value = true;
     };
-
     let handleDragLeave = () => {
       isDragOver.value = false;
     };
-
     let handleDrop = (event: DragEvent) => {
       event.preventDefault();
       isDragOver.value = false;

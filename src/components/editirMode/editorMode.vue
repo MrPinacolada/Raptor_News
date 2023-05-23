@@ -1,7 +1,14 @@
 <template>
   <div class="editorModeContainer" v-if="store.$state.editorModeOn">
     <button class="editorButt" @click="ShowAllTitles">Change current</button>
-    <form action="" v-if="handleVisible">
+    <form
+      class="animate__animated"
+      :class="{
+        animate__backInLeft: handleVisible,
+        animate__backOutRight: ExitAnimation,
+      }"
+      v-if="handleVisible"
+    >
       <img
         id="CloseButt"
         class="CloseButt"
@@ -22,12 +29,10 @@
         <div
           class="currentNewsTag"
           v-for="art in titlesToRender"
-          @mouseenter="
-            [(showIMG[art.id] = true), loadIMG(art.path, art.id, art.loaderID)]
-          "
+          @mouseenter="[loadIMG(art.path, art.id, art.loaderID)]"
           @mouseleave="showIMG[art.id] = false"
         >
-          <img src="" alt="" :id="art.id" v-if="showIMG[art.id]" />
+          <img src="" alt="" :id="art.id" v-show="showIMG[art.id]" />
           <div class="dailyRead">
             <h1>
               {{ art.title }}
@@ -49,20 +54,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch, reactive } from "vue";
+import { defineComponent, ref, watch, reactive } from "vue";
 import { Store } from "@/piniaStorage/dbPinia";
 import { load_ONE_IMG } from "@/firebase/config";
 import { RaptorNewsStore } from "@/firebase/config";
-import {
-  collection,
-  doc,
-  getDocs,
-  updateDoc,
-  getDoc,
-  arrayUnion,
-  arrayRemove,
-} from "firebase/firestore";
-
+import { doc, updateDoc } from "firebase/firestore";
 export default defineComponent({
   emits: ["RefreshPosition"],
   props: {
@@ -74,19 +70,20 @@ export default defineComponent({
   setup(props, { emit }) {
     let store = Store();
     let art: any = props.topic;
-    let TopicsRef = collection(RaptorNewsStore, "/Editor_mode");
     let GetTopics = doc(RaptorNewsStore, "Editor_mode", "Topics");
     let handleVisible = ref(false);
     let articles = ref();
     let lenghtToRender = 4;
     let titlesToRender = ref();
     let showIMG: any = ref({});
+    let ExitAnimation = ref(false);
     let RefreshPosition = () => {
       emit("RefreshPosition");
       HandleCloseForm();
     };
-    let loadIMG = (path: any, id: any, loader: any) => {
-      load_ONE_IMG(path, id, loader);
+    let loadIMG = async (path: any, id: any, loader: any) => {
+      await load_ONE_IMG(path, id, loader);
+      showIMG.value[id] = true;
     };
     let handleUploadArt = async (ArtID: any) => {
       await updateDoc(GetTopics, {
@@ -107,14 +104,23 @@ export default defineComponent({
       }
     };
     let ShowAllTitles = () => {
-      handleVisible.value = !handleVisible.value;
+      if (handleVisible.value) {
+        ExitAnimation.value = true;
+        setTimeout(() => {
+          ExitAnimation.value = false;
+          handleVisible.value = !handleVisible.value;
+        }, 500);
+      } else handleVisible.value = !handleVisible.value;
     };
     let HandleCloseForm = () => {
+      ExitAnimation.value = true;
       setTimeout(() => {
+        ExitAnimation.value = false;
         handleVisible.value = false;
       }, 500);
     };
     return {
+      ExitAnimation,
       store,
       loadIMG,
       showIMG,
@@ -172,10 +178,11 @@ export default defineComponent({
 }
 form {
   display: block;
-  position: relative;
+  position: absolute;
   display: grid;
   height: fit-content;
   max-width: 720px;
+  height: auto;
   border: none;
   border-radius: 10px;
   background: whitesmoke;
@@ -202,12 +209,10 @@ select:focus {
   outline: none;
 }
 #CloseButt {
-  left: 247px;
-    height: 30px !important;
-    width: 30px !important;
-    top: 6px;
-    position: absolute;
-    cursor: pointer;
+  left: 394px;
+  height: 30px !important;
+  top: 6px;
+  cursor: pointer;
 }
 
 .loadRestSpan {
@@ -247,5 +252,10 @@ img {
   cursor: pointer;
   text-align: center;
   align-items: center;
+  transition: transform 0.5s;
+  transform: rotate(0deg);
+}
+.choiseButt:hover {
+  transform: rotate(360deg);
 }
 </style>

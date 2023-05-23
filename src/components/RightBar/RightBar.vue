@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent} from 'vue'
 import WeatherModule from './WeatherModule.vue'
 import CurrencyPrice from './CurrencyPriceModule.vue'
 import MostLikedNews from './MostLikedNews.vue'

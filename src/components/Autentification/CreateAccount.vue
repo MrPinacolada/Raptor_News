@@ -67,7 +67,12 @@
         <input type="password" required v-model="repeatPassword" />
         <p v-if="errorRepeatPassword">{{ errorRepeatPassword }}</p>
         <div class="terms">
-          <input type="checkbox" class="checkbox" required />
+          <input
+            type="checkbox"
+            class="checkbox"
+            required
+            v-model="TermsCheckBox"
+          />
           <label>Accept terms and conditions</label>
         </div>
         <button type="submit" class="submButt" @click="handleSubmitUser">
@@ -129,20 +134,9 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch } from "vue";
-import { RouterLink } from "vue-router";
 import { Store } from "@/piniaStorage/dbPinia";
-import { load_ONE_IMG, RaptorNewsStore } from "@/firebase/config";
-
-import {
-  addDoc,
-  getDocFromCache,
-  collection,
-  doc,
-  setDoc,
-  getDocs,
-  query,
-} from "firebase/firestore";
-
+import { RaptorNewsStore } from "@/firebase/config";
+import { collection, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 export default defineComponent({
   setup() {
@@ -162,6 +156,7 @@ export default defineComponent({
     let AuthSucces = ref(false);
     let AuthError = ref(false);
     let closeForm = ref(false);
+    let TermsCheckBox = ref();
     let HandleCloseForm = () => {
       closeForm.value = true;
       setTimeout(() => {
@@ -208,7 +203,11 @@ export default defineComponent({
     });
     let handleSubmitUser = () => {
       if (asUser.value) {
-        if (!errorPassword.value && !errorRepeatPassword.value) {
+        if (
+          !errorPassword.value &&
+          !errorRepeatPassword.value &&
+          TermsCheckBox.value
+        ) {
           createUserWithEmailAndPassword(auth, email.value, password.value)
             .then((userCredential) => {
               if (typeof Storage !== undefined) {
@@ -254,17 +253,26 @@ export default defineComponent({
         !errorPassword.value &&
         !errorRepeatPassword.value
       ) {
-        let Req = query(collection(RaptorNewsStore, "Editor_mode"));
-        let querySnapshot = await getDocs(Req);
-        let response = querySnapshot.docs.find((doc) => {
-          return doc.data().code == (editorCode.value as string);
+        let Ref = doc(RaptorNewsStore, "Editor_mode", "Editors");
+        let querySnapshot = await getDoc(Ref);
+        let Editors = await querySnapshot.get("Editors");
+        let response = Editors.find((doc: any) => {
+          return doc.code == (editorCode.value as string);
         });
-        if (response?.data().code != undefined) {
+
+        if (response != undefined || null) {
           createUserWithEmailAndPassword(auth, email.value, password.value)
             .then((userCredential) => {
+              Editors.map((doc: any) => {
+                if (doc.code == editorCode.value) {
+                  doc.userUID = userCredential.user.uid;
+                }
+              });
+              updateDoc(Ref, {
+                Editors: Editors,
+              });
               if (typeof Storage !== undefined) {
                 localStorage.setItem("user-name", userName.value as string);
-                localStorage.setItem("isEditor", "true");
                 localStorage.setItem("auth-token", userCredential.user.uid);
                 localStorage.setItem(
                   "SingIN-Butt-Class",
@@ -280,6 +288,7 @@ export default defineComponent({
               AuthError.value = true;
               const errorCode = error.code;
               const errorMessage = error.message;
+              console.log(errorMessage);
             });
         } else editorCodeError.value = true;
       }
@@ -304,6 +313,7 @@ export default defineComponent({
       HandleCloseForm,
       closeForm,
       gender,
+      TermsCheckBox,
     };
   },
 });
@@ -395,7 +405,6 @@ select {
   border-bottom: 1px solid #e2bebe;
   padding: 5px 6px;
   border-radius: 10px;
-
 }
 input:focus {
   outline: none;
@@ -501,6 +510,4 @@ p {
   opacity: 60%;
   cursor: pointer;
 }
-
-
 </style>

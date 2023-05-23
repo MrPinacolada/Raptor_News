@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, onBeforeUnmount } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import { Store } from "@/piniaStorage/dbPinia";
 import {
   collection,
@@ -110,7 +110,6 @@ export default defineComponent({
           amount: currentAmount + 1,
         });
       }
-      // updateLikes();
     };
 
     let clickShare = () => {
@@ -144,7 +143,6 @@ export default defineComponent({
         ? false
         : true;
     };
-
     onMounted(() => {
       updateLikes();
     });

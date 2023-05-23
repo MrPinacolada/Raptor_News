@@ -2,8 +2,6 @@ import { createApp } from "vue";
 import Main from "./Main.vue";
 import router from "@/router/index";
 import { createPinia } from "pinia";
-import HeadBar from "./components/Header/HeadBar.vue";
-import Swiper from "@/components/HotNewsHead/Swiper.vue";
 const pinia = createPinia();
 const app = createApp(Main);
 app.use(router);

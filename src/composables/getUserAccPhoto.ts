@@ -1,9 +1,7 @@
 import { getStorage, ref as fireRef, getDownloadURL } from "firebase/storage";
 import { RaptorNewsStore } from "@/firebase/config";
 import { doc, getDoc } from "firebase/firestore";
-
 const storage = getStorage();
-
 let getUserAvatar = async (src: any, store: any) => {
   let docUserNameAndGenderRef = doc(
     RaptorNewsStore,
@@ -27,8 +25,6 @@ let getUserAvatar = async (src: any, store: any) => {
         store.$state.UserName = "NoName";
         store.$state.UserGender = "male";
       }
-      // let userPhoto = document.getElementById("userPhotoAcc");
-      // userPhoto?.setAttribute("style", "border-radius: 50%;");
     })
     .catch(async (error) => {
       if (response.exists()) {
@@ -44,19 +40,12 @@ let getUserAvatar = async (src: any, store: any) => {
       }
       switch (error.code) {
         case "storage/object-not-found":
-          // File doesn't exist
           break;
         case "storage/unauthorized":
-          // User doesn't have permission to access the object
           break;
         case "storage/canceled":
-          // User canceled the upload
           break;
-
-        // ...
-
         case "storage/unknown":
-          // Unknown error occurred, inspect the server response
           break;
       }
     });

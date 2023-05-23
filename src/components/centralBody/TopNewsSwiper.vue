@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, onBeforeMount, computed } from "vue";
+import { defineComponent, ref } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Pagination, Autoplay } from "swiper";
 import { Store } from "@/piniaStorage/dbPinia";
@@ -51,8 +51,6 @@ import { load_ONE_IMG } from "@/firebase/config";
 import "@justinribeiro/lite-youtube";
 import "@SwiperBundleCss";
 import "swiper/css/bundle";
-import "animate.css";
-
 export default defineComponent({
   components: { Swiper, SwiperSlide },
   setup() {

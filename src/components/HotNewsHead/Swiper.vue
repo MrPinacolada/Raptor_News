@@ -26,9 +26,8 @@
     </swiper>
   </div>
 </template>
-
 <script lang="ts">
-import { defineComponent, ref, onMounted, onBeforeMount } from "vue";
+import { defineComponent, ref} from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Store } from "@/piniaStorage/dbPinia";
 import { load_ONE_IMG } from "@/firebase/config";
@@ -36,9 +35,7 @@ import { Pagination, Autoplay } from "swiper";
 import SwiperCore from "swiper";
 import "@SwiperBundleCss";
 import "swiper/css/bundle";
-import "animate.css";
 SwiperCore.use([Pagination]);
-
 export default defineComponent({
   components: {
     Swiper,

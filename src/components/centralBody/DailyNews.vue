@@ -8,10 +8,7 @@
         <span class="TagSpan">{{ art.tag }}</span>
         <img src="" alt="" :id="art.id" v-show="checkTheLoader" />
       </RouterLink>
-        <editorMode
-          :topic="toEditorTopic"
-          @RefreshPosition="uploadTheTopic()"
-        />
+      <editorMode :topic="toEditorTopic" @RefreshPosition="uploadTheTopic()" />
     </picture>
     <RouterLink :to="{ name: art.tag + 'Arts', params: { id: art.id } }">
       <div class="dailyRead">
@@ -30,22 +27,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, computed, ref, onMounted } from "vue";
+import { defineComponent, computed, ref, onMounted } from "vue";
 import { RouterLink } from "vue-router";
 import { Store } from "@/piniaStorage/dbPinia";
 import { load_ONE_IMG } from "@/firebase/config";
 import likesModal from "../UserPageAccount/likesModal.vue";
 import editorMode from "../editirMode/editorMode.vue";
 import { RaptorNewsStore } from "@/firebase/config";
-import {
-  collection,
-  doc,
-  getDocs,
-  updateDoc,
-  getDoc,
-  arrayUnion,
-  arrayRemove,
-} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import "animate.css";
 export default defineComponent({
   components: { likesModal, editorMode },
@@ -56,7 +45,6 @@ export default defineComponent({
     let GetTopics = doc(RaptorNewsStore, "Editor_mode", "Topics");
     const toEditorTopic = "MajorPageCurrent";
     let currentTitleMajorPage: string;
-
     let uploadTheTopic = async () => {
       let TopicDoc = await getDoc(GetTopics);
       currentTitleMajorPage = await TopicDoc.get(toEditorTopic);

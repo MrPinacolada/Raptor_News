@@ -7,7 +7,6 @@ import OpinionNewsVue from "@/views/Opinion/OpinionNews.vue";
 import SportsNewsVue from "@/views/Sports/SportsNews.vue";
 import GamesNews from "@/views/Games/GamesNews.vue";
 import WeatherNews from "@/views/Weather/WeatherNews.vue";
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -112,6 +111,12 @@ const router = createRouter({
       name: "EditorPage",
       props: true,
       component: () => import("@/components/editirMode/editorPage.vue"),
+    },
+    {
+      path:"/SearchPage",
+      name:"SearchPage",
+      props:true,
+      component:()=>import("@/views/SearchPage/SearchPage.vue")
     },
   ],
 });
