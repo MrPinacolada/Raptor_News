@@ -3,7 +3,7 @@
     <form>
       <label>Search for:</label>
       <input type="text" required v-model="SearchInput" />
-      <div class="searchResponse" v-for="art in SearchResponse">
+      <div class="searchResponse" v-for="art in (SearchResponse as any)">
         <picture>
           <RouterLink :to="{ name: art.tag + 'Arts', params: { id: art.id } }">
             <img :id="art.id" ref="images" v-show="checkTheLoader" />
@@ -38,9 +38,7 @@ export default defineComponent({
     let store = Store();
     let SearchInput = ref("");
     let SearchResponse = ref([]);
-    let checkTheLoader = computed(
-      () => store.$state.TurnOffTheErrorLoaderIMG
-    );
+    let checkTheLoader = computed(() => store.$state.TurnOffTheErrorLoaderIMG);
     onMounted(() => {
       let TopicsArr = store.$state.ArraysConcat;
       watch(SearchInput, () => {
@@ -60,7 +58,7 @@ export default defineComponent({
       });
     });
 
-    return { SearchInput, SearchResponse,checkTheLoader };
+    return { SearchInput, SearchResponse, checkTheLoader };
   },
 });
 </script>
