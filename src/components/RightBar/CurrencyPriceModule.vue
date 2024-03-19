@@ -46,7 +46,7 @@ export default defineComponent({
     let upORdownPercent = ref(true);
     let GetCurrentCryptoIndex = async () => {
       try {
-        await fetch(
+        await axios.get(
           "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?convert=USD&limit=20",
           {
             headers: {
