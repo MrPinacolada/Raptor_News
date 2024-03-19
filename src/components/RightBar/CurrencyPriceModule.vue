@@ -46,8 +46,8 @@ export default defineComponent({
     let upORdownPercent = ref(true);
     let GetCurrentCryptoIndex = async () => {
       try {
-        await axios.get(
-          "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?convert=USD&limit=20",
+        const res = await fetch(
+          "https://cors-anywhere.herokuapp.com/https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?convert=USD&limit=20",
           {
             headers: {
               "X-CMC_PRO_API_KEY": "da29a1ba-4d7a-4cd0-93d4-926654c69524",
@@ -55,46 +55,42 @@ export default defineComponent({
               "Access-Control-Allow-Origin": "*",
             },
           }
-        )
-          .then(async (res: any) => {
-            responseAPI.value = await res.data.data;
-          })
-          .then(() => {
-            function findSymbol(symbol: string) {
-              let found = responseAPI.value.find((item: any) => {
-                return item.symbol == symbol;
-              });
-              return found;
-            }
-            let BTC = {
-              img: btc,
-              ...findSymbol("BTC"),
-            };
-            let ETH = {
-              img: eth,
-              ...findSymbol("ETH"),
-            };
-            let BNB = {
-              img: bnb,
-              ...findSymbol("BNB"),
-            };
-            let XRP = {
-              img: xrp,
-              ...findSymbol("XRP"),
-            };
-            let SOL = {
-              img: sol,
-              ...findSymbol("SOL"),
-            };
-            let TRX = {
-              img: trx,
-              ...findSymbol("TRX"),
-            };
-            CoinContainer.value.push(BTC, ETH, BNB, XRP, SOL);
-          })
-          .catch((error) => {
-            responseAPI.value = undefined;
+        );
+        const data = await res.json();
+        if (!data) return;
+        responseAPI.value = data.data;
+        function findSymbol(symbol: string) {
+          let found = responseAPI.value.find((item: any) => {
+            return item.symbol == symbol;
           });
+          return found;
+        }
+        let BTC = {
+          img: btc,
+          ...findSymbol("BTC"),
+        };
+        let ETH = {
+          img: eth,
+          ...findSymbol("ETH"),
+        };
+        let BNB = {
+          img: bnb,
+          ...findSymbol("BNB"),
+        };
+        let XRP = {
+          img: xrp,
+          ...findSymbol("XRP"),
+        };
+        let SOL = {
+          img: sol,
+          ...findSymbol("SOL"),
+        };
+        let TRX = {
+          img: trx,
+          ...findSymbol("TRX"),
+        };
+        CoinContainer.value.push(BTC, ETH, BNB, XRP, SOL);
+        console.log("CoinContainer.value: ", CoinContainer.value);
       } catch {
         responseAPI.value = undefined;
       }
