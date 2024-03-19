@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter,createWebHashHistory } from "vue-router";
 import PoliticsNewsVue from "@/views/Politics/PoliticsNews.vue";
 import BodyContainerVue from "@/components/centralBody/BodyContainer.vue";
 import BusinessNewsVue from "@/views/Business/BusinessNews.vue";
@@ -8,7 +8,7 @@ import SportsNewsVue from "@/views/Sports/SportsNews.vue";
 import GamesNews from "@/views/Games/GamesNews.vue";
 import WeatherNews from "@/views/Weather/WeatherNews.vue";
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/:catchAll(.*)",
