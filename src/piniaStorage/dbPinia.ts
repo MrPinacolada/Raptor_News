@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { load_ONE_IMG } from "@/firebase/config";
-
+import userPhoto from '../assets/HeadBar/user.png'
 export const Store = defineStore("Articles", {
   state: () => {
     return {
@@ -8,7 +8,7 @@ export const Store = defineStore("Articles", {
       UserName: undefined as any,
       UserGender: undefined as any,
       isEditor: false,
-      userPhotoAcc: "/src/assets/HeadBar/user.png",
+      userPhotoAcc: userPhoto,
       userLikedContainer: undefined as any,
       isUserPhotoExists: false,
       CreateAccount: false,

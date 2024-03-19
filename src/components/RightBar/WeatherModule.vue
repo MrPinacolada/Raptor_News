@@ -52,7 +52,7 @@ export default defineComponent({
         .getElementById("WeatherContainer")
         ?.setAttribute(
           "style",
-          "background-image: url(src/assets/Weather_backgrounds/" +
+          "background-image: url(/Raptor_News/assets/Weather_backgrounds/" +
             currenCondition +
             ".gif);"
         );

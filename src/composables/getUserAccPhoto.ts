@@ -31,7 +31,7 @@ let getUserAvatar = async (src: any, store: any) => {
         store.$state.UserName = response.data().userName;
         store.$state.UserGender = response.data().gender;
         src.value =
-          "/src/assets/UserAcc/ModalWindowAcc/" +
+          "/Raptor_News/assets/UserAcc/ModalWindowAcc/" +
           store.$state.UserGender +
           "AccIMG.png";
       } else {
