@@ -31,6 +31,13 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
 import axios from "axios";
+import btc from '@/assets/CryptoModule/bitcoin-btc-logo.svg'
+import eth from '@/assets/CryptoModule/ethereum-eth-logo.svg'
+import bnb from '@/assets/CryptoModule/bnb-bnb-logo.svg'
+import xrp from '@/assets/CryptoModule/xrp-xrp-logo.svg'
+import sol from '@/assets/CryptoModule/solana-sol-logo.svg'
+import trx from '@/assets/CryptoModule/tron-trx-logo.svg'
+
 export default defineComponent({
   components: {},
   setup() {
@@ -39,16 +46,13 @@ export default defineComponent({
     let upORdownPercent = ref(true);
     let GetCurrentCryptoIndex = async () => {
       try {
-        await axios(
-          "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
+        await fetch(
+          "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?convert=USD&limit=20",
           {
             headers: {
               "X-CMC_PRO_API_KEY": "da29a1ba-4d7a-4cd0-93d4-926654c69524",
               Accept: "application/json",
-            },
-            params: {
-              convert: "USD",
-              limit: "20",
+              "Access-Control-Allow-Origin": "*",
             },
           }
         )
@@ -63,27 +67,27 @@ export default defineComponent({
               return found;
             }
             let BTC = {
-              img: "src/assets/CryptoModule/bitcoin-btc-logo.svg",
+              img: btc,
               ...findSymbol("BTC"),
             };
             let ETH = {
-              img: "src/assets/CryptoModule/ethereum-eth-logo.svg",
+              img: eth,
               ...findSymbol("ETH"),
             };
             let BNB = {
-              img: "src/assets/CryptoModule/bnb-bnb-logo.svg",
+              img: bnb,
               ...findSymbol("BNB"),
             };
             let XRP = {
-              img: "src/assets/CryptoModule/xrp-xrp-logo.svg",
+              img: xrp,
               ...findSymbol("XRP"),
             };
             let SOL = {
-              img: "src/assets/CryptoModule/solana-sol-logo.svg",
+              img: sol,
               ...findSymbol("SOL"),
             };
             let TRX = {
-              img: "src/assets/CryptoModule/tron-trx-logo.svg",
+              img: trx,
               ...findSymbol("TRX"),
             };
             CoinContainer.value.push(BTC, ETH, BNB, XRP, SOL);

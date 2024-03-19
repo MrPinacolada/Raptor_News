@@ -9,137 +9,147 @@
       <p id="condition">{{ WeatherCondition }}</p>
     </div>
     <div class="rifghSide">
-      <p class="Cell" v-if="currentG">{{ 'Current: ' + WeatherCel + '°C' }}</p>
-      <p class="Cell" v-if="currentG">{{ 'High: ' + WeatherCelHigh + '°C' }}</p>
-      <p class="Cell" v-if="currentG">{{ 'Low: ' + WeatherCelLow + '°C' }}</p>
-      <p class="Cell" v-if="!currentG">{{ 'Current: ' + WeatherF + '°F' }}</p>
-      <p class="Cell" v-if="!currentG">{{ 'High: ' + WeatherFHigh + '°F' }}</p>
-      <p class="Cell" v-if="!currentG">{{ 'Low: ' + WeatherFLow + '°F' }}</p>
+      <p class="Cell" v-if="currentG">{{ "Current: " + WeatherCel + "°C" }}</p>
+      <p class="Cell" v-if="currentG">{{ "High: " + WeatherCelHigh + "°C" }}</p>
+      <p class="Cell" v-if="currentG">{{ "Low: " + WeatherCelLow + "°C" }}</p>
+      <p class="Cell" v-if="!currentG">{{ "Current: " + WeatherF + "°F" }}</p>
+      <p class="Cell" v-if="!currentG">{{ "High: " + WeatherFHigh + "°F" }}</p>
+      <p class="Cell" v-if="!currentG">{{ "Low: " + WeatherFLow + "°F" }}</p>
     </div>
   </div>
   <div v-else class="crushLoader"><span class="loaderfull"></span></div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, onUnmounted } from 'vue'
+import { defineComponent, ref, onMounted, onUnmounted } from "vue";
 export default defineComponent({
   setup() {
-    let ApiRequest = undefined as any
-    let WeatherIcon = ref(undefined)
-    let WeatherCountry = ref(undefined)
-    let WeatherCel = ref(undefined)
-    let WeatherF = ref(undefined)
-    let WeatherCelHigh = ref(undefined)
-    let WeatherCelLow = ref(undefined)
-    let WeatherFHigh = ref(undefined)
-    let WeatherFLow = ref(undefined)
-    let WeatherCondition = ref(undefined)
-    let trowError = ref(true)
-    let latitude = undefined
-    let longitude = undefined
-    let acceptGPS = false
-    let currentG = ref(true)
-    let CellToF: any
+    let ApiRequest = undefined as any;
+    let WeatherIcon = ref(undefined);
+    let WeatherCountry = ref(undefined);
+    let WeatherCel = ref(undefined);
+    let WeatherF = ref(undefined);
+    let WeatherCelHigh = ref(undefined);
+    let WeatherCelLow = ref(undefined);
+    let WeatherFHigh = ref(undefined);
+    let WeatherFLow = ref(undefined);
+    let WeatherCondition = ref(undefined);
+    let trowError = ref(true);
+    let latitude = undefined;
+    let longitude = undefined;
+    let acceptGPS = false;
+    let currentG = ref(true);
+    let CellToF: any;
     function checkBackGrounds(code: string) {
-      let currenCondition = code.includes('cloud')
-        ? 'cloudy'
-        : code.includes('rain')
-        ? 'rain'
-        : code.includes('Sun')
-        ? 'sunny'
-        : ''
+      let currenCondition = code.includes("cloud")
+        ? "cloudy"
+        : code.includes("rain")
+        ? "rain"
+        : code.includes("Sun")
+        ? "sunny"
+        : "";
       document
-        .getElementById('WeatherContainer')
+        .getElementById("WeatherContainer")
         ?.setAttribute(
-          'style',
-          'background-image: url(src/assets/Weather_backgrounds/' + currenCondition + '.gif);'
-        )
+          "style",
+          "background-image: url(src/assets/Weather_backgrounds/" +
+            currenCondition +
+            ".gif);"
+        );
     }
     const successCallback = (position: any) => {
-      acceptGPS = true
-      latitude = position.coords.latitude
-      longitude = position.coords.longitude
+      acceptGPS = true;
+      latitude = position.coords.latitude;
+      longitude = position.coords.longitude;
       fetch(
-        'http://api.weatherapi.com/v1/forecast.json?key=37d63f8db6f547a8a92100230231402&q=' +
+        "https://api.weatherapi.com/v1/forecast.json?key=37d63f8db6f547a8a92100230231402&q=" +
           latitude +
-          ',' +
+          "," +
           longitude,
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
           },
-          body: ''
+          body: "",
         }
       )
         .then((response) => {
-          return response.json()
+          return response.json();
         })
         .then((data) => {
           if (data.error) {
-            trowError.value = true
+            trowError.value = true;
           } else {
-            ApiRequest = data
-            trowError.value = false
+            ApiRequest = data;
+            trowError.value = false;
           }
         })
         .then(() => {
-          WeatherIcon.value = ApiRequest?.current.condition.icon
-          WeatherCountry.value = ApiRequest?.location.name
-          WeatherCel.value = ApiRequest?.current.temp_c
-          WeatherF.value = ApiRequest?.current.temp_f
-          WeatherCondition.value = ApiRequest?.current.condition.text
-          WeatherCelHigh.value = ApiRequest?.forecast.forecastday[0].day.maxtemp_c
-          WeatherCelLow.value = ApiRequest?.forecast.forecastday[0].day.mintemp_c
-          WeatherFHigh.value = ApiRequest?.forecast.forecastday[0].day.maxtemp_f
-          WeatherFLow.value = ApiRequest?.forecast.forecastday[0].day.mintemp_f
-          checkBackGrounds(ApiRequest?.current.condition.text)
-        })
-    }
+          WeatherIcon.value = ApiRequest?.current.condition.icon;
+          WeatherCountry.value = ApiRequest?.location.name;
+          WeatherCel.value = ApiRequest?.current.temp_c;
+          WeatherF.value = ApiRequest?.current.temp_f;
+          WeatherCondition.value = ApiRequest?.current.condition.text;
+          WeatherCelHigh.value =
+            ApiRequest?.forecast.forecastday[0].day.maxtemp_c;
+          WeatherCelLow.value =
+            ApiRequest?.forecast.forecastday[0].day.mintemp_c;
+          WeatherFHigh.value =
+            ApiRequest?.forecast.forecastday[0].day.maxtemp_f;
+          WeatherFLow.value = ApiRequest?.forecast.forecastday[0].day.mintemp_f;
+          checkBackGrounds(ApiRequest?.current.condition.text);
+        });
+    };
     const errorCallback = () => {
       fetch(
-        'http://api.weatherapi.com/v1/forecast.json?key=37d63f8db6f547a8a92100230231402&q=London&days=1&aqi=no&alerts=no',
+        "https://api.weatherapi.com/v1/forecast.json?key=37d63f8db6f547a8a92100230231402&q=London&days=1&aqi=no&alerts=no",
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
           },
-          body: ''
+          body: "",
         }
       )
         .then((response) => {
-          return response.json()
+          return response.json();
         })
         .then((data) => {
           if (data.error) {
-            trowError.value = true
+            trowError.value = true;
           } else {
-            ApiRequest = data
-            trowError.value = false
+            ApiRequest = data;
+            trowError.value = false;
           }
         })
         .then(() => {
-          WeatherIcon.value = ApiRequest?.current.condition.icon
-          WeatherCountry.value = ApiRequest?.location.name
-          WeatherCel.value = ApiRequest?.current.temp_c
-          WeatherF.value = ApiRequest?.current.temp_f
-          WeatherCondition.value = ApiRequest?.current.condition.text
-          WeatherCelHigh.value = ApiRequest?.forecast.forecastday[0].day.maxtemp_c
-          WeatherCelLow.value = ApiRequest?.forecast.forecastday[0].day.mintemp_c
-          WeatherFHigh.value = ApiRequest?.forecast.forecastday[0].day.maxtemp_f
-          WeatherFLow.value = ApiRequest?.forecast.forecastday[0].day.mintemp_f
-          checkBackGrounds(ApiRequest?.current.condition.text)
-        })
-    }
+          WeatherIcon.value = ApiRequest?.current.condition.icon;
+          WeatherCountry.value = ApiRequest?.location.name;
+          WeatherCel.value = ApiRequest?.current.temp_c;
+          WeatherF.value = ApiRequest?.current.temp_f;
+          WeatherCondition.value = ApiRequest?.current.condition.text;
+          WeatherCelHigh.value =
+            ApiRequest?.forecast.forecastday[0].day.maxtemp_c;
+          WeatherCelLow.value =
+            ApiRequest?.forecast.forecastday[0].day.mintemp_c;
+          WeatherFHigh.value =
+            ApiRequest?.forecast.forecastday[0].day.maxtemp_f;
+          WeatherFLow.value = ApiRequest?.forecast.forecastday[0].day.mintemp_f;
+          checkBackGrounds(ApiRequest?.current.condition.text);
+        });
+    };
     onMounted(() => {
-      navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
+      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
       CellToF = setInterval(() => {
-        currentG.value = !currentG.value
-      }, 8000)
-    })
+        currentG.value = !currentG.value;
+      }, 8000);
+    });
     onUnmounted(() => {
-      clearInterval(CellToF)
-    })
+      clearInterval(CellToF);
+    });
     return {
       WeatherCountry,
       WeatherIcon,
@@ -151,10 +161,10 @@ export default defineComponent({
       WeatherFLow,
       WeatherCondition,
       currentG,
-      trowError
-    }
-  }
-})
+      trowError,
+    };
+  },
+});
 </script>
 
 <style scoped>
@@ -172,7 +182,6 @@ export default defineComponent({
   background-size: 100% 100%;
   animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
   background-color: rgb(246, 248, 250);
-
 }
 @keyframes fade-in {
   0% {
@@ -242,7 +251,7 @@ img {
   animation: rotation 2s linear infinite;
 }
 .loaderfull::after {
-  content: '';
+  content: "";
   box-sizing: border-box;
   position: absolute;
   left: 50%;
