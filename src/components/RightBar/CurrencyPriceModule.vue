@@ -49,7 +49,6 @@ export default defineComponent({
         await fetch(
           "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?convert=USD&limit=20",
           {
-            mode: "no-cors",
             headers: {
               "X-CMC_PRO_API_KEY": "da29a1ba-4d7a-4cd0-93d4-926654c69524",
               Accept: "application/json",
