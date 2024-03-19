@@ -31,12 +31,12 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
 import axios from "axios";
-import btc from '@/assets/CryptoModule/bitcoin-btc-logo.svg'
-import eth from '@/assets/CryptoModule/ethereum-eth-logo.svg'
-import bnb from '@/assets/CryptoModule/bnb-bnb-logo.svg'
-import xrp from '@/assets/CryptoModule/xrp-xrp-logo.svg'
-import sol from '@/assets/CryptoModule/solana-sol-logo.svg'
-import trx from '@/assets/CryptoModule/tron-trx-logo.svg'
+import btc from "@/assets/CryptoModule/bitcoin-btc-logo.svg";
+import eth from "@/assets/CryptoModule/ethereum-eth-logo.svg";
+import bnb from "@/assets/CryptoModule/bnb-bnb-logo.svg";
+import xrp from "@/assets/CryptoModule/xrp-xrp-logo.svg";
+import sol from "@/assets/CryptoModule/solana-sol-logo.svg";
+import trx from "@/assets/CryptoModule/tron-trx-logo.svg";
 
 export default defineComponent({
   components: {},
@@ -49,6 +49,7 @@ export default defineComponent({
         await fetch(
           "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?convert=USD&limit=20",
           {
+            mode: "no-cors",
             headers: {
               "X-CMC_PRO_API_KEY": "da29a1ba-4d7a-4cd0-93d4-926654c69524",
               Accept: "application/json",
