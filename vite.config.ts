@@ -6,6 +6,7 @@ import ssr from "vite-plugin-ssr/plugin";
 import { createServer} from 'vite'
 // https://vitejs.dev/config/
 export default defineConfig({
+  base:'/Raptor_News',
   plugins: [
     // ssr(),
     vue({
