@@ -40,7 +40,7 @@ export default defineComponent({
     let GetCurrentCryptoIndex = async () => {
       try {
         await axios(
-          "https://cors-anywhere.herokuapp.com/https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
+          "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
           {
             headers: {
               "X-CMC_PRO_API_KEY": "da29a1ba-4d7a-4cd0-93d4-926654c69524",
